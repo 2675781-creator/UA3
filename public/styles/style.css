@@ -1,0 +1,10 @@
+h1 {
+    font-size: 5em;
+    color: red;
+}
+
+.list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px
+}
