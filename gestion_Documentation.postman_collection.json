@@ -1,0 +1,723 @@
+{
+	"info": {
+		"_postman_id": "b3eb3be0-66bd-4d96-941a-6385f68fe66d",
+		"name": "gestion_Documentation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48748701",
+		"_collection_link": "https://research-technologist-7756392-1812752.postman.co/workspace/Daniel-Bourcier-Blake's-Workspa~92701f7a-2111-43d8-8013-3f49d5316a3e/collection/48748701-b3eb3be0-66bd-4d96-941a-6385f68fe66d?action=share&source=collection_link&creator=48748701"
+	},
+	"item": [
+		{
+			"name": "Article",
+			"item": [
+				{
+					"name": "Liste des articles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{test_url}}/articles",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profil d'un article",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{test_url}}",
+							"host": [
+								"{{test_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ajout d'un article",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titre\": \"Rogue One\",\r\n    \"date_publication\": \"2003-11-03\",\r\n    \"status\": \"disponible\",\r\n    \"quantite\": 10,\r\n    \"id_auteur\": 3,\r\n    \"id_categorie\": 1,\r\n    \"id_employe\": 8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{test_url}}/articles",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "supprime un article",
+					"request": {
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "mise a jour d'un article",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{test_url}}",
+							"host": [
+								"{{test_url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Emprunt",
+			"item": [
+				{
+					"name": "Liste d'emprunt",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{test_url}}/emprunts",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"emprunts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Status d'un emprunt",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{test_url}}/emprunts/1/1",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"emprunts",
+								"1",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ajout d'un emprunt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_client\": 1,\r\n    \"id_article\": 1,\r\n    \"date_emprunt\": \"2015-03-18\",\r\n    \"date_retour\": \"2015-04-02\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{test_url}}/emprunts",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"emprunts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mise a jour d'un emprunt",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_client\": 2,\r\n    \"id_article\": 2,\r\n    \"date_emprunt\": \"2025-06-28\",\r\n    \"date_retour\": \"2025-07-20\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{test_url}}/emprunts/1/1",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"emprunts",
+								"1",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "supprime un emprunt",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_client\": 2,\r\n    \"id_article\": 2,\r\n    \"date_emprunt\": \"2025-06-28\",\r\n    \"date_retour\": \"2025-07-20\"\r\n}"
+						},
+						"url": {
+							"raw": "{{test_url}}/emprunts/2/2",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"emprunts",
+								"2",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employe",
+			"item": [
+				{
+					"name": "Liste des employes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"Laprise\",\r\n    \"prenom\": \"John\",\r\n    \"age\": 23,\r\n    \"nationalite\": \"Irlandais\",\r\n    \"langue\": \"Anglais\"\r\n}"
+						},
+						"url": {
+							"raw": "{{test_url}}/employes",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"employes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profil d'un employe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{test_url}}/employes/1",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"employes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ajout d'un employe",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"papineau\",\r\n    \"prenom\": \"Gabriel\",\r\n    \"age\": 34,\r\n    \"role\": \"reception\",\r\n    \"date_embauche\": \"2012-08-21\",\r\n    \"numero_tache\": 52\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{test_url}}/employes",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"employes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "supprime un employe",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{test_url}}/employes/1",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"employes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mise a jour d'un employe",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"papineau\",\r\n    \"prenom\": \"Gabriel\",\r\n    \"age\": 34,\r\n    \"role\": \"depositaire\",\r\n    \"date_embauche\": \"2012-08-21\",\r\n    \"numero_tache\": 62\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{test_url}}/employes/1",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"employes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categorie",
+			"item": [
+				{
+					"name": "Liste des Categories",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"Laprise\",\r\n    \"prenom\": \"John\",\r\n    \"age\": 23,\r\n    \"nationalite\": \"Irlandais\",\r\n    \"langue\": \"Anglais\"\r\n}"
+						},
+						"url": {
+							"raw": "{{test_url}}/categories",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "statut d'un categorie",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"Laprise\",\r\n    \"prenom\": \"John\",\r\n    \"age\": 23,\r\n    \"nationalite\": \"Irlandais\",\r\n    \"langue\": \"Anglais\"\r\n}"
+						},
+						"url": {
+							"raw": "{{test_url}}/categories/1",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mise a jour Categorie",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom_categorie\":\"horreur\",\r\n    \"description\": \"roman basé sur divers histoire qui font peur\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{test_url}}/categories/1",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "supprime une categorie",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{test_url}}/categories/1",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ajout d'un categorie",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom_categorie\":\"Science-fiction\",\r\n    \"description\": \"théorie sur diverse sujets\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{test_url}}/categories",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auteur",
+			"item": [
+				{
+					"name": "Liste des auteurs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{test_url}}/auteurs",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"auteurs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profil d'un auteur",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{test_url}}/auteurs/1",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"auteurs",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ajout d'un auteur",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"Doe\",\r\n    \"prenom\": \"John\",\r\n    \"age\": 43,\r\n    \"nationalite\": \"Canadien\",\r\n    \"langue\": \"Anglais\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{test_url}}/auteurs",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"auteurs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "supprime un auteur",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"Laprise\",\r\n    \"prenom\": \"John\",\r\n    \"age\": 23,\r\n    \"nationalite\": \"Irlandais\",\r\n    \"langue\": \"Anglais\"\r\n}"
+						},
+						"url": {
+							"raw": "{{test_url}}/auteurs/1",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"auteurs",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mise a  jour d'un auteur",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"Laprise\",\r\n    \"prenom\": \"John\",\r\n    \"age\": 23,\r\n    \"nationalite\": \"Irlandais\",\r\n    \"langue\": \"Anglais\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{test_url}}/auteurs/1",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"auteurs",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "Liste des clients",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"Laprise\",\r\n    \"prenom\": \"John\",\r\n    \"age\": 23,\r\n    \"nationalite\": \"Irlandais\",\r\n    \"langue\": \"Anglais\"\r\n}"
+						},
+						"url": {
+							"raw": "{{test_url}}/clients",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ajout d'un client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"sandiego\",\r\n    \"prenom\": \"carmen\",\r\n    \"article_prefere\": \"harry potter\",\r\n    \"numero_article\": 42\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{test_url}}/clients",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profil d'un client",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{test_url}}/clients/1",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"clients",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mise a jour d'un client",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"sandiego\",\r\n    \"prenom\": \"carmen\",\r\n    \"article_prefere\": \"hunger games\",\r\n    \"numero_article\": 42\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{test_url}}/clients/1",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"clients",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "supprime un client",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"sandiego\",\r\n    \"prenom\": \"carmen\",\r\n    \"article_prefere\": \"hunger games\",\r\n    \"numero_article\": 42\r\n}"
+						},
+						"url": {
+							"raw": "{{test_url}}/clients/1",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"clients",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "test_url",
+			"value": ""
+		}
+	]
+}
