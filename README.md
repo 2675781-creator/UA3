@@ -1,6 +1,6 @@
-# UA2
+# UA3
 
-Ce projet contient le modèle conceptuel (entité-association) et le modèle physique d'une base de données universitaire.
+Ce projet contient les frontend suite du projet UA2
 
 ## Objectifs
 - Concevoir un schéma clair et normalisé pour la gestion des documents dans l'Environnement de la bibliothèque.
