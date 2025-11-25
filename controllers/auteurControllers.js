@@ -4,7 +4,8 @@ import Auteur from "../modeles/Auteur.js";
 export async function getAllAuteur(req, res) {
   try {
     const auteurs = await Auteur.findAll();
-    res.status(200).json({ message: "Liste de tous les auteurs", data: auteurs });
+    //res.status(200).json({ message: "Liste de tous les auteurs", data: auteurs });
+    res.render("./auteurs/list-auteur", {auteurs})
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

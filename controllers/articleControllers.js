@@ -4,7 +4,9 @@ import Article from "../modeles/Article.js";
 export async function getAllArticle(req, res) {
   try {
     const articles = await Article.findAll();
-    res.status(200).json({ message: "Liste de tous les articles", data: articles });
+    //res.status(200).json({ message: "Liste de tous les articles", data: articles });
+    res.render("./articles/list-article", {articles})
+    
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

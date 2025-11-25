@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', { title: 'Ajouter un employe' }) %>
+
+    <body>
+        <%- include('../partials/header') %>
+            <main class="wrapper">
+                <h1>Ajouter employer</h1>
+                <form action="/employes" method="POST" enctype="multipart/form-data">
+                    <div class="mb-2">
+                        <label for="nom" class="form-label">Nom</label>
+                        <input required type="text" class="form-control" id="nom" name="nom" placeholder="Entrez le nom">
+                    </div>
+                    <div class="mb-2">
+                        <label for="prenom" class="form-label">Prenom</label>
+                        <input required ="text" class="form-control" id="prenom" name="prenom" placeholder="Entrez le prenom">
+                    </div>
+    
+                    <div class="mb-2">
+                        <label for="age" class="form-label">Age</label>
+                        <input type="text" class="form-control" id="age" name="age" placeholder="Entrez l'age">
+                    </div>
+                    <div class="mb-2">
+                        <label for="role" class="form-label">Role</label>
+                        <input type="text" class="form-control" id="role" placeholder="Entrez le role"
+                            name="role">
+                    </div>
+                    <div class="mb-2">
+                        <label for="date" class="form-label">date d'embauche</label>
+                        <input type="date" class="form-control" id="date" placeholder="Entrez la date d'embauche de l'employe"
+                            name="date_embauche">
+                    </div>
+                    <div class="mb-2">
+                        <label for="numero_tache" class="form-label">Numero de tache</label>
+                        <input required type="number" class="form-control" id="numero_tache" placeholder="Entrez le numero de tache"
+                            name="numero_tache">
+                    </div>
+                    <button class="btn btn-success" type="submit">Ajouter</button>
+                </form>
+            </main>
+            <%- include('../partials/footer') %>
+    </body>
+</html>

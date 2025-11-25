@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', { title: 'Liste des articles' }) %>
+<body>
+    <%- include('../partials/header') %>
+    <main class="wrapper">
+        <h1>Liste des articles</h1>
+        <div class="list">
+            <% users.forEach( => { %>
+                <%- include('./article-element', { article: article }) %>
+            <% }) %>
+        </div>
+    </main>
+    <%- include('../partials/footer') %>
+</body>
+</html>

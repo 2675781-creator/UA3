@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', { title: 'Ajouter un article' }) %>
+
+    <body>
+        <%- include('../partials/header') %>
+            <main class="wrapper">
+                <h1>Ajouter article</h1>
+                <form action="/articles" method="POST" enctype="multipart/form-data">
+                    <div class="mb-2">
+                        <label for="titre" class="form-label">Titre</label>
+                        <input required type="text" class="form-control" id="titre" name="titre" placeholder="Entrez le titre">
+                    </div>
+                    <div class="mb-2">
+                        <label for="date" class="form-label">Date de publication</label>
+                        <input type="date" class="form-control" id="date" name="date_publication" placeholder="Entrez la date de publication">
+                    </div>
+                    <div class="mb-2">
+                        <label for="status" class="form-label">Status</label>
+                        <input type="text" class="form-control" id="status" name="status"
+                            placeholder="Entrez le status de l'article">
+                    </div>
+    
+                    <div class="mb-2">
+                        <label for="quantite" class="form-label">Quantite</label>
+                        <input type="number" class="form-control" id="quantite" name="quantite" placeholder="Entrez la quantite">
+                    </div>
+                    <div class="mb-2">
+                        <label for="id_auteur" class="form-label">identifiant de l'auteur</label>
+                        <input required type="number" class="form-control" id="id_auteur" placeholder="Entrez l'identifiant de l'auteur"
+                            name="id_auteur">
+                    </div>
+                    <div class="mb-2">
+                        <label for="id_categorie" class="form-label">identifiant de la categorie</label>
+                        <input required type="number" class="form-control" id="id_categorie" placeholder="Entrez l'identifiant de la categorie"
+                            name="id_categorie">
+                    </div>
+                    <div class="mb-2">
+                        <label for="id_employe" class="form-label">id de l'employe</label>
+                        <input required type="number" class="form-control" id="id_employe" placeholder="Entrez l'identifiant de l'employe"
+                            name="id_employe">
+                    </div>
+                    <button class="btn btn-success" type="submit">Ajouter</button>
+                </form>
+            </main>
+            <%- include('../partials/footer') %>
+
+    </body>
+
+</html>

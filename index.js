@@ -40,7 +40,7 @@ console.log("Variables d'environnement :", {
 
 // Route de test
 app.get("/", (req, res) => {
-  res.send("Bienvenue sur l'API UA2 !");
+  res.send("Bienvenue sur l'API UA3 !");
 });
 
 // Routes API

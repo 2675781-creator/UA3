@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', { title: 'Liste des auteurs' }) %>
+<body>
+    <%- include('../partials/header') %>
+    <main class="wrapper">
+        <h1>Liste des auteurs</h1>
+        <div class="list">
+            <% users.forEach( => { %>
+                <%- include('./auteur-element', { auteur: auteur }) %>
+            <% }) %>
+        </div>
+    </main>
+    <%- include('../partials/footer') %>
+</body>
+</html>

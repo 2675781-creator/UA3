@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', { title: 'Ajouter un client' }) %>
+
+    <body>
+        <%- include('../partials/header') %>
+            <main class="wrapper">
+                <h1>Ajouter employer</h1>
+                <form action="/clients" method="POST" enctype="multipart/form-data">
+                    <div class="mb-2">
+                        <label for="nom" class="form-label">Nom</label>
+                        <input required type="text" class="form-control" id="nom" name="nom" placeholder="Entrez le nom">
+                    </div>
+                    <div class="mb-2">
+                        <label for="prenom" class="form-label">Prenom</label>
+                        <input required ="text" class="form-control" id="prenom" name="prenom" placeholder="Entrez le prenom">
+                    </div>
+                    <div class="mb-2">
+                        <label for="article_prefere" class="form-label">Article prefere</label>
+                        <input type="text" class="form-control" id="article_prefere" placeholder="Entrez l'article prefere"
+                            name="article_prefere">
+                    </div>
+                    <div class="mb-2">
+                        <label for="numero_article" class="form-label">Numero de l'article</label>
+                        <input required type="number" class="form-control" id="numero_article" placeholder="Entrez le numero de l'article"
+                            name="numero_article">
+                    </div>
+                    <button class="btn btn-success" type="submit">Ajouter</button>
+                </form>
+            </main>
+            <%- include('../partials/footer') %>
+    </body>
+</html>
