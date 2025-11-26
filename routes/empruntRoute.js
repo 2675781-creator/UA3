@@ -19,7 +19,7 @@ import validate from "../middlewares/validationResult.js";
 const empruntRoute = Router();
 
 empruntRoute
-  .get("/", authorizeRoles("employe"), getAllEmprunt)
+  .get("/list-emprunt", authorizeRoles("employe"), getAllEmprunt)
   .get("/client/:id_client", authorizeRoles("admin"),  getEmpruntsByClient)
   .get("/article/:id_article", getEmpruntsByArticle)
   .post("/", createEmpruntValidation, validate, addEmprunt)

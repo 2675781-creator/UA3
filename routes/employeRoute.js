@@ -18,7 +18,7 @@ import validate from "../middlewares/validationResult.js";
 const employeRoute = Router();
 
 employeRoute
-  .get("/", getAllEmploye)
+  .get("/employe-list", getAllEmploye)
   .get("/:id_employe", getEmployeProfile)
   .post("/", createEmployeValidation, validate, addEmploye)
   .put("/:id_employe", updateEmployeValidation, validate, updateEmploye)

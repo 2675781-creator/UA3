@@ -18,7 +18,7 @@ import validate from "../middlewares/validationResult.js";
 const categorieRoute = Router();
 
 categorieRoute
-  .get("/", getAllCategorie)
+  .get("/categorie-list", getAllCategorie)
   .get("/:id_categorie", getCategorieProfile)
   .post("/", createCategorieValidation, validate, addCategorie)
   .put("/:id_categorie", updateCategorieValidation, validate, updateCategorie)

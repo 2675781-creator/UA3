@@ -18,7 +18,7 @@ import validate from "../middlewares/validationResult.js";
 const auteurRoute = Router();
 
 auteurRoute
-  .get("/", getAllAuteur)
+  .get("/auteur-list", getAllAuteur)
   .get("/:id_auteur", getAuteurProfile)
   .post("/", createAuteurValidation, validate, addAuteur)
   .put("/:id_auteur", updateAuteurValidation, validate, updateAuteur)
