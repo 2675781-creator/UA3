@@ -43,6 +43,9 @@ app.get("/", (req, res) => {
   res.send("Bienvenue sur l'API UA3 !");
 });
 
+app.set('view engine', 'ejs')
+app.set('views', './views')
+
 // Routes API
 app.use("/api/articles", articleRoute);
 app.use("/api/categories", categorieRoute);

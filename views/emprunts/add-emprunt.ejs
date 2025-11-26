@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', { title: 'Ajouter un emprunts' }) %>
+
+    <body>
+        <%- include('../partials/header') %>
+            <main class="wrapper">
+                <h1>Ajouter emprunt</h1>
+                <form action="/emprunts" method="POST" enctype="multipart/form-data">
+                    <div class="mb-2">
+                        <label for="id_client" class="form-label">identifiant client</label>
+                        <input required type="number" class="form-control" id="id" name="id_client" placeholder="Entrez l'id du client">
+                    </div>
+                    <div class="mb-2">
+                        <label for="id_article" class="form-label">identifiant article</label>
+                        <input type="number" class="form-control" id="id" name="id_article" placeholder="Entrez l'id de l'article">
+                    </div>
+                    <div class="mb-2">
+                        <label for="date" class="form-label">Date d'emprunt</label>
+                        <input type="date" class="form-control" id="date" name="date_emprunt" placeholder="Entrez la date de l'emprunt">
+                    </div>
+                    <div class="mb-2">
+                        <label for="date" class="form-label">date de retour</label>
+                        <input type="date" class="form-control" id="sta" name="date_retour"
+                            placeholder="Entrez la date de retour">
+                    </div>
+                    <button class="btn btn-success" type="submit">Ajouter</button>
+                </form>
+            </main>
+            <%- include('../partials/footer') %>
+
+    </body>
+
+</html>

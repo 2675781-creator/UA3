@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', { title: 'Ajouter une categorie' }) %>
+
+    <body>
+        <%- include('../partials/header') %>
+            <main class="wrapper">
+                <h1>Ajouter employer</h1>
+                <form action="/categories" method="POST" enctype="multipart/form-data">
+                    <div class="mb-2">
+                        <label for="nom_categorie" class="form-label">Nom de la categorie</label>
+                        <input required type="text" class="form-control" id="nom" name="nom_categorie" placeholder="Entrez le nom de la categorie">
+                    </div>
+                    <div class="mb-2">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" class="form-control" id="description" name="description" placeholder="Entrez la description de la categorie">
+                    </div>
+                    <button class="btn btn-success" type="submit">Ajouter</button>
+                </form>
+            </main>
+            <%- include('../partials/footer') %>
+    </body>
+</html>

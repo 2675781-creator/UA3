@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', { title: 'Liste des emprunts' }) %>
+<body>
+    <%- include('../partials/header') %>
+    <main class="wrapper">
+        <h1>Liste des emprunts</h1>
+        <div class="list">
+            <% users.forEach( => { %>
+                <%- include('./emprunt-element', { emprunt: emprunt }) %>
+            <% }) %>
+        </div>
+    </main>
+    <%- include('../partials/footer') %>
+</body>
+</html>
