@@ -22,6 +22,8 @@ clientRoute
   .get("/:id_client", getClientProfile)
   .post("/", createClientValidation, validate, addClient)
   .put("/:id_client", updateClientValidation, validate, updateClient)
-  .delete("/:id_client", authorizeRoles("admin"), deleteClient);
-
+  .delete("/:id_client", authorizeRoles("admin"), deleteClient)
+  .get("/add-client", (req, res) =>{
+    res.render("./clients/add-client")
+  })
 export default clientRoute;

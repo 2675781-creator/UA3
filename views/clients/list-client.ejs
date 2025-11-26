@@ -6,7 +6,7 @@
     <main class="wrapper">
         <h1>Liste des clients</h1>
         <div class="list">
-            <% users.forEach( => { %>
+            <% clients.forEach(client => { %>
                 <%- include('./client-element', { client: client }) %>
             <% }) %>
         </div>

@@ -4,9 +4,9 @@
 <body>
     <%- include('../partials/header') %>
     <main class="wrapper">
-        <h1>Liste des articles</h1>
+        <h1>Liste des employes</h1>
         <div class="list">
-            <% users.forEach( => { %>
+            <% employes.forEach(employe => { %>
                 <%- include('./employe-element', { employe: employe }) %>
             <% }) %>
         </div>

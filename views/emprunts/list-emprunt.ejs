@@ -6,7 +6,7 @@
     <main class="wrapper">
         <h1>Liste des emprunts</h1>
         <div class="list">
-            <% users.forEach( => { %>
+            <% emprunts.forEach(emprunt => { %>
                 <%- include('./emprunt-element', { emprunt: emprunt }) %>
             <% }) %>
         </div>

@@ -6,7 +6,7 @@
     <main class="wrapper">
         <h1>Liste des auteurs</h1>
         <div class="list">
-            <% users.forEach( => { %>
+            <% auteurs.forEach(auteur => { %>
                 <%- include('./auteur-element', { auteur: auteur }) %>
             <% }) %>
         </div>

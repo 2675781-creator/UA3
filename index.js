@@ -14,8 +14,6 @@ import articleRoute from "./routes/articleRoute.js";
 import authRoute from "./routes/authRoute.js";
 import authMiddleware from "./middlewares/authMiddleware.js";
 
-
-
 // IMPORTANT : importe les modèles + relations AVANT le sync
 import "./modeles/relations.js";
 
