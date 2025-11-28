@@ -2,6 +2,7 @@
   "name": "frontend",
   "version": "1.0.0",
   "description": "Ce projet contient le modèle conceptuel (entité-association) et le modèle physique d'une base de données universitaire.",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",

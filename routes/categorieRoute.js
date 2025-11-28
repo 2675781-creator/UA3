@@ -19,12 +19,13 @@ const categorieRoute = Router();
 
 categorieRoute
   .get("/list-categorie", getAllCategorie)
+  .get("/add-categorie", (req, res) => {
+    res.render("categories/add-categorie")
+  })
+  
   .get("/:id_categorie", getCategorieProfile)
   .post("/", createCategorieValidation, validate, addCategorie)
   .put("/:id_categorie", updateCategorieValidation, validate, updateCategorie)
   .delete("/:id_categorie", authorizeRoles("admin"), deleteCategorie)
-  .get("/add-categorie", (req, res) => {
-    res.render("./categories/add-categorie")
-  })
   
 export default categorieRoute;

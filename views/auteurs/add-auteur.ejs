@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../partials/head', { title: 'Ajouter un article' }) %>
-
+<%- include('../partials/head', { title: 'Ajouter un auteur' }) %>
     <body>
         <%- include('../partials/header') %>
             <main class="wrapper">
-                <h1>Ajouter article</h1>
+                <h1>Ajouter auteur</h1>
                 <form action="/auteurs" method="POST" enctype="multipart/form-data">
                     <div class="mb-2">
                         <label for="nom" class="form-label">Nom</label>
@@ -13,22 +12,20 @@
                     </div>
                     <div class="mb-2">
                         <label for="prenom" class="form-label">Prenom</label>
-                        <input required ="text" class="form-control" id="prenom" name="prenom" placeholder="Entrez le prenom">
+                        <input required type="text" class="form-control" id="prenom" name="prenom" placeholder="Entrez le prenom">
                     </div>
     
                     <div class="mb-2">
                         <label for="age" class="form-label">Age</label>
-                        <input type="text" class="form-control" id="age" name="age" placeholder="Entrez l'age">
+                        <input type="number" class="form-control" id="age" name="age" placeholder="Entrez l'age">
                     </div>
                     <div class="mb-2">
                         <label for="nationalite" class="form-label">Nationalite</label>
-                        <input type="text" class="form-control" id="nationalite" placeholder="Entrez la nationalite de l'auteur"
-                            name="id_auteur">
+                        <input type="text" class="form-control" id="nationalite" name="nationalite" placeholder="Entrez la nationalite de l'auteur">
                     </div>
                     <div class="mb-2">
                         <label for="langue" class="form-label">Langue</label>
-                        <input required type="text" class="form-control" id="langue" placeholder="Entrez la langue"
-                            name="id_categorie">
+                        <input required type="text" class="form-control" id="langue" name="langue" placeholder="Entrez la langue">
                     </div>
                     <button class="btn btn-success" type="submit">Ajouter</button>
                 </form>

@@ -20,10 +20,10 @@ const articleRoute = Router();
 
 articleRoute
   .get("/list-article", getAllArticle)
-  .get("/:id_article", getArticleProfile)
-  .get("add-article", (req, res) => {
-    res.render("./articles/add-article")
+  .get("/add-article", (req, res) => {
+    res.render("articles/add-article")
   })
+  .get("/:id_article", getArticleProfile)
   .post("/", createArticleValidation, validate, addArticle)
   .delete("/:id_article", authorizeRoles("admin"), authMiddleware, deleteArticle)
   .put("/:id_article", updateArticleValidation, validate, updateArticle);

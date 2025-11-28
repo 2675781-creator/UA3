@@ -83,14 +83,6 @@ export const updateEmprunt = async (req, res) => {
 
 }
 
-export const getAllEmprunts = async (req, res) => {
-  try {
-    const emprunts = await Emprunt.findAll();
-    res.json(emprunts);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
 
 export const getEmpruntsByClient = async (req, res) => {
   try {

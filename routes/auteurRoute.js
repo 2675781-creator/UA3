@@ -19,12 +19,12 @@ const auteurRoute = Router();
 
 auteurRoute
   .get("/list-auteur", getAllAuteur)
+  .get("/add-auteur", (req, res) => {
+    res.render("auteurs/add-auteur");
+  })
   .get("/:id_auteur", getAuteurProfile)
   .post("/", createAuteurValidation, validate, addAuteur)
   .put("/:id_auteur", updateAuteurValidation, validate, updateAuteur)
   .delete("/:id_auteur", authorizeRoles("admin"), deleteAuteur)
-  .get("/add-auteur", (req, res) => {
-    res.render("./auteurs/add-auteur")
-  })
-
+  
 export default auteurRoute;

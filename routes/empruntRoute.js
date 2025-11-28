@@ -20,13 +20,13 @@ const empruntRoute = Router();
 
 empruntRoute
   .get("/list-emprunt", authorizeRoles("employe"), getAllEmprunt)
+  .get("/add-emprunt", (req, res) => {
+    res.render("emprunts/add-emprunt")
+  })
   .get("/client/:id_client", authorizeRoles("admin"),  getEmpruntsByClient)
   .get("/article/:id_article", getEmpruntsByArticle)
   .post("/", createEmpruntValidation, validate, addEmprunt)
   .put("/:id", updateEmpruntValidation, validate, updateEmprunt)
   .delete("/:id", authorizeRoles("admin"), deleteEmprunt)
-  .get("/add-emprunt", (req, res) => {
-    res.render("./emprunts/add-emprunt")
-  })
-
+  
 export default empruntRoute;

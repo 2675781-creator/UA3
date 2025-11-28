@@ -19,11 +19,12 @@ const employeRoute = Router();
 
 employeRoute
   .get("/list-employe", getAllEmploye)
+  .get("/add-employe", (req, res) => {
+    res.render("employes/add-employe")
+  })
   .get("/:id_employe", getEmployeProfile)
   .post("/", createEmployeValidation, validate, addEmploye)
   .put("/:id_employe", updateEmployeValidation, validate, updateEmploye)
   .delete("/:id_employe", authorizeRoles("admin"), deleteEmploye)
-  .get("/add-employe", (req, res) => {
-    res.render("./employes/add-employe")
-  })
+  
 export default employeRoute;

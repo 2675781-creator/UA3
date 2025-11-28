@@ -46,12 +46,12 @@ app.set('view engine', 'ejs')
 app.set('views', './views')
 
 // Routes API
-app.use("/", articleRoute);
-app.use("/", categorieRoute);
-app.use("/", clientRoute);
-app.use("/s", employeRoute);
-app.use("/", auteurRoute);
-app.use("/", authMiddleware, empruntRoute);
+app.use("/articles", articleRoute);
+app.use("/categories", categorieRoute);
+app.use("/clients", clientRoute);
+app.use("/employes", employeRoute);
+app.use("/auteurs", auteurRoute);
+app.use("/emprunts", authMiddleware, empruntRoute);
 app.use("/api/auth", authRoute);
 
 
@@ -63,7 +63,7 @@ const startServer = async () => {
     console.log("Connexion à la base de données réussie ");
 
     // Synchronisation des tables 
-    await database.sync({ alter: true });
+    //await database.sync({ alter: true });
     //console.log("Tables synchronisées avec la base ");
 
     // Lancement du serveur HTTP
