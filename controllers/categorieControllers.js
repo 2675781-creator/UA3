@@ -4,10 +4,11 @@ import Categorie from "../modeles/Categorie.js";
 export async function getAllCategorie(req, res) {
   try {
     const categories = await Categorie.findAll();
-    res.status(200).json({
-      message: "Liste de toutes les catégories",
-      data: categories,
-    });
+    //res.status(200).json({
+      //message: "Liste de toutes les catégories",
+      //data: categories,
+    //});
+    res.render("./categories/list-categorie", {categories})
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -18,6 +19,13 @@ export const addCategorie = async (req, res) => {
   const newCategorie = req.body;
 
   try {
+    // Vérifier si une categorie avec le même nom existe déjà
+    const existing = await Categorie.findOne({ where: { nom_categorie: newCategorie.nom_categorie } });
+    if (existing) {
+      return res.status(400).json({
+        message: "Une categorie avec ce nom existe déjà.",
+      });
+    }
     const categorie = await Categorie.create(newCategorie);
     res.status(201).json({
       message: "Catégorie ajoutée avec succès",

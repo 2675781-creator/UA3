@@ -1,0 +1,24 @@
+<div class="card" style="width: 18rem;">
+    <img src="<%= emprunt.image %>" class="card-img-top" alt="<%= emprunt.date_emprunt %>">
+    <div class="card-body">
+        <h5 class="card-title">
+            <%= emprunt.id_client %>
+        </h5>
+        <p class="card-title">
+            <%= emprunt.id_article>.
+        </p>
+        <p class="card-text">
+            date de l'emprunt:<%= emprunt.date_emprunt %>
+        </p>
+         <p class="card-text">
+            date de retour:<%= emprunt.date_retour %>
+        </p>
+    </div>
+    </div>
+    <div class="card-footer"> 
+        <button class="btn btn-primary">Edit</button>
+        <button class="btn btn-danger">Delete</button>
+        <button class="btn btn-success">Profile</button>
+    </div>
+
+</div>

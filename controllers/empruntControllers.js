@@ -3,27 +3,32 @@ import Emprunt from "../modeles/Emprunt.js"
 //Lecture de la listes des emprunts
 export async function getAllEmprunt(req, res) {
     try{
-        const emprunts = await Emprunt.findAll()
-        res.status(200).json({message:"liste de tous les emprunts", data: emprunts})
-
+      const emprunts = await Emprunt.findAll()
+      //res.status(200).json({message:"liste de tous les emprunts", data: emprunts})
+      res.render("./emprunts/list-emprunt", {emprunts})
     }
-    
     catch(error){
-        res.status(404).json({message:error.message})
+      res.status(404).json({message:error.message})
     }
 }
 
 // Création d'un emprunt
 
 export const addEmprunt= async (req, res) =>{
-    const newEmprunt = req.body
-    try{
-        const emprunt = await Emprunt.create(newEmprunt)
-        res.status(201).json({message: "Employe ajoute avec succes", data: emprunt})
+  const newEmprunt = req.body
+  try{
+    // Vérifier si un emprunt avec le même id_client et id_article d'emprunt existe déjà
+    const existing = await Emprunt.findOne({ where: { id_client: newEmprunt.id_client, id_article: newEmprunt.id_article} });
+    if (existing) {
+      return res.status(400).json({
+        message: "Un emprunt avec cet id client et id article existe déjà.",
+      });
     }
-    catch(error){
-        res.status(400).json({message:error.message})
-    }
+      const emprunt = await Emprunt.create(newEmprunt)
+      res.status(201).json({message: "Employe ajoute avec succes", data: emprunt})
+  } catch(error){
+      res.status(400).json({message:error.message})
+  }
 }
 
 //suppression d'un Emprunt

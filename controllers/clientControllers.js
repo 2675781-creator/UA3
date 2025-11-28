@@ -4,7 +4,8 @@ import Client from "../modeles/Client.js"
 export async function getAllClient(req, res) {
   try {
     const clients = await Client.findAll()
-    res.status(200).json({ message: "liste de tous les clients", data: clients })
+    //res.status(200).json({ message: "liste de tous les clients", data: clients })
+    res.render("./clients/list-client", {clients})
   } catch (error) {
     res.status(404).json({ message: error.message })
   }
@@ -14,6 +15,12 @@ export async function getAllClient(req, res) {
 export const addClient = async (req, res) => {
   const newClient = req.body
   try {
+    const existing = await Client.findOne({ where: { nom: newClient.nom } });
+    if (existing) {
+      return res.status(400).json({
+        message: "Un client avec ce nom existe déjà.",
+      });
+    }
     const client = await Client.create(newClient)
     res.status(201).json({ message: "Client ajouté avec succès", client })
   } catch (error) {

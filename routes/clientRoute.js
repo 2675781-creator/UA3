@@ -18,7 +18,7 @@ import validate from "../middlewares/validationResult.js";
 const clientRoute = Router();
 
 clientRoute
-  .get("/client-list", getAllClient)
+  .get("/list-client", getAllClient)
   .get("/:id_client", getClientProfile)
   .post("/", createClientValidation, validate, addClient)
   .put("/:id_client", updateClientValidation, validate, updateClient)

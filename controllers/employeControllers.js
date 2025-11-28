@@ -4,7 +4,8 @@ import Employe from "../modeles/Employe.js";
 export async function getAllEmploye(req, res) {
   try {
     const employes = await Employe.findAll();
-    res.status(200).json({ message: "liste de tous les employes", data: employes });
+    //res.status(200).json({ message: "liste de tous les employes", data: employes });
+    res.render("./employes/list-employe", {employes})
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -14,6 +15,13 @@ export async function getAllEmploye(req, res) {
 export const addEmploye = async (req, res) => {
   const newEmploye = req.body;
   try {
+    // Vérifier si un client avec le même nom existe déjà
+    const existing = await Employe.findOne({ where: { nom: newEmploye.nom } });
+    if (existing) {
+      return res.status(400).json({
+        message: "Un client avec ce nom existe déjà.",
+      });
+    }
     const employe = await Employe.create(newEmploye);
     res.status(201).json({ message: "Employe ajouté avec succès", data: employe });
   } catch (error) {

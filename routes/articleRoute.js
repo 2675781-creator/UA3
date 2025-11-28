@@ -19,9 +19,9 @@ import validate from "../middlewares/validationResult.js";
 const articleRoute = Router();
 
 articleRoute
-  .get("/article-list", getAllArticle)
+  .get("/list-article", getAllArticle)
   .get("/:id_article", getArticleProfile)
-  .get("/add-article", (req, res) => {
+  .get("add-article", (req, res) => {
     res.render("./articles/add-article")
   })
   .post("/", createArticleValidation, validate, addArticle)

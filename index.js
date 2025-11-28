@@ -46,12 +46,12 @@ app.set('view engine', 'ejs')
 app.set('views', './views')
 
 // Routes API
-app.use("/api/articles", articleRoute);
-app.use("/api/categories", categorieRoute);
-app.use("/api/clients", clientRoute);
-app.use("/api/employes", employeRoute);
-app.use("/api/auteurs", auteurRoute);
-app.use("/api/emprunts", authMiddleware, empruntRoute);
+app.use("/", articleRoute);
+app.use("/", categorieRoute);
+app.use("/", clientRoute);
+app.use("/s", employeRoute);
+app.use("/", auteurRoute);
+app.use("/", authMiddleware, empruntRoute);
 app.use("/api/auth", authRoute);
 
 
