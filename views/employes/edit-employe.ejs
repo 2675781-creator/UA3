@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', { title: 'Modifier un employe' }) %>
+    <body>
+        <%- include('../partials/header') %>
+            <main class="wrapper">
+                <h1>Modfier un employe</h1>
+                <form action="/employes/<%= employe.id_employe %>?_method=PUT" method="POST" enctype="multipart/form-data">
+                    <div class="mb-2">
+                        <label for="nom" class="form-label">Nom</label>
+                        <input required type="text" class="form-control" id="nom" name="nom" value="<%= employe.nom %>" placeholder="Entrez le nom">
+                    </div>
+        
+                    <div class="mb-2">
+                        <label for="prenom" class="form-label">Prenom</label>
+                        <input type="text" class="form-control" id="prenom" name="prenom" value="<%= employe.prenom %>">
+                    </div>
+                    <div class="mb-2">
+                        <label for="age" class="form-label">Age</label>
+                        <input type="number" class="form-control" id="age" name="age" value="<%= employe.age %>">
+                    </div>
+                    <div class="mb-2">
+                        <label for="role" class="form-label">Role</label>
+                        <input type="text" class="form-control" id="role" name="role" value="<%= employe.role %>">
+                    </div>
+                    <div class="mb-2">
+                        <label for="date_embauche" class="form-label">Date embauche</label>
+                        <input type="date" class="form-control" id="date_embauche" name="date_embauche" value="<%= employe.date_embauche %>">
+                    </div>
+                    <div class="mb-2">
+                        <label for="numero_tache" class="form-label">Numero tache</label>
+                        <input type="number" class="form-control" id="numero_tache" name="numero_tache" value="<%= employe.numero_tache %>">
+                    </div>
+                    <button class="btn btn-success" type="submit">Modifier</button>
+                </form>
+            </main>
+            <%- include('../partials/footer') %>
+    </body>
+</html>

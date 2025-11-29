@@ -25,7 +25,7 @@ export const addEmprunt= async (req, res) =>{
       });
     }
       const emprunt = await Emprunt.create(newEmprunt)
-      res.status(201).json({message: "Employe ajoute avec succes", data: emprunt})
+      res.status(201).json({message: "Emprunt ajouté avec succes", data: emprunt})
   } catch(error){
       res.status(400).json({message:error.message})
   }

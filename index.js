@@ -63,7 +63,6 @@ const startServer = async () => {
     console.log("Connexion à la base de données réussie ");
 
     // Synchronisation des tables 
-    //await database.sync({ alter: true });
     //console.log("Tables synchronisées avec la base ");
 
     // Lancement du serveur HTTP

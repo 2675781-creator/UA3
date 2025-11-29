@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', { title: 'Modifier un client' }) %>
+    <body>
+        <%- include('../partials/header') %>
+            <main class="wrapper">
+                <h1>Modfier un client</h1>
+                <form action="/clients/<%= client.id_client %>?_method=PUT" method="POST" enctype="multipart/form-data">
+                    <div class="mb-2">
+                        <label for="nom" class="form-label">Nom</label>
+                        <input required type="text" class="form-control" id="nom" name="nom" value="<%= client.nom %>" placeholder="Entrez le nom">
+                    </div>
+        
+                    <div class="mb-2">
+                        <label for="prenom" class="form-label">Prenom</label>
+                        <input type="text" class="form-control" id="prenom" name="prenom" value="<%= client.prenom %>">
+                    </div>   
+                    <div class="mb-2">
+                        <label for="article_prefere" class="form-label">Article prefere</label>
+                        <input type="text" class="form-control" id="article_prefere" name="article_prefere" value="<%= client.article_prefere %>">
+                    </div>
+                    <div class="mb-2">
+                        <label for="numero_article" class="form-label">Numero article</label>
+                        <input type="number" class="form-control" id="numero_article" name="numero_article" value="<%= client.id_article %>">
+                    </div>
+                    <button class="btn btn-success" type="submit">Modifier</button>
+                </form>
+            </main>
+            <%- include('../partials/footer') %>
+    </body>
+</html>

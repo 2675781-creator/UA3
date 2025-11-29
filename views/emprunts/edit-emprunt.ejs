@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', { title: 'Modifier un emprunt' }) %>
+
+    <body>
+        <%- include('../partials/header') %>
+            <main class="wrapper">
+                <h1>Modifier un emprunt</h1>
+                <form action="/emprunts/<%= emprunt. %>/?_method=PUT" method="POST" enctype="multipart/form-data">
+                    <div class="mb-2">
+                        <label for="id_client" class="form-label">identifiant du client</label>
+                        <input required type="number" class="form-control" id="id_client" name="id_client" value="<%= emprunt.id_client %>">
+                    </div>
+                    <div class="mb-2">
+                        <label for="id_article" class="form-label">identifiant article</label>
+                        <input required type="number" class="form-control" id="id_article" name="id_article" value="<%= emprunt.id_article %>">
+                    </div>
+                    <div class="mb-2">
+                        <label for="date_emprunt" class="form-label">Date emprunt</label>
+                        <input type="date" class="form-control" id="date_emprunt" name="date_emprunt" value="<%= emprunt.date_emprunt %>">
+                    </div>
+                    <div class="mb-2">
+                        <label for="date_retour" class="form-label">Date de retour</label>
+                        <input type="date" class="form-control" id="date_retour" name="date_retour" value="<%= emprunt.date_retour %>">
+                    </div>
+                    <button class="btn btn-success" type="submit">Modifier</button>
+                </form>
+            </main>
+            <%- include('../partials/footer') %>
+    </body>
+</html>

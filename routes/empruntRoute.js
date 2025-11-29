@@ -26,7 +26,7 @@ empruntRoute
   .get("/client/:id_client", authorizeRoles("admin"),  getEmpruntsByClient)
   .get("/article/:id_article", getEmpruntsByArticle)
   .post("/", createEmpruntValidation, validate, addEmprunt)
-  .put("/:id", updateEmpruntValidation, validate, updateEmprunt)
-  .delete("/:id", authorizeRoles("admin"), deleteEmprunt)
+  .put("/:id_client/:id_article", updateEmpruntValidation, validate, updateEmprunt)
+  .delete("/:id_client/:id_article", authorizeRoles("admin"), deleteEmprunt)
   
 export default empruntRoute;

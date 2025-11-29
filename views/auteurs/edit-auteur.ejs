@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', { title: 'Modifier un auteur' }) %>
+    <body>
+        <%- include('../partials/header') %>
+            <main class="wrapper">
+                <h1>Modfier un auteur</h1>
+                <form action="/auteurs/<%= auteur.id_auteur %>?_method=PUT" method="POST" enctype="multipart/form-data">
+                    <div class="mb-2">
+                        <label for="nom" class="form-label">Nom</label>
+                        <input required type="text" class="form-control" id="nom" name="nom" value="<%= auteur.nom %>" placeholder="Entrez le nom">
+                    </div>
+        
+                    <div class="mb-2">
+                        <label for="prenom" class="form-label">Prenom</label>
+                        <input type="text" class="form-control" id="prenom" name="prenom" value="<%= auteur.prenom %>">
+                    </div>
+                    <div class="mb-2">
+                        <label for="age" class="form-label">Age</label>
+                        <input type="number" class="form-control" id="age" name="age" value="<%= auteur.age %>" placeholder="Entrez l'age">
+                    </div>
+                    <div class="mb-2">
+                        <label for="nationalite" class="form-label">Nationalite</label>
+                        <input required type="text" class="form-control" id="nationalite" name="nationalite" value="<%= auteur.nationalite %>" placeholder="Entrez la nationalite">
+                    </div>
+                    <div class="mb-2">
+                        <label for="langue" class="form-label">Langue</label>
+                        <input required type="text" class="form-control" id="langue" name="langue" value="<%= auteur.langue %>" placeholder="Entrez la langue">
+                    </div>
+                    <button class="btn btn-success" type="submit">Modifier</button>
+                </form>
+            </main>
+            <%- include('../partials/footer') %>
+    </body>
+</html>
