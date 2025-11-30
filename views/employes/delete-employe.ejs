@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', { title: 'Supprimer un employe' }) %>
+    <body>
+        <%- include('../partials/header') %>
+            <main class="wrapper">
+                <h1>Supprimer un employe</h1>
+                <form action="/employes/<%= employe.id_employe %>?_method=DELETE" method="POST" enctype="multipart/form-data">
+                    <div class="mb-2">
+                        <label for="nom" class="form-label">Nom</label>
+                        <input type="text" class="form-control" id="nom" name="nom" value="<%= employe.nom %>" readonly>
+                    </div>
+                    <div class="mb-2">
+                        <label for="prenom" class="form-label">Prenom</label>
+                        <input type="text" class="form-control" id="prenom" name="prenom" value="<%= employe.prenom %>" readonly>
+                    </div>
+                    <div class="mb-2">
+                        <label for="age" class="form-label">Age</label>
+                        <input type="number" class="form-control" id="age" name="age" value="<%= employe.age %>" readonly>
+                    </div>
+                    <div class="mb-2">
+                        <label for="role" class="form-label">Role</label>
+                        <input type="text" class="form-control" id="role" name="role" value="<%= employe.role %>" readonly>
+                    </div>
+                    <div class="mb-2">
+                        <label for="date_embauche" class="form-label">Date embauche</label>
+                        <input type="date" class="form-control" id="date_embauche" name="date_embauche" value="<%= employe.date_embauche %>" readonly>
+                    </div> 
+                    <div class="mb-2">
+                        <label for="numero_tache" class="form-label">Numero de tache</label>
+                        <input type="number" class="form-control" id="numero_tache" name="numero_tache" value="<%= employe.numero_tache %>" readonly>
+                    </div>           
+                    <button class="btn btn-success" type="submit">Supprimer</button>
+                </form>
+            </main>
+            <%- include('../partials/footer') %>
+    </body>
+</html>

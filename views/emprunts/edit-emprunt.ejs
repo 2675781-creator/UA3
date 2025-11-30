@@ -6,7 +6,7 @@
         <%- include('../partials/header') %>
             <main class="wrapper">
                 <h1>Modifier un emprunt</h1>
-                <form action="/emprunts/<%= emprunt. %>/?_method=PUT" method="POST" enctype="multipart/form-data">
+                <form action="/emprunts/<%= emprunt.id_client %>/<%= emprunt.id_article %>/?_method=PUT" method="POST" enctype="multipart/form-data">
                     <div class="mb-2">
                         <label for="id_client" class="form-label">identifiant du client</label>
                         <input required type="number" class="form-control" id="id_client" name="id_client" value="<%= emprunt.id_client %>">
