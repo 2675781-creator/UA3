@@ -9,11 +9,21 @@
                 <form action="/emprunts/<%= emprunt.id_client %>/<%= emprunt.id_article %>/?_method=PUT" method="POST" enctype="multipart/form-data">
                     <div class="mb-2">
                         <label for="id_client" class="form-label">identifiant du client</label>
-                        <input required type="number" class="form-control" id="id_client" name="id_client" value="<%= emprunt.id_client %>">
+                        <select name="id_client" class="form-select" aria-label="Large">
+                            <option selected>Ouvrir le menu des identifiant de chaque clients</option>
+                            <% clients.forEach(client => { %>
+                                <option value="<%= client.id_client %>"> <%= client.nom %> </option>
+                            <% }) %>
+                        </select>
                     </div>
                     <div class="mb-2">
                         <label for="id_article" class="form-label">identifiant article</label>
-                        <input required type="number" class="form-control" id="id_article" name="id_article" value="<%= emprunt.id_article %>">
+                        <select name="id_article" class="form-select" aria-label="Large">
+                            <option selected>Ouvrir le menu des identifiant de chaque articles</option>
+                            <% articles.forEach(article => { %>
+                                <option value="<%= article.id_article %>"> <%= article.titre %> </option>
+                            <% }) %>
+                        </select>
                     </div>
                     <div class="mb-2">
                         <label for="date_emprunt" class="form-label">Date emprunt</label>

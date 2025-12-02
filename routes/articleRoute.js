@@ -3,6 +3,7 @@ import authMiddleware from "../middlewares/authMiddleware.js";
 import { authorizeRoles } from "../middlewares/roleMiddleware.js";
 import {
   addArticle,
+  addArticleForm,
   deleteArticle,
   getAllArticle,
   getArticleProfile,
@@ -20,11 +21,9 @@ const articleRoute = Router();
 
 articleRoute
   .get("/list-article", getAllArticle)
-  .get("/add-article", (req, res) => {
-    res.render("articles/add-article")
-  })
+  .get("/add-article", addArticleForm)
   .get("/:id_article", getArticleProfile)
-  .post("/", createArticleValidation, validate, addArticle)
+  .post("/add-article", createArticleValidation, validate, addArticle)
   .delete("/:id_article", authorizeRoles("admin"), authMiddleware, deleteArticle)
   .put("/:id_article", updateArticleValidation, validate, updateArticle);
 

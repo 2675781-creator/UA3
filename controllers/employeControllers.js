@@ -11,6 +11,16 @@ export async function getAllEmploye(req, res) {
   }
 }
 
+// formulaire pour ajouter un employe
+export const addEmployeForm = async (req, res) =>{
+  try{
+    res.render("./employes/add-employe")
+  }
+  catch(error){
+    res.json({message:error.message})
+  }
+}
+
 // Création d'un employe
 export const addEmploye = async (req, res) => {
   const newEmploye = req.body;
@@ -23,7 +33,8 @@ export const addEmploye = async (req, res) => {
       });
     }
     const employe = await Employe.create(newEmploye);
-    res.status(201).json({ message: "Employe ajouté avec succès", data: employe });
+    res.render("./employes/list-employe", {employe})
+    //res.status(201).json({ message: "Employe ajouté avec succès", data: employe });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -47,10 +58,10 @@ export const deleteEmploye = async (req, res) => {
         .status(404)
         .json({ message: `Aucun employe trouvé avec l'id ${id_employe}` });
     }
-
-    res
+    res.render("./employes/list-employe")
+    /*res
       .status(200)
-      .json({ message: `L'employe ${id_employe} a été supprimé avec succès` });
+      .json({ message: `L'employe ${id_employe} a été supprimé avec succès` });*/
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -68,8 +79,8 @@ export const getEmployeProfile = async (req, res) => {
         .status(404)
         .json({ message: `Aucun employe trouvé avec l'id ${id_employe}` });
     }
-
-    res.status(200).json({ message: "Profil d'un employe", data: employe });
+    res.render("./employes/list-employe", {employe})
+    //res.status(200).json({ message: "Profil d'un employe", data: employe });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -105,10 +116,11 @@ export const updateEmploye = async (req, res) => {
     }
 
     const employe = await Employe.findByPk(id_employe);
-    res.status(200).json({
+    res.redirect("/list-employe")
+    /*res.status(200).json({
       message: `Employe ${id_employe} mis à jour avec succès`,
       data: employe,
-    });
+    });*/
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

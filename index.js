@@ -4,6 +4,8 @@ import helmet from "helmet";
 import cors from "cors";
 import dotenv from "dotenv";
 import database from "./config/connection.js";
+import methodOverride from "method-override";
+import session from 'express-session';
 
 import auteurRoute from "./routes/auteurRoute.js";
 import categorieRoute from "./routes/categorieRoute.js";
@@ -28,6 +30,17 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/public', express.static('public'))
+app.use(methodOverride('_method'))
+app.use(express.static("./node_modules/bootstrap/dist/"))
+
+//Cacher le token dans le navigateur
+app.use(session({
+    secret: ENV.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } //mettre a true si https
+}))
+
 
 const PORT = process.env.PORT || 8000;
 console.log("Variables d'environnement :", {

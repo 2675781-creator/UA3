@@ -14,6 +14,16 @@ export async function getAllCategorie(req, res) {
   }
 }
 
+// formulaire pour ajouter une categorie
+export const addCategorieForm = async (req, res) =>{
+  try{
+    res.render("./categories/add-categorie")
+  }
+  catch(error){
+    res.json({message:error.message})
+  }
+}
+
 // Création d'une catégorie
 export const addCategorie = async (req, res) => {
   const newCategorie = req.body;
@@ -27,10 +37,11 @@ export const addCategorie = async (req, res) => {
       });
     }
     const categorie = await Categorie.create(newCategorie);
-    res.status(201).json({
+    res.render("./categories/list-categorie", {categorie})
+    /*res.status(201).json({
       message: "Catégorie ajoutée avec succès",
       data: categorie,
-    });
+    });*/
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -50,9 +61,11 @@ export const deleteCategorie = async (req, res) => {
     const nbDeleted = await Categorie.destroy({ where: { id_categorie } });
 
     if (nbDeleted === 0) {
+      res.render("./categories/list-categorie")
+      /*
       return res.status(404).json({
         message: `Aucune catégorie trouvée avec l'id ${id_categorie}`,
-      });
+      });*/
     }
 
     res.status(200).json({
@@ -111,10 +124,11 @@ export const updateCategorie = async (req, res) => {
     }
 
     const categorie = await Categorie.findByPk(id_categorie);
-    res.status(200).json({
+    res.redirect("/list-categorie")
+    /*res.status(200).json({
       message: `Catégorie ${id_categorie} mise à jour avec succès`,
       data: categorie,
-    });
+    });*/
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

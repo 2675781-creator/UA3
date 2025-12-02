@@ -21,7 +21,13 @@
                     </div>
                     <div class="mb-2">
                         <label for="numero_article" class="form-label">Numero article</label>
-                        <input type="number" class="form-control" id="numero_article" name="numero_article" value="<%= client.id_article %>">
+                        <select name="numero_article" class="form-select" aria-label="Large select">
+                            <option selected>Ouvrir le menu des identifiant de chaque articles</option>
+                                <% articles.forEach(article => { %>
+                                    <option value="<%= article.id_article %>"> <%= article.titre %> </option>
+                                <% }) %>
+                            </option>
+                        </select>
                     </div>
                     <button class="btn btn-success" type="submit">Modifier</button>
                 </form>

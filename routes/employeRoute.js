@@ -2,6 +2,7 @@ import { Router } from "express";
 import { authorizeRoles } from "../middlewares/roleMiddleware.js";
 import {
   addEmploye,
+  addEmployeForm,
   deleteEmploye,
   getAllEmploye,
   getEmployeProfile,
@@ -19,9 +20,7 @@ const employeRoute = Router();
 
 employeRoute
   .get("/list-employe", getAllEmploye)
-  .get("/add-employe", (req, res) => {
-    res.render("employes/add-employe")
-  })
+  .get("/add-employe", addEmployeForm)
   .get("/:id_employe", getEmployeProfile)
   .post("/", createEmployeValidation, validate, addEmploye)
   .put("/:id_employe", updateEmployeValidation, validate, updateEmploye)

@@ -33,9 +33,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{test_url}}",
+							"raw": "{{test_url}}/articles/1",
 							"host": [
 								"{{test_url}}"
+							],
+							"path": [
+								"articles",
+								"1"
 							]
 						}
 					},
@@ -48,7 +52,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"titre\": \"Rogue One\",\r\n    \"date_publication\": \"2003-11-03\",\r\n    \"status\": \"disponible\",\r\n    \"quantite\": 10,\r\n    \"id_auteur\": 3,\r\n    \"id_categorie\": 1,\r\n    \"id_employe\": 8\r\n}",
+							"raw": "{\r\n    \"titre\": \"Star wars\",\r\n    \"date_publication\": \"2005-04-11\",\r\n    \"status\": \"disponible\",\r\n    \"quantite\": 35,\r\n    \"id_auteur\": 1,\r\n    \"id_categorie\": 1,\r\n    \"id_employe\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -70,8 +74,37 @@
 				{
 					"name": "supprime un article",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
-						"header": []
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{test_url}}/articles/1",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"articles",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -80,14 +113,61 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titre\": \"Rogue One\",\r\n    \"date_publication\": \"2004-11-03\",\r\n    \"status\": \"reserve\",\r\n    \"quantite\": 10,\r\n    \"id_auteur\": 1,\r\n    \"id_categorie\": 1,\r\n    \"id_employe\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{test_url}}",
+							"raw": "{{test_url}}/articles/1",
 							"host": [
 								"{{test_url}}"
+							],
+							"path": [
+								"articles",
+								"1"
 							]
 						}
 					},
 					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "groupe1_pass",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -97,6 +177,16 @@
 				{
 					"name": "Liste d'emprunt",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -114,17 +204,29 @@
 				{
 					"name": "Status d'un emprunt",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{test_url}}/emprunts/1/1",
+							"raw": "{{test_url}}/emprunts/client/2/article/2",
 							"host": [
 								"{{test_url}}"
 							],
 							"path": [
 								"emprunts",
-								"1",
-								"1"
+								"client",
+								"2",
+								"article",
+								"2"
 							]
 						}
 					},
@@ -137,7 +239,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id_client\": 1,\r\n    \"id_article\": 1,\r\n    \"date_emprunt\": \"2015-03-18\",\r\n    \"date_retour\": \"2015-04-02\"\r\n}",
+							"raw": "{\r\n    \"id_client\": 2,\r\n    \"id_article\": 2,\r\n    \"date_emprunt\": \"2015-03-18\",\r\n    \"date_retour\": \"2015-04-02\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -163,7 +265,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id_client\": 2,\r\n    \"id_article\": 2,\r\n    \"date_emprunt\": \"2025-06-28\",\r\n    \"date_retour\": \"2025-07-20\"\r\n}",
+							"raw": "{\r\n    \"id_client\": 2,\r\n    \"id_article\": 2,\r\n    \"date_emprunt\": \"2022-10-28\",\r\n    \"date_retour\": \"2022-11-20\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -171,14 +273,16 @@
 							}
 						},
 						"url": {
-							"raw": "{{test_url}}/emprunts/1/1",
+							"raw": "{{test_url}}/emprunts/client/2/article/2",
 							"host": [
 								"{{test_url}}"
 							],
 							"path": [
 								"emprunts",
-								"1",
-								"1"
+								"client",
+								"2",
+								"article",
+								"2"
 							]
 						}
 					},
@@ -194,18 +298,54 @@
 							"raw": "{\r\n    \"id_client\": 2,\r\n    \"id_article\": 2,\r\n    \"date_emprunt\": \"2025-06-28\",\r\n    \"date_retour\": \"2025-07-20\"\r\n}"
 						},
 						"url": {
-							"raw": "{{test_url}}/emprunts/2/2",
+							"raw": "{{test_url}}/emprunts/client/2/article/2",
 							"host": [
 								"{{test_url}}"
 							],
 							"path": [
 								"emprunts",
+								"client",
 								"2",
+								"article",
 								"2"
 							]
 						}
 					},
 					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -257,11 +397,14 @@
 				{
 					"name": "ajout d'un employe",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nom\": \"papineau\",\r\n    \"prenom\": \"Gabriel\",\r\n    \"age\": 34,\r\n    \"role\": \"reception\",\r\n    \"date_embauche\": \"2012-08-21\",\r\n    \"numero_tache\": 52\r\n}",
+							"raw": "{\r\n    \"nom\": \"Lavoie\",\r\n    \"prenom\": \"Carl\",\r\n    \"age\": 29,\r\n    \"role\": \"reception\",\r\n    \"date_embauche\": \"2015-09-01\",\r\n    \"numero_tache\": 29\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -286,13 +429,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{test_url}}/employes/1",
+							"raw": "{{test_url}}/employes/2",
 							"host": [
 								"{{test_url}}"
 							],
 							"path": [
 								"employes",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -305,7 +448,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nom\": \"papineau\",\r\n    \"prenom\": \"Gabriel\",\r\n    \"age\": 34,\r\n    \"role\": \"depositaire\",\r\n    \"date_embauche\": \"2012-08-21\",\r\n    \"numero_tache\": 62\r\n}",
+							"raw": "{\r\n    \"nom\": \"LaRoch\",\r\n    \"prenom\": \"Simon\",\r\n    \"age\": 34,\r\n    \"role\": \"concierge\",\r\n    \"date_embauche\": \"2005-02-23\",\r\n    \"numero_tache\": 83\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -313,17 +456,44 @@
 							}
 						},
 						"url": {
-							"raw": "{{test_url}}/employes/1",
+							"raw": "{{test_url}}/employes/3",
 							"host": [
 								"{{test_url}}"
 							],
 							"path": [
 								"employes",
-								"1"
+								"3"
 							]
 						}
 					},
 					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -412,26 +582,26 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{test_url}}/categories/1",
+							"raw": "{{test_url}}/categories/2",
 							"host": [
 								"{{test_url}}"
 							],
 							"path": [
 								"categories",
-								"1"
+								"2"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "ajout d'un categorie",
+					"name": "ajout d'une categorie",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nom_categorie\":\"Science-fiction\",\r\n    \"description\": \"théorie sur diverse sujets\"\r\n}",
+							"raw": "{\r\n    \"nom_categorie\":\"Nature\",\r\n    \"description\": \"Diverse faits sur la nature\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -645,7 +815,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nom\": \"sandiego\",\r\n    \"prenom\": \"carmen\",\r\n    \"article_prefere\": \"hunger games\",\r\n    \"numero_article\": 42\r\n}",
+							"raw": "{\r\n    \"nom\": \"Person\",\r\n    \"prenom\": \"diane\",\r\n    \"article_prefere\": \"hunger games\",\r\n    \"numero_article\": 42\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -688,6 +858,165 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "authentification",
+			"item": [
+				{
+					"name": "authentification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_user\": 2,\r\n    \"nom\": \"Kevin\",\r\n    \"email\": \"kevintrudeau@gmail.com\",\r\n    \"mot_de_passe\": \"92456871\",\r\n    \"role\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{test_url}}/auth/login",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"kevintrudeau@gmail.com\",\r\n    \"mot_de_passe\": \"92456871\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{test_url}}/auth/login",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verifie token",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_user\": 1,\r\n    \"nom\": \"jack\",\r\n    \"email\": \"jacksparrow@gmail.com\",\r\n    \"mot_de_passe\": \"motdepasse123\",\r\n    \"role\": \"admin\"\r\n}"
+						},
+						"url": {
+							"raw": "{{test_url}}/auth",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJlbWFpbCI6ImdhYnJpZWxwYXBpbmVhdUBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjM1MTc4MTYsImV4cCI6MTc2MzUyMTQxNn0.x_bySqH_4qhF8b7ogXGKe57ahFRTRtehW_cZ6QMS9QY",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "ajout utilisateur",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"Kevin\",\r\n    \"prenom\": \"Trudeau\",\r\n    \"email\": \"kevintrudeau@gmail.com\",\r\n    \"mot_de_passe\": \"92456871\",\r\n    \"role\": \"admin\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{test_url}}/auth/register",
+							"host": [
+								"{{test_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
@@ -717,6 +1046,10 @@
 	"variable": [
 		{
 			"key": "test_url",
+			"value": ""
+		},
+		{
+			"key": "token",
 			"value": ""
 		}
 	]

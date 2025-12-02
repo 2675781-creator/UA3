@@ -2,6 +2,7 @@ import { Router } from "express";
 import { authorizeRoles } from "../middlewares/roleMiddleware.js";
 import {
   addCategorie,
+  addCategorieForm,
   deleteCategorie,
   getAllCategorie,
   getCategorieProfile,
@@ -19,10 +20,7 @@ const categorieRoute = Router();
 
 categorieRoute
   .get("/list-categorie", getAllCategorie)
-  .get("/add-categorie", (req, res) => {
-    res.render("categories/add-categorie")
-  })
-  
+  .get("/add-categorie", addCategorieForm)
   .get("/:id_categorie", getCategorieProfile)
   .post("/", createCategorieValidation, validate, addCategorie)
   .put("/:id_categorie", updateCategorieValidation, validate, updateCategorie)

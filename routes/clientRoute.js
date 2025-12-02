@@ -2,6 +2,7 @@ import { Router } from "express";
 import { authorizeRoles } from "../middlewares/roleMiddleware.js";
 import {
   addClient,
+  addClientForm,
   deleteClient,
   getAllClient,
   getClientProfile,
@@ -19,9 +20,7 @@ const clientRoute = Router();
 
 clientRoute
   .get("/list-client", getAllClient)
-  .get("/add-client", (req, res) =>{
-    res.render("clients/add-client")
-  })
+  .get("/add-client", addClientForm)
   .get("/:id_client", getClientProfile)
   .post("/", createClientValidation, validate, addClient)
   .put("/:id_client", updateClientValidation, validate, updateClient)

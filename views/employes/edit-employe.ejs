@@ -13,19 +13,25 @@
         
                     <div class="mb-2">
                         <label for="prenom" class="form-label">Prenom</label>
-                        <input type="text" class="form-control" id="prenom" name="prenom" value="<%= employe.prenom %>">
+                        <input type="text" class="form-control" id="prenom" name="prenom" value="<%= employe.prenom %>" placeholder="Entrez le prenom">
                     </div>
                     <div class="mb-2">
                         <label for="age" class="form-label">Age</label>
-                        <input type="number" class="form-control" id="age" name="age" value="<%= employe.age %>">
+                        <input type="number" class="form-control" id="age" name="age" value="<%= employe.age %>" placeholder="Entrez l'age">
                     </div>
                     <div class="mb-2">
                         <label for="role" class="form-label">Role</label>
-                        <input type="text" class="form-control" id="role" name="role" value="<%= employe.role %>">
+                        <select name="role" class="form-select" aria-label="Large">
+                            <option selected>Ouvrir le menu des identifiant de chaque role</option>
+                            <option value="admin">Admin</option>
+                            <option value="secretaire">Secretaire</option>
+                            <option value="gestionnaire">Gestionnaire</option>
+                            <option value="gardien">Gardien</option>
+                        </select>
                     </div>
                     <div class="mb-2">
                         <label for="date_embauche" class="form-label">Date embauche</label>
-                        <input type="date" class="form-control" id="date_embauche" name="date_embauche" value="<%= employe.date_embauche %>">
+                        <input type="date" class="form-control" id="date_embauche" name="date_embauche" value="<%= employe.date_embauche %>" placeholder="Entrez la date ">
                     </div>
                     <div class="mb-2">
                         <label for="numero_tache" class="form-label">Numero tache</label>

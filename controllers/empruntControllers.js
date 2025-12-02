@@ -1,3 +1,5 @@
+import Article from "../modeles/Article.js"
+import Client from "../modeles/Client.js"
 import Emprunt from "../modeles/Emprunt.js"
 
 //Lecture de la listes des emprunts
@@ -12,6 +14,18 @@ export async function getAllEmprunt(req, res) {
     }
 }
 
+
+// formulaire pour ajouter un emprunt
+export const addEmpruntForm = async (req, res) =>{
+  try{
+    const clients = await Client.findAll()
+    const articles = await Article.findAll()
+    res.render("./emprunts/add-emprunt", {clients, articles})
+  }
+  catch(error){
+    res.json({message:error.message})
+  }
+}
 // Création d'un emprunt
 
 export const addEmprunt= async (req, res) =>{
@@ -25,7 +39,8 @@ export const addEmprunt= async (req, res) =>{
       });
     }
       const emprunt = await Emprunt.create(newEmprunt)
-      res.status(201).json({message: "Emprunt ajouté avec succes", data: emprunt})
+      res.redirect("/list-emprunt")
+      //res.status(201).json({message: "Emprunt ajouté avec succes", data: emprunt})
   } catch(error){
       res.status(400).json({message:error.message})
   }
@@ -39,7 +54,9 @@ export const deleteEmprunt = async(req, res) => {
     }
     try {
         const result = await Emprunt.destroy({where: {id_client, id_article}});
-        res.status(200).json({message: `L'emprunt a été supprimé avec succes`})
+        
+        res.render("./emprunts/list-emprunt", {result})
+        //res.status(200).json({message: `L'emprunt a été supprimé avec succes`})
     }
     catch(error){
         res.status(404).json({message: error.message})
@@ -74,7 +91,8 @@ export const updateEmprunt = async (req, res) => {
         const result = await Emprunt.update(updatedEmprunt, {
             where : {id_client, id_article}
         });
-        res.status(200).json({message: "Emprunt mis a jour",result});
+        res.redirect("/list-emprunt")
+        //res.status(200).json({message: "Emprunt mis a jour",result});
     }
     catch(error){
         res.status(404).json({message: error.message})
