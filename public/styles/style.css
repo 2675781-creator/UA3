@@ -5,11 +5,25 @@ h1 {
 
 .wrapper {
     margin: 0 auto;
-    max-width: 1300px;
+    max-width: 1200px;
 }
 
 .list{
     display: flex;
     flex-wrap: wrap;
     gap: 10px
+}
+
+.btn a, .bth a:hover, .btn a:active, .btn a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+header, footer{
+    background-color: #f8f9fa;
+    padding: 5px 0;
+}
+
+nav .d-flex{
+    width: 30%;
 }

@@ -2,6 +2,7 @@ import { Router } from "express";
 import { authorizeRoles } from "../middlewares/roleMiddleware.js";
 import {
   addEmprunt,
+  addEmpruntForm,
   deleteEmprunt,
   getAllEmprunt,
   getEmpruntsByArticle,
@@ -20,9 +21,7 @@ const empruntRoute = Router();
 
 empruntRoute
   .get("/list-emprunt", authorizeRoles("employe"), getAllEmprunt)
-  .get("/add-emprunt", (req, res) => {
-    res.render("emprunts/add-emprunt")
-  })
+  .get("/add-emprunt", addEmpruntForm)
   .get("/client/:id_client", authorizeRoles("admin"),  getEmpruntsByClient)
   .get("/article/:id_article", getEmpruntsByArticle)
   .post("/", createEmpruntValidation, validate, addEmprunt)

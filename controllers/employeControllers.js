@@ -33,7 +33,7 @@ export const addEmploye = async (req, res) => {
       });
     }
     const employe = await Employe.create(newEmploye);
-    res.render("./employes/list-employe", {employe})
+    res.redirect("/list-employe")
     //res.status(201).json({ message: "Employe ajouté avec succès", data: employe });
   } catch (error) {
     res.status(400).json({ message: error.message });

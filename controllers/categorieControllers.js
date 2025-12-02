@@ -37,7 +37,7 @@ export const addCategorie = async (req, res) => {
       });
     }
     const categorie = await Categorie.create(newCategorie);
-    res.render("./categories/list-categorie", {categorie})
+    res.redirect("/list-categorie")
     /*res.status(201).json({
       message: "Catégorie ajoutée avec succès",
       data: categorie,

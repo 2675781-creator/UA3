@@ -35,7 +35,7 @@ export const addClient = async (req, res) => {
       });
     }
     const client = await Client.create(newClient)
-    res.render("./clients/list-client", {client, articles})
+    res.redirect("/list-client")
     //res.status(201).json({ message: "Client ajouté avec succès", client })
   } catch (error) {
     res.status(400).json({ message: error.message })
