@@ -4,10 +4,12 @@
 <body>
     <%- include('../partials/header') %>
     <main class="wrapper">
-        <h1>Liste des emprunts</h1>
-        <div class="list">
+        <h1 class="mb-4">Liste des emprunts</h1>
+        <div class="row g-4">
             <% emprunts.forEach(emprunt => { %>
-                <%- include('./emprunt-element', { emprunt: emprunt }) %>
+                <div class="col-md-4 col-sm-6">
+                    <%- include('./emprunt-element', { emprunt: emprunt }) %>
+                </div>
             <% }) %>
         </div>
     </main>

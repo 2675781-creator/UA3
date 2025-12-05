@@ -1,24 +1,17 @@
 <div class="card" style="width: 18rem;">
-    <img src="<%= emprunt.image %>" class="card-img-top" alt="<%= emprunt.date_emprunt %>">
+    <% if (emprunt.image) { %>
+        <img src="<%= emprunt.image %>" class="card-img-top" alt="Emprunt du <%= emprunt.date_emprunt %>">
+    <% } %>
     <div class="card-body">
-        <h5 class="card-title">
-            <%= emprunt.id_client %>
-        </h5>
-        <p class="card-title">
-            <%= emprunt.id_article>.
-        </p>
-        <p class="card-text">
-            date de l'emprunt:<%= emprunt.date_emprunt %>
-        </p>
-         <p class="card-text">
-            date de retour:<%= emprunt.date_retour %>
-        </p>
+        <h5 class="card-title">Client ID: <%= emprunt.id_client %></h5>
+        <p class="card-text">Article ID: <%= emprunt.id_article %></p>
+        <p class="card-text">Date de l'emprunt: <%= emprunt.date_emprunt %></p>
+        <p class="card-text">Date de retour: <%= emprunt.date_retour %></p>
     </div>
+    <div class="card-footer d-flex justify-content-between">
+        <button class="btn btn-primary btn-sm">Edit</button>
+        <button class="btn btn-danger btn-sm">Delete</button>
+        <button class="btn btn-success btn-sm">Profile</button>
     </div>
-    <div class="card-footer"> 
-        <button class="btn btn-primary">Edit</button>
-        <button class="btn btn-danger">Delete</button>
-        <button class="btn btn-success">Profile</button>
-    </div>
-
+    
 </div>

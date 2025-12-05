@@ -8,25 +8,31 @@
                 <h1>Modifier un emprunt</h1>
                 <form action="/emprunts/<%= emprunt.id_client %>/<%= emprunt.id_article %>/?_method=PUT" method="POST" enctype="multipart/form-data">
                     <div class="mb-2">
-                        <label for="id_client" class="form-label">identifiant du client</label>
+                        <label for="id_client" class="form-label">Identifiant du client</label>
                         <select name="id_client" class="form-select" aria-label="Large">
-                            <option selected>Ouvrir le menu des identifiant de chaque clients</option>
+                            <option disabled>Choisissez un client</option>
                             <% clients.forEach(client => { %>
-                                <option value="<%= client.id_client %>"> <%= client.nom %> </option>
+                                <option value="<%= client.id_client %>" 
+                                    <%= client.id_client === emprunt.id_client ? "selected" : ""%>>
+                                    <%= client.nom %> 
+                                </option>
                             <% }) %>
                         </select>
                     </div>
                     <div class="mb-2">
-                        <label for="id_article" class="form-label">identifiant article</label>
+                        <label for="id_article" class="form-label">Identifiant de l'article</label>
                         <select name="id_article" class="form-select" aria-label="Large">
-                            <option selected>Ouvrir le menu des identifiant de chaque articles</option>
+                            <option disabled>Choisissez un article</option>
                             <% articles.forEach(article => { %>
-                                <option value="<%= article.id_article %>"> <%= article.titre %> </option>
+                                <option value="<%= article.id_article %>" 
+                                    <%= article.id_article === emprunt.id_article ? "selected" : "" %>>
+                                    <%= article.titre %> 
+                                </option>
                             <% }) %>
                         </select>
                     </div>
                     <div class="mb-2">
-                        <label for="date_emprunt" class="form-label">Date emprunt</label>
+                        <label for="date_emprunt" class="form-label">Date d'emprunt</label>
                         <input type="date" class="form-control" id="date_emprunt" name="date_emprunt" value="<%= emprunt.date_emprunt %>">
                     </div>
                     <div class="mb-2">
