@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <%- include('../partials/head', { title: title }) %>
+  </head>
+  <body>
+    <%- include('../partials/header') %>
+
+    <main class="wrapper">
+      <h1><%= article.titre %></h1>
+
+      <img src="/img/<%= article.image %>" alt="<%= article.titre %>" />
+
+      <p><strong>Status :</strong> <%= article.status %></p>
+      <p><strong>Date de publication :</strong> <%= article.date_publication %></p>
+      <p><strong>Quantité disponible :</strong> <%= article.quantite %></p>
+
+      <a href="/articles">Retour à la liste</a>
+    </main>
+
+    <%- include('../partials/footer') %>
+  </body>
+</html>

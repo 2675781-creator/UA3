@@ -1,26 +1,12 @@
-import Article from "../modeles/Article.js"
 import Client from "../modeles/Client.js"
 
 // Lecture de la liste des Clients
 export async function getAllClient(req, res) {
   try {
     const clients = await Client.findAll()
-    //res.status(200).json({ message: "liste de tous les clients", data: clients })
-    res.render("./clients/list-client", {clients})
+    res.status(200).json({ message: "liste de tous les clients", data: clients })
   } catch (error) {
     res.status(404).json({ message: error.message })
-  }
-}
-
-// formulaire pour ajouter un client
-export const addClientForm = async (req, res) =>{
-  try{
-    const clients = await Client.findAll();
-    const articles = await Article.findAll();
-    res.render("./clients/add-client", {clients, articles})
-  }
-  catch(error){
-    res.json({message:error.message})
   }
 }
 
@@ -28,15 +14,8 @@ export const addClientForm = async (req, res) =>{
 export const addClient = async (req, res) => {
   const newClient = req.body
   try {
-    const existing = await Client.findOne({ where: { nom: newClient.nom } });
-    if (existing) {
-      return res.status(400).json({
-        message: "Un client avec ce nom existe déjà.",
-      });
-    }
     const client = await Client.create(newClient)
-    res.redirect("/list-client")
-    //res.status(201).json({ message: "Client ajouté avec succès", client })
+    res.status(201).json({ message: "Client ajouté avec succès", client })
   } catch (error) {
     res.status(400).json({ message: error.message })
   }
@@ -63,10 +42,10 @@ export const deleteClient = async (req, res) => {
         .status(404)
         .json({ message: `Aucun client trouvé avec l'id ${id_client}` })
     }
-    res.render("./clients/list-client")
-    /*res
+
+    res
       .status(200)
-      .json({ message: `Le client ${id_client} a été supprimé avec succès` })*/
+      .json({ message: `Le client ${id_client} a été supprimé avec succès` })
   } catch (error) {
     res.status(500).json({ message: error.message })
   }
@@ -85,8 +64,8 @@ export const getClientProfile = async (req, res) => {
         .status(404)
         .json({ message: `Aucun client trouvé avec l'id ${id_client}` })
     }
-    res.render("./clients/list-client", {client})
-    //res.status(200).json({ message: "Profil d'un Client", data: client })
+
+    res.status(200).json({ message: "Profil d'un Client", data: client })
   } catch (error) {
     res.status(500).json({ message: error.message })
   }
@@ -120,11 +99,10 @@ export const updateClient = async (req, res) => {
 
     //  renvoyer le client mis à jour
     const client = await Client.findByPk(id_client)
-    res.redirect("/list-client")
-    /*res.status(200).json({
+    res.status(200).json({
       message: `Client ${id_client} mis à jour avec succès`,
       data: client,
-    })*/
+    })
   } catch (error) {
     res.status(500).json({ message: error.message })
   }

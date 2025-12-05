@@ -2,7 +2,6 @@ import { Router } from "express";
 import { authorizeRoles } from "../middlewares/roleMiddleware.js";
 import {
   addEmploye,
-  addEmployeForm,
   deleteEmploye,
   getAllEmploye,
   getEmployeProfile,
@@ -19,11 +18,10 @@ import validate from "../middlewares/validationResult.js";
 const employeRoute = Router();
 
 employeRoute
-  .get("/list-employe", getAllEmploye)
-  .get("/add-employe", addEmployeForm)
+  .get("/", getAllEmploye)
   .get("/:id_employe", getEmployeProfile)
   .post("/", createEmployeValidation, validate, addEmploye)
   .put("/:id_employe", updateEmployeValidation, validate, updateEmploye)
-  .delete("/:id_employe", authorizeRoles("admin"), deleteEmploye)
-  
+  .delete("/:id_employe", authorizeRoles("admin"), deleteEmploye);
+
 export default employeRoute;

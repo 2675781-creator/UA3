@@ -4,20 +4,9 @@ import Auteur from "../modeles/Auteur.js";
 export async function getAllAuteur(req, res) {
   try {
     const auteurs = await Auteur.findAll();
-    //res.status(200).json({ message: "Liste de tous les auteurs", data: auteurs });
-    res.render("auteurs/list-auteur", {auteurs})
+    res.status(200).json({ message: "Liste de tous les auteurs", data: auteurs });
   } catch (error) {
     res.status(500).json({ message: error.message });
-  }
-}
-
-// formulaire pour ajouter un auteur
-export const addAuteurForm = async (req, res) =>{
-  try{
-    res.render("./auteurs/add-auteur")
-  }
-  catch(error){
-    res.json({message:error.message})
   }
 }
 
@@ -25,20 +14,10 @@ export const addAuteurForm = async (req, res) =>{
 export const addAuteur = async (req, res) => {
   const newAuteur = req.body;
   try {
-    // Vérifier si un article avec le même nom existe déjà
-    const existing = await Auteur.findOne({ where: { nom: newAuteur.nom } });
-    if (existing) {
-      return res.status(400).render("auteurs/add-auteur",{
-        error: "Un auteur avec ce nom existe déjà."
-      });
-    }
     const auteur = await Auteur.create(newAuteur);
-    res.redirect("/list-auteur")
-    //res.status(201).json({ message: "Auteur ajouté avec succès", data: auteur });
+    res.status(201).json({ message: "Auteur ajouté avec succès", data: auteur });
   } catch (error) {
-    console.error(error);
-    
-    res.status(500).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -60,12 +39,12 @@ export const deleteAuteur = async (req, res) => {
         .status(404)
         .json({ message: `Aucun auteur trouvé avec l'id ${id_auteur}` });
     }
-    res.redirect("./auteurs/list-auteur")
-    /*res
+
+    res
       .status(200)
       .json({ message: `L'auteur ${id_auteur} a été supprimé avec succès` });
-  */} catch (error) {
-    res.status(400).json({ message: error.message });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -79,13 +58,10 @@ export const getAuteurProfile = async (req, res) => {
     if (!auteur) {
       return res
         .status(404)
-        .render("auteurs/auteur-profile", {
-          error: `Aucun auteur trouvé avec l'id ${id_auteur}`
-        });
+        .json({ message: `Aucun auteur trouvé avec l'id ${id_auteur}` });
     }
 
-    //res.status(200).json({ message: "Profil d'un auteur", data: auteur });
-    res.render("auteurs/auteur-profile", {auteur});
+    res.status(200).json({ message: "Profil d'un auteur", data: auteur });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -105,9 +81,7 @@ export const updateAuteur = async (req, res) => {
   if (!id_auteur) {
     return res
       .status(400)
-      .render("auteurs/auteur-profile", {
-          error: "L'id de l'auteur est requis"
-    });
+      .json({ error: true, message: "L'id de l'auteur est requis" });
   }
 
   try {
@@ -122,11 +96,10 @@ export const updateAuteur = async (req, res) => {
     }
 
     const auteur = await Auteur.findByPk(id_auteur);
-    res.redirect("/list-auteur")
-    /*res.status(200).json({
+    res.status(200).json({
       message: `Auteur ${id_auteur} mis à jour avec succès`,
       data: auteur,
-    });*/
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

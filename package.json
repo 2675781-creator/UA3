@@ -1,40 +1,33 @@
 {
-  "name": "frontend",
+  "name": "ua2",
   "version": "1.0.0",
-  "description": "Ce projet contient le modèle conceptuel (entité-association) et le modèle physique d'une base de données universitaire.",
-  "type": "module",
+  "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/2675781-creator/UA3.git"
+    "url": "git+https://github.com/2675781-creator/UA2.git"
   },
-  "author": "groupe_1",
+  "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/2675781-creator/UA3/issues"
+    "url": "https://github.com/2675781-creator/UA2/issues"
   },
-  "homepage": "https://github.com/2675781-creator/UA3#readme",
+  "homepage": "https://github.com/2675781-creator/UA2#readme",
   "dependencies": {
     "bcrypt": "^6.0.0",
-    "bcryptjs": "^3.0.3",
-    "bootstrap": "^5.3.8",
-    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
-    "express": "^5.1.0",
+    "express": "^5.2.1",
     "express-session": "^1.18.2",
-    "express-validator": "^7.3.1",
-    "helmet": "^8.1.0",
+    "express-validator": "^7.3.0",
     "jsonwebtoken": "^9.0.2",
     "method-override": "^3.0.0",
-    "multer": "^2.0.2",
     "mysql2": "^3.15.3",
-    "nodemon": "^3.1.11",
-    "sequelize": "^6.37.7",
-    "start": "^5.1.0"
+    "sequelize": "^6.37.7"
   }
 }

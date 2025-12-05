@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= title || "Page non trouvée" %></title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <% if (typeof header !== "undefined") { %>
+      <%- include('./partials/header') %>
+    <% } %>
+
+    <main class="wrapper">
+      <h1>404 - Page non trouvée</h1>
+      <p>La page demandée n'existe pas.</p>
+      <a href="/articles">Retour à la liste des articles</a>
+    </main>
+  </body>
+</html>

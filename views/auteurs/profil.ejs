@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <%- include('../partials/head', { title }) %>
+  </head>
+  <body>
+    <%- include('../partials/header') %>
+
+    <% if (user) { %>
+      <p>Connecté en tant que <%= user.username %></p>
+    <% } else { %>
+      <a href="/auth/login">Se connecter</a>
+    <% } %>
+
+    <main class="wrapper">
+      <h1><%= auteur.prenom %> <%= auteur.nom %></h1>
+
+      <p><a href="/auteurs">Retour à la liste des auteurs</a></p>
+
+      <% if (erreur) { %>
+        <p style="color:red;"><%= erreur %></p>
+      <% } %>
+
+      <h2>Articles de cet auteur</h2>
+
+      <% if (!articles || articles.length === 0) { %>
+        <p>Aucun article pour cet auteur.</p>
+      <% } else { %>
+        <% articles.forEach(article => { %>
+          <section class="card">
+            <h3><%= article.titre %></h3>
+            <p><strong>Status :</strong> <%= article.status %></p>
+
+            <p>
+              <strong>Date de publication :</strong>
+              <% if (article.date_publication) { %>
+                <%= new Date(article.date_publication).toISOString().substring(0, 10) %>
+              <% } else { %>
+                N/A
+              <% } %>
+            </p>
+
+            <p><strong>Quantité disponible :</strong> <%= article.quantite %></p>
+
+            <a href="/articles/<%= article.id_article %>">Voir l'article</a>
+          </section>
+        <% }) %>
+      <% } %>
+    </main>
+
+    <%- include('../partials/footer') %>
+  </body>
+</html>
