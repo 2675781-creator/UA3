@@ -1,64 +1,70 @@
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">Documentation</a>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand fw-semibold" href="/">
+        Documentation
+      </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#mainNavbar"
+        aria-controls="mainNavbar"
+        aria-expanded="false"
+        aria-label="Basculer la navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Liens de gauche -->
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/articles">Liste des articles</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/auteurs">Liste des auteurs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/categories">Liste des categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/clients">Liste des clients</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/employes">Liste des employes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/emprunts">Liste des emprunts</a>
-                    </li>
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <!-- Liens principaux -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/articles">Liste des articles</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/auteurs">Liste des auteurs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/categories">Liste des categories</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/clients">Liste des clients</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/employes">Liste des employes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/emprunts">Liste des emprunts</a>
+          </li>
+        </ul>
 
-                    <% if (user && user.role === 'admin') { %>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users">Gestion des utilisateurs</a>
-                    </li>
-                    <% } %>
-                </ul>
-
-                <!-- Zone de droite (info utilisateur / login / logout) -->
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <% if (user) { %>
-                        <li class="nav-item">
-                            <span class="navbar-text">
-                                Connecté en tant que <strong><%= user.nom %></strong> (<%= user.role %>)
-                            </span>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/auth/logout">Se déconnecter</a>
-                        </li>
-                    <% } else { %>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/auth/login-page">Connexion</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/auth/register-page">Inscription</a>
-                        </li>
-                    <% } %>
-                </ul>
-            </div>
-        </div>
-    </nav>
+        <!-- Zone droite : connexion / utilisateur -->
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <% if (typeof user !== 'undefined' && user) { %>
+            <li class="nav-item">
+              <span class="navbar-text me-3">
+                Connecté en tant que
+                <strong><%= user.nom || user.email %></strong>
+                <% if (user.role) { %>
+                  (<%= user.role %>)
+                <% } %>
+              </span>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-warning" href="/auth/logout">Se déconnecter</a>
+            </li>
+          <% } else { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/auth/login-page">Connexion</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/auth/register-page">Inscription</a>
+            </li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </nav>
 </header>

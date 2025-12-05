@@ -1,21 +1,65 @@
-<div class="article-card">
-  <img src="/img/<%= article.image %>" alt="<%= article.titre %>" />
+<div class="card shadow-sm">
+  <div class="row g-0">
+    <!-- Image -->
+    <div class="col-md-3 d-flex align-items-stretch">
+      <% if (article.image) { %>
+        <img
+          src="/img/<%= article.image %>"
+          class="img-fluid rounded-start w-100 h-100 object-fit-cover"
+          alt="<%= article.titre %>"
+        >
+      <% } else { %>
+        <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light rounded-start">
+          <span class="text-muted small">Aucune image</span>
+        </div>
+      <% } %>
+    </div>
 
-  <p><strong>Titre :</strong> <%= article.titre %></p>
-  <p><strong>status :</strong> <%= article.status %></p>
-  <p><strong>Date de publication :</strong> <%= article.date_publication %></p>
-  <p><strong>Quantité disponible :</strong> <%= article.quantite %></p>
+    <!-- Texte -->
+    <div class="col-md-9">
+      <div class="card-body">
+        <h5 class="card-title mb-2"><%= article.titre %></h5>
 
-  <!-- Actions -->
-  <a href="/articles/<%= article.id_article %>/edit">
-    <button type="button">Edit</button>
-  </a>
+        <p class="mb-1">
+          <strong>Status :</strong>
+          <span class="<%= article.status === 'disponible' ? 'text-success' : 'text-danger' %>">
+            <%= article.status %>
+          </span>
+        </p>
 
-  <form action="/articles/<%= article.id_article %>/delete" method="post" style="display:inline;">
-    <button type="submit">Delete</button>
-  </form>
+        <p class="mb-1">
+          <strong>Date de publication :</strong>
+          <%= article.date_publication %>
+        </p>
 
-  <a href="/articles/<%= article.id_article %>">
-    <button type="button">Profile</button>
-  </a>
+        <p class="mb-3">
+          <strong>Quantité disponible :</strong>
+          <%= article.quantite %>
+        </p>
+
+        <div class="d-flex flex-wrap gap-2">
+          <!-- Profil / détails -->
+          <a href="/articles/<%= article.id_article %>" class="btn btn-sm btn-outline-primary">
+            Profile
+          </a>
+
+          <!-- Edit : page de formulaire GET (à toi de définir la route) -->
+          <a href="/articles/<%= article.id_article %>/edit" class="btn btn-sm btn-outline-secondary">
+            Edit
+          </a>
+
+          <!-- Delete : méthode DELETE sur /articles/:id_article -->
+          <form action="/articles/<%= article.id_article %>?_method=DELETE" method="post" class="d-inline">
+            <button
+              type="submit"
+              class="btn btn-sm btn-outline-danger"
+              onclick="return confirm('Supprimer cet article ?');"
+            >
+              Delete
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
