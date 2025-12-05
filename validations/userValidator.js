@@ -1,17 +1,17 @@
-// validators/userValidator.js
-const { body, param } = require('express-validator');
+// validations/userValidator.js
+import { body, param } from 'express-validator';
 
-exports.createUserValidation = [
+export const createUserValidation = [
   body('email')
     .isEmail().withMessage('Email invalide')
     .normalizeEmail(),
   body('password')
     .isLength({ min: 6 }).withMessage('Le mot de passe doit contenir au moins 6 caractères'),
   body('nom')
-    .notEmpty().withMessage('Le nom est obligatoire')
+    .notEmpty().withMessage('Le nom est obligatoire'),
 ];
 
-exports.updateUserValidation = [
+export const updateUserValidation = [
   param('id')
     .isInt().withMessage('ID utilisateur invalide'),
   body('email')
@@ -20,5 +20,5 @@ exports.updateUserValidation = [
     .normalizeEmail(),
   body('nom')
     .optional()
-    .notEmpty().withMessage('Le nom ne peut pas être vide')
-];w
+    .notEmpty().withMessage('Le nom ne peut pas être vide'),
+];

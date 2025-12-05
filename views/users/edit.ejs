@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+</head>
+<body>
+  <h1>Modifier un utilisateur</h1>
+
+  <% if (error) { %>
+    <p style="color: red;"><%= error %></p>
+  <% } %>
+
+  <form action="/users/<%= user.id_user %>/edit" method="POST">
+    <div>
+      <label for="nom">Nom :</label>
+      <input type="text" id="nom" name="nom" value="<%= user.nom %>" required />
+    </div>
+
+    <div>
+      <label for="email">Email :</label>
+      <input type="email" id="email" name="email" value="<%= user.email %>" required />
+    </div>
+
+    <div>
+      <label for="mot_de_passe">Nouveau mot de passe (optionnel) :</label>
+      <input type="password" id="mot_de_passe" name="mot_de_passe" />
+      <small>Laisser vide pour ne pas changer le mot de passe.</small>
+    </div>
+
+    <div>
+      <label for="role">Rôle :</label>
+      <select id="role" name="role" required>
+        <option value="user" <%= user.role === 'user' ? 'selected' : '' %>>user</option>
+        <option value="admin" <%= user.role === 'admin' ? 'selected' : '' %>>admin</option>
+      </select>
+    </div>
+
+    <button type="submit">Enregistrer</button>
+  </form>
+
+  <p><a href="/users">Retour à la liste</a></p>
+</body>
+</html>

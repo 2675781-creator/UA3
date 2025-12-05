@@ -1,43 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
-<%- include('../partials/head', { title: 'Ajouter un article' }) %>
+<html lang="fr">
+  <head>
+    <%- include('../partials/head', { title: 'Nouvel article' }) %>
+  </head>
+  <body>
+    <%- include('../partials/header') %>
 
-    <body>
-        <%- include('../partials/header') %>
-            <main class="wrapper">
-                <h1>Ajouter article</h1>
-                <form action="/articles" method="POST" enctype="multipart/form-data">
-                    <div class="mb-2">
-                        <label for="titre" class="form-label">Titre</label>
-                        <input required type="text" class="form-control" id="titre" name="titre" placeholder="Entrez le titre">
-                    </div>
-                    <div class="mb-2">
-                        <label for="date_publication" class="form-label">Date de publication</label>
-                        <input type="date" class="form-control" id="date_publication" name="date_publication" placeholder="Entrez la date de publication">
-                    </div>
-                    <div class="mb-2">
-                        <label for="status" class="form-label">Status</label>
-                        <input type="text" class="form-control" id="status" name="status" placeholder="Entrez le status de l'article">
-                    </div>
-                    <div class="mb-2">
-                        <label for="quantite" class="form-label">Quantite</label>
-                        <input type="number" class="form-control" id="quantite" name="quantite" placeholder="Entrez la quantite">
-                    </div>
-                    <div class="mb-2">
-                        <label for="id_auteur" class="form-label">identifiant de l'auteur</label>
-                        <input required type="number" class="form-control" id="id_auteur" name="id_auteur" placeholder="Entrez l'identifiant de l'auteur">
-                    </div>
-                    <div class="mb-2">
-                        <label for="id_categorie" class="form-label">identifiant de la categorie</label>
-                        <input required type="number" class="form-control" id="id_categorie" name="id_categorie" placeholder="Entrez l'identifiant de la categorie">
-                    </div>
-                    <div class="mb-2">
-                        <label for="id_employe" class="form-label">id de l'employe</label>
-                        <input required type="number" class="form-control" id="id_employe" name="id_employe" placeholder="Entrez l'identifiant de l'employe">
-                    </div>
-                    <button class="btn btn-success" type="submit">Ajouter</button>
-                </form>
-            </main>
-            <%- include('../partials/footer') %>
-    </body>
+    <main class="wrapper">
+      <h1>Ajouter un article</h1>
+
+      <form action="/articles/new" method="post">
+        <label for="titre">Titre</label>
+        <input type="text" id="titre" name="titre" required />
+
+        <label for="status">Status</label>
+<select id="status" name="status" required>
+  <option value="">-- Sélectionnez un statut --</option>
+  <option value="disponible">Disponible</option>
+  <option value="indisponible">Indisponible</option>
+</select>
+
+        <label for="date_publication">Date de publication</label>
+        <input type="date" id="date_publication" name="date_publication" required />
+
+        <label for="quantite">Quantité disponible</label>
+        <input type="number" id="quantite" name="quantite" min="0" required />
+
+        <!-- Auteur -->
+        <label for="id_auteur">Auteur</label>
+        <select id="id_auteur" name="id_auteur" required>
+          <option value="">-- Sélectionnez un auteur --</option>
+          <% auteurs.forEach(auteur => { %>
+            <option value="<%= auteur.id_auteur %>">
+              <%= auteur.nom %> <%= auteur.prenom %>
+            </option>
+          <% }) %>
+        </select>
+
+        <!-- Catégorie -->
+        <label for="id_categorie">Catégorie</label>
+        <select id="id_categorie" name="id_categorie" required>
+          <option value="">-- Sélectionnez une catégorie --</option>
+          <% categories.forEach(categorie => { %>
+            <option value="<%= categorie.id_categorie %>">
+              <%= categorie.nom_categorie %>
+            </option>
+          <% }) %>
+        </select>
+
+        <!-- Employé -->
+        <label for="id_employe">Employé</label>
+        <select id="id_employe" name="id_employe" required>
+          <option value="">-- Sélectionnez un employé --</option>
+          <% employes.forEach(employe => { %>
+            <option value="<%= employe.id_employe %>">
+              <%= employe.nom %> <%= employe.prenom %>
+            </option>
+          <% }) %>
+        </select>
+
+        <button type="submit">Créer</button>
+      </form>
+
+      <a href="/articles">Annuler</a>
+    </main>
+
+    <%- include('../partials/footer') %>
+  </body>
+
+
+<script>
+  document.querySelector("form").addEventListener("submit", function (e) {
+    const auteurSelect = document.getElementById("id_auteur");
+    const categorieSelect = document.getElementById("id_categorie");
+    const employeSelect = document.getElementById("id_employe");
+
+    console.log("Auteur - value:", auteurSelect.value, "texte:", auteurSelect.options[auteurSelect.selectedIndex].text);
+    console.log("Catégorie - value:", categorieSelect.value, "texte:", categorieSelect.options[categorieSelect.selectedIndex].text);
+    console.log("Employé - value:", employeSelect.value, "texte:", employeSelect.options[employeSelect.selectedIndex].text);
+
+    const fd = new FormData(this);
+    const entries = {};
+    for (const [k, v] of fd.entries()) {
+      entries[k] = v;
+    }
+    console.log("FormData au submit :", entries);
+  });
+</script>
+
+
 </html>

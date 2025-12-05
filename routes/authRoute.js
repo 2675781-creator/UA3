@@ -1,16 +1,21 @@
-// routes/authRoute.js
 import { Router } from "express";
-import { register, login, getAllUsers  } from "../controllers/authController.js";
+import {
+  loginPage,
+  loginFormHandler,
+  registerPage,
+  registerFormHandler,
+  logout,
+} from "../controllers/authPageController.js";
 
 const authRoute = Router();
 
-// Optionnel : inscription
-authRoute.post("/register", register);
+// PAGES EJS
+authRoute.get("/login-page", loginPage);
+authRoute.post("/login-page", loginFormHandler);
 
-// Obligatoire : login
-authRoute.post("/login", login);
+authRoute.get("/register-page", registerPage);
+authRoute.post("/register-page", registerFormHandler);
 
-// Liste de tous les utilisateurs
-authRoute.get("/users", getAllUsers);
+authRoute.get("/logout", logout);
 
 export default authRoute;

@@ -2,7 +2,6 @@ import { Router } from "express";
 import { authorizeRoles } from "../middlewares/roleMiddleware.js";
 import {
   addAuteur,
-  addAuteurForm,
   deleteAuteur,
   getAllAuteur,
   getAuteurProfile,
@@ -19,11 +18,10 @@ import validate from "../middlewares/validationResult.js";
 const auteurRoute = Router();
 
 auteurRoute
-  .get("/list-auteur", getAllAuteur)
-  .get("/add-auteur", addAuteurForm)
+  .get("/", getAllAuteur)
   .get("/:id_auteur", getAuteurProfile)
   .post("/", createAuteurValidation, validate, addAuteur)
   .put("/:id_auteur", updateAuteurValidation, validate, updateAuteur)
-  .delete("/:id_auteur", authorizeRoles("admin"), deleteAuteur)
-  
+  .delete("/:id_auteur", authorizeRoles("admin"), deleteAuteur);
+
 export default auteurRoute;

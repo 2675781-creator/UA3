@@ -1,16 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
-<%- include('../partials/head', { title: 'Liste des auteurs' }) %>
-<body>
+<html lang="fr">
+  <head>
+    <%- include('../partials/head', { title }) %>
+  </head>
+  <body>
     <%- include('../partials/header') %>
+
     <main class="wrapper">
-        <h1>Liste des auteurs</h1>
-        <div class="list">
-            <% auteurs.forEach(auteur => { %>
-                <%- include('./auteur-element', { auteur: auteur }) %>
-            <% }) %>
-        </div>
+      <h1>Liste des auteurs</h1>
+
+      <p><a href="/auteurs/new">Ajouter un auteur</a></p>
+
+      <% if (auteurs.length === 0) { %>
+        <p>Aucun auteur pour le moment.</p>
+      <% } else { %>
+        <% auteurs.forEach(auteur => { %>
+          <section class="card">
+            <h2><%= auteur.prenom %> <%= auteur.nom %></h2>
+
+            <form action="/auteurs/<%= auteur.id_auteur %>/delete" method="post">
+              <a href="/auteurs/<%= auteur.id_auteur %>/edit">Edit</a>
+              <button type="submit" onclick="return confirm('Supprimer cet auteur ?');">
+                Delete
+              </button>
+              <a href="/auteurs/<%= auteur.id_auteur %>">Profile</a>
+            </form>
+          </section>
+        <% }) %>
+      <% } %>
     </main>
+
     <%- include('../partials/footer') %>
-</body>
+  </body>
 </html>

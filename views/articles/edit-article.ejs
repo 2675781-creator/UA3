@@ -1,60 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
-<%- include('../partials/head', { title: 'Modifier un article' }) %>
+<html lang="fr">
+  <head>
+    <%- include('../partials/head', { title: title }) %>
+  </head>
+  <body>
+    <%- include('../partials/header') %>
 
-    <body>
-        <%- include('../partials/header') %>
-            <main class="wrapper">
-                <h1>Modfier un article</h1>
-                <form action="/articles/<%= article.id_article %>?_method=PUT" method="POST" enctype="multipart/form-data">
-                    <div class="mb-2">
-                        <label for="titre" class="form-label">Titre</label>
-                        <input required type="text" class="form-control" id="titre" name="titre" value="<%= article.titre %>" placeholder="Entrez le titre">
-                    </div>
-                    <div class="mb-2">
-                        <label for="date_publication" class="form-label">Date de publication</label>
-                        <input type="date" class="form-control" id="date_publication" name="date_publication" value="<%= article.date_publication %>" placeholder="Entrez la date de publication">
-                    </div>
-                    <div class="mb-2">
-                        <label for="status" class="form-label">Status</label>
-                        <input type="text" class="form-control" id="status" name="status" value="<%= article.status %>" placeholder="Entrez le status">
-                    </div>
-                    <div class="mb-2">
-                        <label for="quantite" class="form-label">Quantite</label>
-                        <input type="number" class="form-control" id="quantite" name="quantite" value="<%= article.quantite %>" placeholder="Entrez la quantite">
-                    </div>
-                    <div class="mb-2">
-                        <label for="id_auteur" class="form-label">identifiant de l'auteur</label>
-                        <select name="id_auteur" class="form-select" aria-label="Large">
-                            <option selected>Ouvrir le menu des identifiant de chaque auteurs</option>
-                            <% auteurs.forEach(auteur => { %>
-                                <option value="<%= auteur.id_auteur %>"> <%= auteur.nom %> </option>
-                            <% }) %>
-                        </select>
-                    </div>
-                    <div class="mb-2">
-                        <label for="id_categorie" class="form-label">identifiant de la categorie</label>
-                        <select name="id_categorie" class="form-select" aria-label="Large select">
-                            <option selected>Ouvrir le menu des identifiant de chaque categories</option>
-                                <% categories.forEach(categorie => { %>
-                                    <option value="<%= categorie.id_categorie %>"> <%= categorie.nom_categorie %> </option>
-                                <% }) %>
-                        </select>
-                    </div>
-                    <div class="mb-2">
-                        <label for="id_employe" class="form-label">id de l'employe</label>
-                        <select name="id_employe" class="form-select" aria-label="Large select">
-                            <option selected>Ouvrir le menu des identifiant de chaque employes</option>
-                                <% employes.forEach(employe => { %>
-                                    <option value="<%= employe.id_employe %>"> <%= employe.nom %> </option>
-                                <% }) %>
-                            </option>
-                        </select>
-                
-                    </div>
-                    <button class="btn btn-success" type="submit">Modifier</button>
-                </form>
-            </main>
-            <%- include('../partials/footer') %>
-    </body>
+    <main class="wrapper">
+      <h1>Modifier l'article : <%= article.titre %></h1>
+
+      <!-- IMPORTANT : on envoie vers /articles/:id_article/edit en POST -->
+      <form action="/articles/<%= article.id_article %>/edit" method="post">
+        <label>Titre</label>
+        <input type="text" name="titre" value="<%= article.titre %>" />
+
+        <label>Status</label>
+        <input type="text" name="status" value="<%= article.status %>" />
+
+        <label>Date de publication</label>
+        <input
+          type="date"
+          name="date_publication"
+          value="<%= article.date_publication %>"
+        />
+
+        <label>Quantité disponible</label>
+        <input
+          type="number"
+          name="quantite"
+          value="<%= article.quantite %>"
+        />
+
+        <button type="submit">Enregistrer</button>
+      </form>
+
+      <a href="/articles">Annuler</a>
+    </main>
+
+    <%- include('../partials/footer') %>
+  </body>
 </html>

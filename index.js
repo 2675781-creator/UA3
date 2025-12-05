@@ -4,8 +4,6 @@ import helmet from "helmet";
 import cors from "cors";
 import dotenv from "dotenv";
 import database from "./config/connection.js";
-import methodOverride from "method-override";
-import session from 'express-session';
 
 import auteurRoute from "./routes/auteurRoute.js";
 import categorieRoute from "./routes/categorieRoute.js";
@@ -15,6 +13,8 @@ import empruntRoute from "./routes/empruntRoute.js";
 import articleRoute from "./routes/articleRoute.js";
 import authRoute from "./routes/authRoute.js";
 import authMiddleware from "./middlewares/authMiddleware.js";
+
+
 
 // IMPORTANT : importe les modèles + relations AVANT le sync
 import "./modeles/relations.js";
@@ -29,18 +29,6 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/public', express.static('public'))
-app.use(methodOverride('_method'))
-app.use(express.static("./node_modules/bootstrap/dist/"))
-
-//Cacher le token dans le navigateur
-app.use(session({
-    secret: ENV.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false } //mettre a true si https
-}))
-
 
 const PORT = process.env.PORT || 8000;
 console.log("Variables d'environnement :", {
@@ -52,19 +40,16 @@ console.log("Variables d'environnement :", {
 
 // Route de test
 app.get("/", (req, res) => {
-  res.send("Bienvenue sur l'API UA3 !");
+  res.send("Bienvenue sur l'API UA2 !");
 });
 
-app.set('view engine', 'ejs')
-app.set('views', './views')
-
 // Routes API
-app.use("/articles", articleRoute);
-app.use("/categories", categorieRoute);
-app.use("/clients", clientRoute);
-app.use("/employes", employeRoute);
-app.use("/auteurs", auteurRoute);
-app.use("/emprunts", authMiddleware, empruntRoute);
+app.use("/api/articles", articleRoute);
+app.use("/api/categories", categorieRoute);
+app.use("/api/clients", clientRoute);
+app.use("/api/employes", employeRoute);
+app.use("/api/auteurs", auteurRoute);
+app.use("/api/emprunts", authMiddleware, empruntRoute);
 app.use("/api/auth", authRoute);
 
 
@@ -76,6 +61,7 @@ const startServer = async () => {
     console.log("Connexion à la base de données réussie ");
 
     // Synchronisation des tables 
+    await database.sync({ alter: true });
     //console.log("Tables synchronisées avec la base ");
 
     // Lancement du serveur HTTP
