@@ -37,7 +37,7 @@ export const addCategorie = async (req, res) => {
       });
     }
     const categorie = await Categorie.create(newCategorie);
-    res.redirect("/list-categorie")
+    res.redirect("/categories/list-categorie")
     /*res.status(201).json({
       message: "Catégorie ajoutée avec succès",
       data: categorie,
@@ -61,7 +61,7 @@ export const deleteCategorie = async (req, res) => {
     const nbDeleted = await Categorie.destroy({ where: { id_categorie } });
 
     if (nbDeleted === 0) {
-      res.render("./categories/list-categorie")
+      res.redirect("/categories/list-categorie")
       /*
       return res.status(404).json({
         message: `Aucune catégorie trouvée avec l'id ${id_categorie}`,
@@ -88,11 +88,11 @@ export const getCategorieProfile = async (req, res) => {
         message: `Aucune catégorie trouvée avec l'id ${id_categorie}`,
       });
     }
-
-    res.status(200).json({
+    res.render("./categories/profile-categorie", {categorie})
+    /*res.status(200).json({
       message: "Profil d'une catégorie",
-      data: categorie,
-    });
+      data: categorie
+    });*/
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -124,7 +124,7 @@ export const updateCategorie = async (req, res) => {
     }
 
     const categorie = await Categorie.findByPk(id_categorie);
-    res.redirect("/list-categorie")
+    res.redirect("/categories/list-categorie")
     /*res.status(200).json({
       message: `Catégorie ${id_categorie} mise à jour avec succès`,
       data: categorie,

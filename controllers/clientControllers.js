@@ -6,7 +6,7 @@ export async function getAllClient(req, res) {
   try {
     const clients = await Client.findAll()
     //res.status(200).json({ message: "liste de tous les clients", data: clients })
-    res.render("./clients/list-client", {clients})
+    return res.render("./clients/list-client", {clients})
   } catch (error) {
     res.status(404).json({ message: error.message })
   }
@@ -15,9 +15,13 @@ export async function getAllClient(req, res) {
 // formulaire pour ajouter un client
 export const addClientForm = async (req, res) =>{
   try{
-    const clients = await Client.findAll();
+    
     const articles = await Article.findAll();
-    res.render("./clients/add-client", {clients, articles})
+    return res.render("./clients/add-client", {
+      articles,
+      errors: [],
+      oldInput: {}
+    })
   }
   catch(error){
     res.json({message:error.message})
@@ -30,17 +34,29 @@ export const addClient = async (req, res) => {
   try {
     const existing = await Client.findOne({ where: { nom: newClient.nom } });
     if (existing) {
-      return res.status(400).json({
-        message: "Un client avec ce nom existe déjà.",
+      const articles = await Article.findAll(); //recharger les articles
+      return res.status(400).render("./clients/add-client", {
+        errors: [{ msg: "Un client avec ce nom existe déjà."}],
+        oldInput: req.body, //conserver les valeurs saisies en cas d'erreur
+        articles
       });
+      //return res.status(400).json({
+     //   message: "Un client avec ce nom existe déjà.",
+      //});
     }
-    const client = await Client.create(newClient)
-    res.redirect("/list-client")
+
+    await Client.create(newClient);
+    return res.redirect("/clients"); //redirige vers la liste
     //res.status(201).json({ message: "Client ajouté avec succès", client })
   } catch (error) {
-    res.status(400).json({ message: error.message })
+    const articles = await Article.findAll();
+    return res.status(500).render("./clients/add-client", {
+      errors: [{ msg: error.message}],
+      oldInput: req.body,
+      articles
+    });
   }
-}
+};
 
 // Suppression d'un Client
 export const deleteClient = async (req, res) => {
@@ -63,7 +79,7 @@ export const deleteClient = async (req, res) => {
         .status(404)
         .json({ message: `Aucun client trouvé avec l'id ${id_client}` })
     }
-    res.render("./clients/list-client")
+    return res.redirect("/clients")
     /*res
       .status(200)
       .json({ message: `Le client ${id_client} a été supprimé avec succès` })*/
@@ -78,14 +94,16 @@ export const getClientProfile = async (req, res) => {
 
   try {
     // ICI tu faisais `findByPk(id)` au lieu de `id_client`
-    const client = await Client.findByPk(id_client)
+    const client = await Client.findByPk(id_client, {
+      include: [Article] // si relation définie
+    });
 
     if (!client) {
       return res
         .status(404)
         .json({ message: `Aucun client trouvé avec l'id ${id_client}` })
     }
-    res.render("./clients/list-client", {client})
+    return res.render("./clients/profile-client", {client})
     //res.status(200).json({ message: "Profil d'un Client", data: client })
   } catch (error) {
     res.status(500).json({ message: error.message })
@@ -99,6 +117,7 @@ export const updateClient = async (req, res) => {
     nom: req.body.nom,
     prenom: req.body.prenom,
     article_prefere: req.body.article_prefere,
+    id_article: req.body.id_article
   }
 
   if (!id_client) {
@@ -109,7 +128,7 @@ export const updateClient = async (req, res) => {
 
   try {
     const [nbUpdated] = await Client.update(updatedClient, {
-      where: { id_client },
+      where: { id_client }
     })
 
     if (nbUpdated === 0) {
@@ -119,8 +138,8 @@ export const updateClient = async (req, res) => {
     }
 
     //  renvoyer le client mis à jour
-    const client = await Client.findByPk(id_client)
-    res.redirect("/list-client")
+    
+    return res.redirect("/clients")
     /*res.status(200).json({
       message: `Client ${id_client} mis à jour avec succès`,
       data: client,

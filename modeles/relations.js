@@ -27,4 +27,7 @@ Emprunt.belongsTo(Client, { foreignKey: 'id_client' });
 Article.hasMany(Emprunt, { foreignKey: 'id_article' });
 Emprunt.belongsTo(Article, { foreignKey: 'id_article' });
 
+Client.belongsTo(Article, { foreignKey: 'id_article' });
+Article.hasMany(Client, { foreignKey: 'id_article' });
+
 export { Auteur, Article, Categorie, Client, Employe, Emprunt };

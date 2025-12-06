@@ -33,12 +33,13 @@ app.use('/public', express.static('public'))
 app.use(methodOverride('_method'))
 app.use(express.static("./node_modules/bootstrap/dist/"))
 
+
 //Cacher le token dans le navigateur
 app.use(session({
-    secret: ENV.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } //mettre a true si https
+    cookie: { secure: false, httpOnly: true } //mettre a true si https
 }))
 
 
@@ -58,6 +59,7 @@ app.get("/", (req, res) => {
 app.set('view engine', 'ejs')
 app.set('views', './views')
 
+
 // Routes API
 app.use("/articles", articleRoute);
 app.use("/categories", categorieRoute);
@@ -67,7 +69,6 @@ app.use("/auteurs", auteurRoute);
 app.use("/emprunts", authMiddleware, empruntRoute);
 app.use("/api/auth", authRoute);
 
-
 //  Démarrage du serveur + création des tables Sequelize 
 const startServer = async () => {
   try {
@@ -76,6 +77,7 @@ const startServer = async () => {
     console.log("Connexion à la base de données réussie ");
 
     // Synchronisation des tables 
+    //database.sync({ alter: true })
     //console.log("Tables synchronisées avec la base ");
 
     // Lancement du serveur HTTP

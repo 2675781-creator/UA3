@@ -7,8 +7,9 @@ export const createClientValidation = [
     .notEmpty().withMessage('Le prénom est obligatoire'),
   body('article_prefere')
     .notEmpty().withMessage('L’article préféré est obligatoire'),
-  body('numero_article')
-    .isInt({ min: 1 }).withMessage('Le numéro d’article doit être un entier positif'),
+  body('id_article')
+    .notEmpty().withMessage("Veuillez sélectionner un article")
+    .isInt({ min: 1 }).withMessage('ID article doit être un entier positif'),
 ];
 
 export const updateClientValidation = [
@@ -23,7 +24,7 @@ export const updateClientValidation = [
   body('article_prefere')
     .optional()
     .notEmpty().withMessage('L’article préféré ne peut pas être vide'),
-  body('numero_article')
+  body('id_article')
     .optional()
-    .isInt({ min: 1 }).withMessage('Le numéro d’article doit être un entier positif'),
+    .isInt({ min: 1 }).withMessage('ID article doit être un entier positif'),
 ];

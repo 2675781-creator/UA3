@@ -11,14 +11,21 @@
             article_prefere:<%= client.article_prefere %>
         </p>
          <p class="card-text">
-            numero_article:<%= client.id_article %>
+            id_article:<%= client.id_article %>
         </p>
     </div>
-    </div>
+    
     <div class="card-footer"> 
-        <button class="btn btn-primary">Edit</button>
-        <button class="btn btn-danger">Delete</button>
-        <button class="btn btn-success">Profile</button>
+       
+        <form action="/clients/<%= client.id_client %>/edit" method="GET">
+            <button type="submit" class="btn btn-primary">Modifier</button>
+        </form>
+        
+        <form action="/clients/<%= client.id_client %>?_method=DELETE" method="POST">
+            <button type="submit" class="btn btn-danger">Supprimer</button>
+        </form>
+        <form action="/clients/<%= client.id_client %>" method="GET">
+            <button type="submit" class="btn btn-success">Profil</button>
+        </form>
     </div>
-
 </div>

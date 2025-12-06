@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<%- include('../partials/head', { title: 'Profil du client' }) %>
+<body>
+    <%- include('../partials/header') %>
+    <main class="wrapper">
+        <h1>Profil du client</h1>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><%= client.nom %> <%= client.prenom %></h5>
+                <p class="card-text">Article préféré <%= client.article_prefere %></p>
+                <p class="card-text">ID Article <%= client.id_article %></p>
+            </div>
+            <div class="card-footer">
+                <a href="/clients/edit/<%= client.id_client" class="btn btn-primary">Modifier</a>
+                <form action="/clients/<%= client.id_client %>?_method=DELETE" method="POST">
+                    <button type="submit" class="btn btn-danger">Supprimer</button>   
+                </form>
+                <a href="/clients/list-client" class="btn btn-secondary">Retour à la liste</a>
+            </div>
+        </div>
+    </main>
+    <%- include('../partials/footer') %>
+</body>
+</html>

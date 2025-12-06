@@ -14,7 +14,10 @@ export async function getAllEmploye(req, res) {
 // formulaire pour ajouter un employe
 export const addEmployeForm = async (req, res) =>{
   try{
-    res.render("./employes/add-employe")
+    return res.render("./employes/add-employe", {
+      errors: [],
+      oldInput: {}
+    })
   }
   catch(error){
     res.json({message:error.message})
@@ -28,15 +31,24 @@ export const addEmploye = async (req, res) => {
     // Vérifier si un client avec le même nom existe déjà
     const existing = await Employe.findOne({ where: { nom: newEmploye.nom } });
     if (existing) {
-      return res.status(400).json({
-        message: "Un client avec ce nom existe déjà.",
-      });
+      return res.status(400).render("./employes/add-employe", {
+        errors: [{ msg: "Un employe avec ce nom existe déjà."}],
+        oldInput: req.body
+      })
+      /*return res.status(400).json({
+        message: "Un employé avec ce nom existe déjà.",
+      });*/
     }
-    const employe = await Employe.create(newEmploye);
-    res.redirect("/list-employe")
+    await Employe.create(newEmploye);
+    console.log("nouvel employé reçu :", newEmploye)
+    return res.redirect("/employes")
     //res.status(201).json({ message: "Employe ajouté avec succès", data: employe });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    return res.status(500).render("./employes/add-employe", {
+      errors: [{ msg: error.message}],
+      oldInput: req.body
+    })
+    //res.status(400).json({ message: error.message });
   }
 };
 
@@ -58,7 +70,7 @@ export const deleteEmploye = async (req, res) => {
         .status(404)
         .json({ message: `Aucun employe trouvé avec l'id ${id_employe}` });
     }
-    res.render("./employes/list-employe")
+    return res.redirect("/employes")
     /*res
       .status(200)
       .json({ message: `L'employe ${id_employe} a été supprimé avec succès` });*/
@@ -79,7 +91,7 @@ export const getEmployeProfile = async (req, res) => {
         .status(404)
         .json({ message: `Aucun employe trouvé avec l'id ${id_employe}` });
     }
-    res.render("./employes/list-employe", {employe})
+    return res.render("./employes/profile-employe", {employe})
     //res.status(200).json({ message: "Profil d'un employe", data: employe });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -115,8 +127,7 @@ export const updateEmploye = async (req, res) => {
         .json({ message: `Aucun employe trouvé avec l'id ${id_employe}` });
     }
 
-    const employe = await Employe.findByPk(id_employe);
-    res.redirect("/list-employe")
+    res.redirect("/employes")
     /*res.status(200).json({
       message: `Employe ${id_employe} mis à jour avec succès`,
       data: employe,
