@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
-<%- include('../partials/head', { title: 'Modifier un employe' }) %>
+<%- include('../partials/head', { title: "Modifier un employe' }) %>
     <body>
         <%- include('../partials/header') %>
             <main class="wrapper">
                 <h1>Modfier un employe</h1>
-                <form action="/employes/<%= employe.id_employe %>?_method=PUT" method="POST" enctype="multipart/form-data">
+                <form action="/employes/<%= employe.id_employe %>?_method=PUT" method="POST">
                     <div class="mb-2">
                         <label for="nom" class="form-label">Nom</label>
                         <input required type="text" class="form-control" id="nom" name="nom" value="<%= employe.nom %>" placeholder="Entrez le nom">
@@ -21,7 +21,7 @@
                     </div>
                     <div class="mb-2">
                         <label for="role" class="form-label">Role</label>
-                        <select name="role" class="form-select" aria-label="Large">
+                        <select id="role" name="role" class="form-select" aria-label="Large">
                             <option selected>Ouvrir le menu des identifiant de chaque role</option>
                             <option value="admin">Admin</option>
                             <option value="secretaire">Secretaire</option>

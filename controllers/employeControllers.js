@@ -24,11 +24,40 @@ export const addEmployeForm = async (req, res) =>{
   }
 }
 
+
+// formulaire pour ajouter un employe
+export const editEmployeForm = async (req, res) =>{
+  const { id_employe } = req.params;
+  try{
+    const employe = await employe.findByPk(id_employe);
+  
+    if (!employe) {
+      return res.status(404).render("./employes/list-employe", {
+        errors: [{ msg: `Aucun employe trouvé avec cette l'id ${id_employe}` }],
+        employes: await Employe.findAll()
+      })
+    }
+    return res.render("./employes/edit-employe", {
+      employe,
+      errors: [],
+      oldInput: {}
+    })
+  }
+  catch(error){
+    res.status(500).render("./employes/list-employe", {
+      errors: [{msg: error.message}],
+      employes: await Employe.findAll()
+    })
+    //res.json({message:error.message})
+  }
+}
+
+
 // Création d'un employe
 export const addEmploye = async (req, res) => {
   const newEmploye = req.body;
   try {
-    // Vérifier si un client avec le même nom existe déjà
+    // Vérifier si un employe avec le même nom existe déjà
     const existing = await Employe.findOne({ where: { nom: newEmploye.nom } });
     if (existing) {
       return res.status(400).render("./employes/add-employe", {

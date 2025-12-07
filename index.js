@@ -6,6 +6,11 @@ import dotenv from "dotenv";
 import database from "./config/connection.js";
 import methodOverride from "method-override";
 import session from 'express-session';
+//import {renderFile} from "ejs";
+import ejs from "ejs";
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 
 import auteurRoute from "./routes/auteurRoute.js";
 import categorieRoute from "./routes/categorieRoute.js";
@@ -16,6 +21,7 @@ import articleRoute from "./routes/articleRoute.js";
 import authRoute from "./routes/authRoute.js";
 import authMiddleware from "./middlewares/authMiddleware.js";
 
+
 // IMPORTANT : importe les modèles + relations AVANT le sync
 import "./modeles/relations.js";
 
@@ -24,23 +30,41 @@ dotenv.config();
 
 const app = express();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+//app.engine('ejs', renderFile)
+app.engine('ejs', ejs.renderFile)
+app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname,'views'));
+
+
 // Middlewares globaux
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false,
+}));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/public', express.static('public'))
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, "node_modules/bootstrap/dist/")))
 app.use(methodOverride('_method'))
-app.use(express.static("./node_modules/bootstrap/dist/"))
 
 
 //Cacher le token dans le navigateur
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false, httpOnly: true } //mettre a true si https
+    saveUninitialized: false,
+    cookie: { secure: false } //mettre a true si https
 }))
+
+// Middleware global pour rendre l'utilisateur disponible dans toutes les vues EJS
+app.use((req, res, next) => {
+    // Récupère l'utilisateur stocké dans la session, s'il existe
+    res.locals.user = req.session.user || null; 
+    next();
+});
 
 
 const PORT = process.env.PORT || 8000;
@@ -56,8 +80,6 @@ app.get("/", (req, res) => {
   res.send("Bienvenue sur l'API UA3 !");
 });
 
-app.set('view engine', 'ejs')
-app.set('views', './views')
 
 
 // Routes API

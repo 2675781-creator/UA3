@@ -16,9 +16,17 @@
     </div>
     </div>
     <div class="card-footer"> 
-        <button class="btn btn-primary">Edit</button>
-        <button class="btn btn-danger">Delete</button>
-        <button class="btn btn-success">Profile</button>
+        <form action="/employes/<%= employe.id_employe %>/edit" method="GET">
+            <button type="submit" class="btn btn-primary">Modifier</button>
+        </form>
+        <form action="/employes/<%= employe.id_employe %>?_method=DELETE" method="POST">
+            <button class="btn btn-danger">Supprimer</button>
+        </form>
+        
+        <form action="/employes/<%= employe.id_employe %>" method="GET">
+            <button type="submit" class="btn btn-success">Profil</button>
+        </form>
+        
     </div>
 
 </div>

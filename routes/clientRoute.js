@@ -4,6 +4,7 @@ import {
   addClient,
   addClientForm,
   deleteClient,
+  editClientForm,
   getAllClient,
   getClientProfile,
   updateClient,
@@ -19,8 +20,9 @@ import validate from "../middlewares/validationResult.js";
 const clientRoute = Router();
 
 clientRoute
-  .get("/list-client", getAllClient)
+  .get("/", getAllClient)
   .get("/add-client", addClientForm)
+  .get("/:id_client/edit", editClientForm)
   .get("/:id_client", getClientProfile)
   .post("/", createClientValidation, validate, addClient)
   .put("/:id_client", updateClientValidation, validate, updateClient)

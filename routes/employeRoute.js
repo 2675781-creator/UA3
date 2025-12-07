@@ -4,6 +4,7 @@ import {
   addEmploye,
   addEmployeForm,
   deleteEmploye,
+  editEmployeForm,
   getAllEmploye,
   getEmployeProfile,
   updateEmploye,
@@ -19,8 +20,9 @@ import validate from "../middlewares/validationResult.js";
 const employeRoute = Router();
 
 employeRoute
-  .get("/list-employe", getAllEmploye)
+  .get("/", getAllEmploye)
   .get("/add-employe", addEmployeForm)
+  .get("/:id_employe/edit", editEmployeForm)
   .get("/:id_employe", getEmployeProfile)
   .post("/", createEmployeValidation, validate, addEmploye)
   .put("/:id_employe", updateEmployeValidation, validate, updateEmploye)

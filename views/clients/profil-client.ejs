@@ -12,7 +12,7 @@
                 <p class="card-text">ID Article <%= client.id_article %></p>
             </div>
             <div class="card-footer">
-                <a href="/clients/edit/<%= client.id_client" class="btn btn-primary">Modifier</a>
+                <a href="/clients/edit/<%= client.id_client %>" class="btn btn-primary">Modifier</a>
                 <form action="/clients/<%= client.id_client %>?_method=DELETE" method="POST">
                     <button type="submit" class="btn btn-danger">Supprimer</button>   
                 </form>
