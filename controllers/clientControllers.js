@@ -1,3 +1,4 @@
+import { title } from "process"
 import Article from "../modeles/Article.js"
 import Client from "../modeles/Client.js"
 
@@ -138,17 +139,22 @@ export const getClientProfile = async (req, res) => {
 
   try {
     // ICI tu faisais `findByPk(id)` au lieu de `id_client`
-    const client = await Client.findByPk(id_client, {
+    const clientFound = await Client.findByPk(id_client, {
       include: [Article] // si relation définie
     });
 
-    if (!client) {
-      return res
-        .status(404)
-        .json({ message: `Aucun client trouvé avec l'id ${id_client}` })
+    if (!clientFound) {
+      return res.status(404).render("clients/list-client", {
+        errors: [{ msg: "Aucun client trouvé" }],
+        clients: await Client.findAll(),
+        title: "Liste des clients"
+      })
+      //return res
+       // .status(404)
+       // .json({ message: `Aucun client trouvé avec l'id ${id_client}` })
     }
-    return res.render("clients/profile-client", {
-      client,
+    return res.render("clients/profil-client", {
+      clientData: clientFound,
       title: "Profil du client",
       errors: []
     })

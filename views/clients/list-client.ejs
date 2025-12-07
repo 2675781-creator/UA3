@@ -8,7 +8,9 @@
         <div class="list">
             <% clients.forEach(client => { %>
                 <%- include('./client-element', { client }) %>
+                <br>
             <% }) %>
+            
         </div>
     </main>
     <%- include('../partials/footer') %>
