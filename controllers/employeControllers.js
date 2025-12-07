@@ -1,3 +1,4 @@
+import { title } from "process";
 import Employe from "../modeles/Employe.js";
 
 // Lecture de la liste des employes
@@ -5,7 +6,11 @@ export async function getAllEmploye(req, res) {
   try {
     const employes = await Employe.findAll();
     //res.status(200).json({ message: "liste de tous les employes", data: employes });
-    res.render("./employes/list-employe", {employes})
+    return res.render("employes/list-employe", {
+      employes,
+      title: "Liste des employés",
+      errors: []
+    })
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -14,9 +19,10 @@ export async function getAllEmploye(req, res) {
 // formulaire pour ajouter un employe
 export const addEmployeForm = async (req, res) =>{
   try{
-    return res.render("./employes/add-employe", {
+    return res.render("employes/add-employe", {
       errors: [],
-      oldInput: {}
+      oldInput: {},
+      title: "Ajouter un employé"
     })
   }
   catch(error){
@@ -29,24 +35,27 @@ export const addEmployeForm = async (req, res) =>{
 export const editEmployeForm = async (req, res) =>{
   const { id_employe } = req.params;
   try{
-    const employe = await employe.findByPk(id_employe);
+    const employe = await Employe.findByPk(req.params.id_employe);
   
     if (!employe) {
-      return res.status(404).render("./employes/list-employe", {
+      return res.status(404).render("employes/list-employe", {
         errors: [{ msg: `Aucun employe trouvé avec cette l'id ${id_employe}` }],
-        employes: await Employe.findAll()
+        employes: await Employe.findAll(),
+        title: "Liste des employes"
       })
     }
-    return res.render("./employes/edit-employe", {
-      employe,
-      errors: [],
-      oldInput: {}
+    return res.render("employes/edit-employe", {
+      employeData: employe,
+      title: "Modifier un employe",
+      errors: {},
+      oldData: {}
     })
   }
   catch(error){
-    res.status(500).render("./employes/list-employe", {
+    res.status(500).render("employes/list-employe", {
       errors: [{msg: error.message}],
-      employes: await Employe.findAll()
+      employes: await Employe.findAll(),
+      title: "Liste des employés"
     })
     //res.json({message:error.message})
   }
@@ -60,22 +69,24 @@ export const addEmploye = async (req, res) => {
     // Vérifier si un employe avec le même nom existe déjà
     const existing = await Employe.findOne({ where: { nom: newEmploye.nom } });
     if (existing) {
-      return res.status(400).render("./employes/add-employe", {
+      return res.status(400).render("employes/add-employe", {
         errors: [{ msg: "Un employe avec ce nom existe déjà."}],
-        oldInput: req.body
+        oldInput: req.body,
+        title: "Ajouter un employe"
       })
       /*return res.status(400).json({
         message: "Un employé avec ce nom existe déjà.",
       });*/
     }
     await Employe.create(newEmploye);
-    console.log("nouvel employé reçu :", newEmploye)
+    //console.log("nouvel employé reçu :", newEmploye)
     return res.redirect("/employes")
     //res.status(201).json({ message: "Employe ajouté avec succès", data: employe });
   } catch (error) {
-    return res.status(500).render("./employes/add-employe", {
+    return res.status(500).render("employes/add-employe", {
       errors: [{ msg: error.message}],
-      oldInput: req.body
+      oldInput: req.body,
+      title: "Ajouter un employe"
     })
     //res.status(400).json({ message: error.message });
   }
@@ -116,11 +127,20 @@ export const getEmployeProfile = async (req, res) => {
     const employe = await Employe.findByPk(id_employe);
 
     if (!employe) {
-      return res
-        .status(404)
-        .json({ message: `Aucun employe trouvé avec l'id ${id_employe}` });
+      return res.status(404).render("employes/list-employe", {
+        errors: [{msg: "Aucun employe trouvé"}],
+        employes: await Employe.findAll(),
+        title: "Liste des employes"
+      })
+      //return res
+        //.status(404)
+        //.json({ message: `Aucun employe trouvé avec l'id ${id_employe}` });
     }
-    return res.render("./employes/profile-employe", {employe})
+    return res.render("employes/profile-employe", {
+      employeData: employe,
+      title: "Profil de l'employe",
+      errors: []
+    })
     //res.status(200).json({ message: "Profil d'un employe", data: employe });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -130,30 +150,49 @@ export const getEmployeProfile = async (req, res) => {
 // Mise à jour d'un employe
 export const updateEmploye = async (req, res) => {
   const { id_employe } = req.params;
-  const updatedEmploye = {
-    nom: req.body.nom,
-    prenom: req.body.prenom,
-    age: req.body.age,
-    role: req.body.role,
-    date_embauche: req.body.date_embauche,
-    numero_tache: req.body.numero_tache,
-  };
+  const {nom, prenom, age, role, date_embauche, numero_tache} = req.body;
 
-  if (!id_employe) {
-    return res
-      .status(400)
-      .json({ error: true, message: "L'id de l'employe est requis" });
+  let errors = {};
+  if (!nom || nom.trim() === "") errors.nom = "Le nom est obligatoire";
+  if (!prenom || prenom.trim() === "") errors.prenom = "Le prénom est obligatoire";
+
+  if(Object.keys(errors).length >0){
+    try{
+      const employe = {id_employe, ...req.body}
+      
+      return res.render("employes/edit-employe", {
+        title: "Modifier un employe",
+        employeData: employe,
+        errors,
+        oldData: req.body
+      });
+    }catch (error) {
+      return res.status(500).send("Erreur lors du chargement du formulaire : "+error.message);
+    }
   }
-
   try {
+    const updatedEmploye = {
+      nom,
+      prenom,
+      age,
+      role,
+      date_embauche,
+      numero_tache
+    };
+  
     const [nbUpdated] = await Employe.update(updatedEmploye, {
       where: { id_employe },
     });
 
     if (nbUpdated === 0) {
-      return res
-        .status(404)
-        .json({ message: `Aucun employe trouvé avec l'id ${id_employe}` });
+      return res.status(404).render("employes/list-employe", {
+        errors: [{msg: "Aucun employe trouvé pour la mise à jour"}],
+        employes: await Employe.findAll(),
+        title: "Liste des employes"
+      });
+      //return res
+       // .status(404)
+       // .json({ message: `Aucun employe trouvé avec l'id ${id_employe}` });
     }
 
     res.redirect("/employes")
@@ -162,6 +201,15 @@ export const updateEmploye = async (req, res) => {
       data: employe,
     });*/
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    try{
+      return res.status(500).render("employes/edit-employe", {
+        title: "Modifier un employe",
+        employeData: {id_employe, ...req.body},
+        errors: {general: "Erreur base de données: "+error.message},
+        oldData: req.body
+      })
+    }catch(err){
+      return res.status(500).send("Erreur critique : "+ err.message );
+    }    
   }
 };

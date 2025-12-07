@@ -25,7 +25,7 @@ export const addClientForm = async (req, res) =>{
     return res.render("clients/add-client", {
       articles,
       errors: [],
-      oldInput: {},
+      oldInput: {}
       
     });
   }
@@ -208,65 +208,62 @@ export const updateClient = async (req, res) => {
 
 // Mise à jour d'un client
 export const updateClient = async (req, res) => {
-  const { id_client } = req.params;
-  const { nom, prenom, article_prefere, id_article } = req.body;
 
-  // 1. Validation : Check for empty fields
+  const {id_client} = req.params;
+  const {nom, prenom, article_prefere, id_article} = req.body;
+
+  // Vérifier pour des champs vides
   let errors = {};
   if (!nom || nom.trim() === "") errors.nom = "Le nom est obligatoire";
   if (!prenom || prenom.trim() === "") errors.prenom = "Le prénom est obligatoire";
 
-  // 2. If there are errors, re-display the form with the user's input (Sticky Form)
-  if (Object.keys(errors).length > 0) {
-    try {
-      const articles = await Article.findAll(); // We need to reload the dropdown options
-      const clientFound = { id_client, ...req.body }; // Construct a temporary client object for the form URL
-
+  // Si il y a des erreurs, on reposition le formulaire avec l'input de l'utilisateur
+  if(Object.keys(errors).length > 0) {
+    try{
+      const articles = await Article.findAll();
+      const clientFound = {id_client, ...req.body}
+      
       return res.render("clients/edit-client", {
         title: "Modifier un client",
-        clientData: clientFound,      // Needed for the <form action="..."> URL
-        articles,    // Needed for the dropdown list
-        errors,      // Object containing error messages
-        oldData: req.body // <--- THE KEY: Pass back what the user typed
+        clientData: clientFound,
+        articles,
+        errors,
+        oldData: req.body
       });
     } catch (error) {
       return res.status(500).send("Erreur lors du chargement du formulaire : " + error.message);
     }
   }
+  try{
+    const updatedClient = {nom, prenom, article_prefere, id_article};
 
-  // 3. If no errors, proceed with the update
-  try {
-    const updatedClient = { nom, prenom, article_prefere, id_article };
-    
     const [nbUpdated] = await Client.update(updatedClient, {
-      where: { id_client }
+      where: { id_client}
     });
-
-    if (nbUpdated === 0) {
-      // Edge case: Client ID doesn't exist in DB
+  
+    if (nbUpdated === 0){
       return res.status(404).render("clients/list-client", {
-          errors: [{ msg: "Aucun client trouvé pour la mise à jour." }],
-          clients: await Client.findAll(),
-          title: "Liste des clients"
+        errors: [{msg: "Aucun client trouvé pour la mise à jour."}],
+        clients: await Client.findAll(),
+        title: "Liste des clients"
       });
     }
+    // Success! Redirection vers la liste
+    return res.redirect("/clients")  
+    
+  } catch(error) {
 
-    // Success! Redirect to the list
-    return res.redirect("/clients");
-
-  } catch (error) {
-    // Database error handling
-    try {
-        const articles = await Article.findAll();
-        return res.status(500).render("clients/edit-client", {
-            title: "Modifier un client",
-            clientData: { id_client, ...req.body }, 
-            articles,
-            errors: { general: "Erreur base de données: " + error.message },
-            oldData: req.body
-        });
-    } catch (err) {
-        return res.status(500).send("Erreur critique : " + err.message);
+    try{
+      const articles = await Article.findAll();
+      return res.status(500).render("clients/edit-client", {
+        title: "Modifier un client",
+        clientData: {id_client, ...req.body},
+        articles,
+        errors: { general: "Erreur base de donneés: "+ error.message},
+        oldData: req.body
+      });
+    } catch(err) {
+      return res.status(500).send("Erreur critique : "+err.message);
     }
   }
 }

@@ -26,6 +26,7 @@ employeRoute
   .get("/:id_employe", getEmployeProfile)
   .post("/", createEmployeValidation, validate, addEmploye)
   .put("/:id_employe", updateEmployeValidation, validate, updateEmploye)
-  .delete("/:id_employe", authorizeRoles("admin"), deleteEmploye)
-  
+  .delete("/:id_employe", deleteEmploye)
+
+  //authorizeRoles("admin"),
 export default employeRoute;
