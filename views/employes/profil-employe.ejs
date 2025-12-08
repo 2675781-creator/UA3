@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="fr">
-<%- include('../partials/head', { title: 'Profil du employe' }) %>
+<%- include('../partials/head', { title: 'Profil de l\'employé' }) %>
 <body>
     <%- include('../partials/header') %>
     <main class="wrapper">
         <h1>Profil du employe</h1>
-        <div class="card">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                Détails de l'employé #<%= employeData.id_employe %>
+            </div>
             <div class="card-body">
                 <h5 class="card-title"><%= employeData.nom %> <%= employeData.prenom %></h5>
-                <p class="card-text">Age <%= employeData.age %></p>
+                <p class="card-text">Âge <%= employeData.age %> ans </p>
                 <p class="card-text">Role <%= employeData.role %></p>
-                <p class="card-text">Date embauche <%= employeData.date_embauche %></p>
+                <p class="card-text">Date embauche : <%= new Date(employeData.date_embauche).toLocaleDateString("fr-FR") %></p>
                 <p class="card-text">Numero de tâche<%= employeData.numero_tache %></p>
             </div>
             <div class="card-footer">
-                <a href="/employes/edit/<%= employeData.id_employe" class="btn btn-primary">Modifier</a>
+                <a href="/employes/<%= employeData.id_employe %>/edit" class="btn btn-primary">Modifier</a>
                 <form action="/employes/<%= employeData.id_employe %>?_method=DELETE" method="POST">
                     <button type="submit" class="btn btn-danger">Supprimer</button>   
                 </form>
