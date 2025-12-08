@@ -18,9 +18,10 @@ import clientRoute from "./routes/clientRoute.js";
 import employeRoute from "./routes/employeRoute.js";
 import empruntRoute from "./routes/empruntRoute.js";
 import articleRoute from "./routes/articleRoute.js";
+import articlePageRoute from "./routes/articlePageRoute.js"
 import authRoute from "./routes/authRoute.js";
 import authMiddleware from "./middlewares/authMiddleware.js";
-
+import auteurPageRoute from "./routes/auteurPageRoute.js"
 
 // IMPORTANT : importe les modèles + relations AVANT le sync
 import "./modeles/relations.js";
@@ -83,11 +84,11 @@ app.get("/", (req, res) => {
 
 
 // Routes API
-app.use("/articles", articleRoute);
+app.use("/articles", articlePageRoute);
 app.use("/categories", categorieRoute);
 app.use("/clients", clientRoute);
 app.use("/employes", employeRoute);
-app.use("/auteurs", auteurRoute);
+app.use("/auteurs", auteurPageRoute);
 app.use("/emprunts", empruntRoute);
 app.use("/auth", authRoute);
 

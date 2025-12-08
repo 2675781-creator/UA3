@@ -67,6 +67,8 @@ export async function afficherFormEditArticle(req, res, next) {
       auteurs,
       categories,
       employes,
+      oldInput: {},
+      errors: {}
     });
   } catch (error) {
     next(error);
@@ -158,6 +160,7 @@ export async function creerArticleDepuisPage(req, res, next) {
       id_employe: Number(id_employe),
     });
 
+    
     res.redirect(`/articles/${nouvelArticle.id_article}`);
   } catch (error) {
     // Cas typique de doublon sur un champ unique
@@ -165,7 +168,7 @@ export async function creerArticleDepuisPage(req, res, next) {
       const [auteurs, categories, employes] = await getRelatedData()
       return res.status(400).render("articles/add-article", {
           title: "Nouvel article",
-          erreur: {title: "Un article avec ce titre existe déjà."},
+          errors: {titre: "Un article avec ce titre existe déjà."},
           // il faut renvoyer les listes si tu les utilises :
           auteurs,
           categories,

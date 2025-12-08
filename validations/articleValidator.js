@@ -9,7 +9,7 @@ export const createArticleValidation = [
     .isISO8601().withMessage('La date de publication doit être une date valide (YYYY-MM-DD)'),
   body('status')
     .notEmpty().withMessage('Le statut est obligatoire')
-    .isIn(['disponible', 'indisponible']) 
+    .isIn(['disponible', 'indisponible', 'reserve']) 
     .withMessage('Le statut doit être "disponible", "indisponible" ou "reserve"'),
   body('quantite')
     .isInt({ min: 0 }).withMessage('La quantité doit être un entier positif ou nul'),

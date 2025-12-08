@@ -12,8 +12,8 @@ import {
 const router = Router();
 
 //route spécifiques
-router.get("/new", afficherFormNewArticle);        
-router.post("/new", creerArticleDepuisPage);    
+router.get("/add-article", afficherFormNewArticle);        
+router.post("/add-article", creerArticleDepuisPage);    
 router.get("/:id_article/edit", afficherFormEditArticle);
 router.post("/:id_article/edit", mettreAJourArticleDepuisPage);
 router.post("/:id_article/delete", supprimerArticleDepuisPage)
@@ -22,9 +22,5 @@ router.post("/:id_article/delete", supprimerArticleDepuisPage)
 router.get("/", afficherListeArticles);
 router.get("/:id_article", afficherProfilArticle);
 
-// SAUVEGARDE du formulaire d'édition
-router.post("/:id_article/edit", mettreAJourArticleDepuisPage);   
-
-router.post("/:id_article/delete", supprimerArticleDepuisPage);
 
 export default router;

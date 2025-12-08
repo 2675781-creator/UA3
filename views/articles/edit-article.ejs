@@ -9,27 +9,108 @@
     <main class="wrapper">
       <h1>Modifier l'article : <%= article.titre %></h1>
 
+      
+      <% const current = oldInput && Object.keys(oldInput).length > 0 ? oldInput : article; %>
+      
+
+      <% if (typeof errors !== 'undefined' && errors.general) { %>
+          <div class="alert alert-danger"><%= errors.general %></div>
+      <% } %>
+
       <!-- IMPORTANT : on envoie vers /articles/:id_article/edit en POST -->
       <form action="/articles/<%= article.id_article %>/edit" method="post">
-        <label>Titre</label>
-        <input type="text" name="titre" value="<%= article.titre %>" />
+        
+      
+        <label for="titre">Titre</label>
+        <input type="text" id="titre" name="titre" value="<%= current.titre || '' %>" />
+            <% if (typeof errors !== 'undefined' && errors.titre) { %>
+              <small class="text-danger"><%= errors.titre %></small>
 
-        <label>Status</label>
-        <input type="text" name="status" value="<%= article.status %>" />
+            <% } %>
 
+        <label for="status">Status</label>
+              <select id="status" name="status" required>
+              <% const currentStatus = current.status || article.status %>
+                <option value="disponible" <%= currentStatus === 'disponible' ? 'selected' : '' %>>Disponible</option>
+                <option value="indisponible" <%= currentStatus === 'indisponible' ? 'selected' : '' %>>Indisponible</option>
+                <option value="reserve" <%= currentStatus === 'reserve' ? 'selected' : '' %>>Réservé</option>
+              </select>
+              <% if (typeof errors !== 'undefined' && errors.status) { %>
+                <small class="text-danger"><%= errors.status %></small>
+
+              <% } %>
+        
         <label>Date de publication</label>
         <input
           type="date"
           name="date_publication"
-          value="<%= article.date_publication %>"
+          value="<%= current.date_publication ? (new Date(current.date_publication).toISOString().substring(0,10)) : '' %>"
         />
 
-        <label>Quantité disponible</label>
+        <% if (typeof errors !== 'undefined' && errors.date_publication) { %>
+                <small class="text-danger"><%= errors.date_publication %></small>
+
+        <% } %>
+
+        <label for="quantite">Quantité disponible</label>
         <input
           type="number"
+          id="quantite"
           name="quantite"
-          value="<%= article.quantite %>"
+          value="<%= article.quantite || '' %>"
         />
+
+        <% if (typeof errors !== 'undefined' && errors.quantite) { %>
+                <small class="text-danger"><%= errors.quantite %></small>
+
+        <% } %>
+
+        <label for="id_auteur">Auteur</label>
+        <select id="id_auteur" name="id_auteur" required>
+          <option value="">-- Sélectionnez un auteur --</option>
+          <% const currentAuteurId = current.id_auteur || article.id_auteur; %>
+          <% auteurs.forEach(auteur => { %>
+            <option value="<%= auteur.id_auteur %>"
+                <%= auteur.id_auteur == currentAuteurId ? 'selected' : '' %>>
+              <%= auteur.nom %> <%= auteur.prenom %>
+            </option>
+          <% }) %>
+        </select>
+        <% if (typeof errors !== 'undefined' && errors.id_auteur) { %>
+                <small class="text-danger"><%= errors.id_auteur %></small>
+        <% } %>
+
+        <label for="id_categorie">Categorie</label>
+        <select id="id_categorie" name="id_categorie" required>
+          <option value="">-- Sélectionnez une catégorie --</option>
+          <% const currentCatId = current.id_categorie || article.id_categorie; %>
+          <% categories.forEach(categorie => { %>
+            <option value="<%= categorie.id_categorie %>"
+                <%= categorie.id_categorie == currentCatId ? 'selected' : '' %>>
+              <%= categorie.nom_categorie %>
+            </option>
+          <% }) %>
+        </select>
+        <% if (typeof errors !== 'undefined' && errors.id_categorie) { %>
+                <small class="text-danger"><%= errors.id_categorie %></small>
+        <% } %>
+
+
+        <label for="id_employe">Employe</label>
+        <select id="id_employe" name="id_employe" required>
+          <option value="">-- Sélectionnez un employé --</option>
+            <% const currentEmpId = current.id_employe || article.id_employe; %>
+          <% employes.forEach(employe => { %>
+            <option value="<%= employe.id_employe %>"
+                <%= employe.id_employe == currentEmpId ? 'selected' : '' %>>
+              <%= employe.nom %> <%= employe.prenom %>
+            </option>
+          <% }) %>
+        </select>
+        <% if (typeof errors !== 'undefined' && errors.id_employe) { %>
+                <small class="text-danger"><%= errors.id_employe %></small>
+        <% } %>
+        
 
         <button type="submit">Enregistrer</button>
       </form>

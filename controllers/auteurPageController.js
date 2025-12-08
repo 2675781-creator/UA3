@@ -155,7 +155,7 @@ export async function afficherProfilAuteur(req, res, next) {
  */
 export async function afficherFormulaireEditionAuteur(req, res, next) {
   try {
-    const id = Number(req.params.id);
+    const id = Number(req.params.id_auteur);
     const auteur = await Auteur.findByPk(id);
 
     if (!auteur) {
@@ -181,7 +181,7 @@ export async function afficherFormulaireEditionAuteur(req, res, next) {
  */
 export async function mettreAJourAuteurDepuisPage(req, res, next) {
   try {
-    const id = Number(req.params.id);
+    const id = Number(req.params.id_auteur);
     const { nom, prenom, age, nationalite, langue } = req.body;
 
     const auteur = await Auteur.findByPk(id);
