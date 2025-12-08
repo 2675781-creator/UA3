@@ -1,5 +1,6 @@
 // controllers/auteurPageController.js
-import { Auteur, Article } from "../modeles/relations.js";
+import Auteur from "../modeles/Auteur.js" 
+import Article from "../modeles/Article.js";
 
 /**
  * Liste des auteurs
