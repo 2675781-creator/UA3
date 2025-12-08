@@ -1,40 +1,97 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <%- include('../partials/head', { title: title }) %>
+    <%- include('../partials/head', { title: "Modifier l'article" }) %>
   </head>
-  <body>
+  <body class="bg-light">
     <%- include('../partials/header') %>
 
-    <main class="wrapper">
-      <h1>Modifier l'article : <%= article.titre %></h1>
+    <main class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h1 class="h3 mb-4">
+                Modifier l'article : <%= article.titre %>
+              </h1>
 
-      <!-- IMPORTANT : on envoie vers /articles/:id_article/edit en POST -->
-      <form action="/articles/<%= article.id_article %>/edit" method="post">
-        <label>Titre</label>
-        <input type="text" name="titre" value="<%= article.titre %>" />
+              <!-- IMPORTANT : on envoie vers /articles/:id_article/edit en POST -->
+              <form action="/articles/<%= article.id_article %>/edit" method="post">
+                <!-- Titre -->
+                <div class="mb-3">
+                  <label for="titre" class="form-label">Titre</label>
+                  <input
+                    type="text"
+                    id="titre"
+                    name="titre"
+                    class="form-control"
+                    value="<%= article.titre %>"
+                    required
+                  >
+                </div>
 
-        <label>Status</label>
-        <input type="text" name="status" value="<%= article.status %>" />
+                <!-- Status -->
+                <div class="mb-3">
+                  <label for="status" class="form-label">Status</label>
+                  <select
+                    id="status"
+                    name="status"
+                    class="form-select"
+                  >
+                    <option value="disponible"
+                      <%= article.status === 'disponible' ? 'selected' : '' %>>
+                      disponible
+                    </option>
+                    <option value="indisponible"
+                      <%= article.status === 'indisponible' ? 'selected' : '' %>>
+                      indisponible
+                    </option>
+                  </select>
+                </div>
 
-        <label>Date de publication</label>
-        <input
-          type="date"
-          name="date_publication"
-          value="<%= article.date_publication %>"
-        />
+                <!-- Date de publication -->
+                <div class="mb-3">
+                  <label for="date_publication" class="form-label">
+                    Date de publication
+                  </label>
+                  <input
+                    type="date"
+                    id="date_publication"
+                    name="date_publication"
+                    class="form-control"
+                    value="<%= article.date_publication %>"
+                  >
+                </div>
 
-        <label>Quantité disponible</label>
-        <input
-          type="number"
-          name="quantite"
-          value="<%= article.quantite %>"
-        />
+                <!-- Quantité disponible -->
+                <div class="mb-4">
+                  <label for="quantite" class="form-label">
+                    Quantité disponible
+                  </label>
+                  <input
+                    type="number"
+                    id="quantite"
+                    name="quantite"
+                    class="form-control"
+                    value="<%= article.quantite %>"
+                    min="0"
+                  >
+                </div>
 
-        <button type="submit">Enregistrer</button>
-      </form>
-
-      <a href="/articles">Annuler</a>
+                <!-- Boutons -->
+                <div class="d-flex justify-content-between">
+                  <a href="/articles" class="btn btn-outline-secondary">
+                    Annuler
+                  </a>
+                  <button type="submit" class="btn btn-primary">
+                    Enregistrer
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <%- include('../partials/footer') %>

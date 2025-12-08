@@ -3,90 +3,162 @@
   <head>
     <%- include('../partials/head', { title: 'Nouvel article' }) %>
   </head>
-  <body>
+  <body class="bg-light">
     <%- include('../partials/header') %>
 
-    <main class="wrapper">
-      <h1>Ajouter un article</h1>
+    <main class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h1 class="h3 mb-4">Ajouter un article</h1>
 
-      <form action="/articles/new" method="post">
-        <label for="titre">Titre</label>
-        <input type="text" id="titre" name="titre" required />
+              <form action="/articles/new" method="post">
+                <!-- Titre -->
+                <div class="mb-3">
+                  <label for="titre" class="form-label">Titre</label>
+                  <input
+                    type="text"
+                    id="titre"
+                    name="titre"
+                    class="form-control"
+                    required
+                  />
+                </div>
 
-        <label for="status">Status</label>
-<select id="status" name="status" required>
-  <option value="">-- Sélectionnez un statut --</option>
-  <option value="disponible">Disponible</option>
-  <option value="indisponible">Indisponible</option>
-</select>
+                <!-- Status -->
+                <div class="mb-3">
+                  <label for="status" class="form-label">Status</label>
+                  <select
+                    id="status"
+                    name="status"
+                    class="form-select"
+                    required
+                  >
+                    <option value="">-- Sélectionnez un statut --</option>
+                    <option value="disponible">Disponible</option>
+                    <option value="indisponible">Indisponible</option>
+                  </select>
+                </div>
 
-        <label for="date_publication">Date de publication</label>
-        <input type="date" id="date_publication" name="date_publication" required />
+                <!-- Date de publication -->
+                <div class="mb-3">
+                  <label for="date_publication" class="form-label">
+                    Date de publication
+                  </label>
+                  <input
+                    type="date"
+                    id="date_publication"
+                    name="date_publication"
+                    class="form-control"
+                    required
+                  />
+                </div>
 
-        <label for="quantite">Quantité disponible</label>
-        <input type="number" id="quantite" name="quantite" min="0" required />
+                <!-- Quantité -->
+                <div class="mb-3">
+                  <label for="quantite" class="form-label">
+                    Quantité disponible
+                  </label>
+                  <input
+                    type="number"
+                    id="quantite"
+                    name="quantite"
+                    class="form-control"
+                    min="0"
+                    required
+                  />
+                </div>
 
-        <!-- Auteur -->
-        <label for="id_auteur">Auteur</label>
-        <select id="id_auteur" name="id_auteur" required>
-          <option value="">-- Sélectionnez un auteur --</option>
-          <% auteurs.forEach(auteur => { %>
-            <option value="<%= auteur.id_auteur %>">
-              <%= auteur.nom %> <%= auteur.prenom %>
-            </option>
-          <% }) %>
-        </select>
+                <!-- Auteur -->
+                <div class="mb-3">
+                  <label for="id_auteur" class="form-label">Auteur</label>
+                  <select
+                    id="id_auteur"
+                    name="id_auteur"
+                    class="form-select"
+                    required
+                  >
+                    <option value="">-- Sélectionnez un auteur --</option>
+                    <% auteurs.forEach(auteur => { %>
+                      <option value="<%= auteur.id_auteur %>">
+                        <%= auteur.nom %> <%= auteur.prenom %>
+                      </option>
+                    <% }) %>
+                  </select>
+                </div>
 
-        <!-- Catégorie -->
-        <label for="id_categorie">Catégorie</label>
-        <select id="id_categorie" name="id_categorie" required>
-          <option value="">-- Sélectionnez une catégorie --</option>
-          <% categories.forEach(categorie => { %>
-            <option value="<%= categorie.id_categorie %>">
-              <%= categorie.nom_categorie %>
-            </option>
-          <% }) %>
-        </select>
+                <!-- Catégorie -->
+                <div class="mb-3">
+                  <label for="id_categorie" class="form-label">Catégorie</label>
+                  <select
+                    id="id_categorie"
+                    name="id_categorie"
+                    class="form-select"
+                    required
+                  >
+                    <option value="">-- Sélectionnez une catégorie --</option>
+                    <% categories.forEach(categorie => { %>
+                      <option value="<%= categorie.id_categorie %>">
+                        <%= categorie.nom_categorie %>
+                      </option>
+                    <% }) %>
+                  </select>
+                </div>
 
-        <!-- Employé -->
-        <label for="id_employe">Employé</label>
-        <select id="id_employe" name="id_employe" required>
-          <option value="">-- Sélectionnez un employé --</option>
-          <% employes.forEach(employe => { %>
-            <option value="<%= employe.id_employe %>">
-              <%= employe.nom %> <%= employe.prenom %>
-            </option>
-          <% }) %>
-        </select>
+                <!-- Employé -->
+                <div class="mb-4">
+                  <label for="id_employe" class="form-label">Employé</label>
+                  <select
+                    id="id_employe"
+                    name="id_employe"
+                    class="form-select"
+                    required
+                  >
+                    <option value="">-- Sélectionnez un employé --</option>
+                    <% employes.forEach(employe => { %>
+                      <option value="<%= employe.id_employe %>">
+                        <%= employe.nom %> <%= employe.prenom %>
+                      </option>
+                    <% }) %>
+                  </select>
+                </div>
 
-        <button type="submit">Créer</button>
-      </form>
-
-      <a href="/articles">Annuler</a>
+                <!-- Boutons -->
+                <div class="d-flex justify-content-between">
+                  <a href="/articles" class="btn btn-outline-secondary">
+                    Annuler
+                  </a>
+                  <button type="submit" class="btn btn-primary">
+                    Créer
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <%- include('../partials/footer') %>
+
+    <script>
+      document.querySelector("form").addEventListener("submit", function (e) {
+        const auteurSelect = document.getElementById("id_auteur");
+        const categorieSelect = document.getElementById("id_categorie");
+        const employeSelect = document.getElementById("id_employe");
+
+        console.log("Auteur - value:", auteurSelect.value, "texte:", auteurSelect.options[auteurSelect.selectedIndex].text);
+        console.log("Catégorie - value:", categorieSelect.value, "texte:", categorieSelect.options[categorieSelect.selectedIndex].text);
+        console.log("Employé - value:", employeSelect.value, "texte:", employeSelect.options[employeSelect.selectedIndex].text);
+
+        const fd = new FormData(this);
+        const entries = {};
+        for (const [k, v] of fd.entries()) {
+          entries[k] = v;
+        }
+        console.log("FormData au submit :", entries);
+      });
+    </script>
   </body>
-
-
-<script>
-  document.querySelector("form").addEventListener("submit", function (e) {
-    const auteurSelect = document.getElementById("id_auteur");
-    const categorieSelect = document.getElementById("id_categorie");
-    const employeSelect = document.getElementById("id_employe");
-
-    console.log("Auteur - value:", auteurSelect.value, "texte:", auteurSelect.options[auteurSelect.selectedIndex].text);
-    console.log("Catégorie - value:", categorieSelect.value, "texte:", categorieSelect.options[categorieSelect.selectedIndex].text);
-    console.log("Employé - value:", employeSelect.value, "texte:", employeSelect.options[employeSelect.selectedIndex].text);
-
-    const fd = new FormData(this);
-    const entries = {};
-    for (const [k, v] of fd.entries()) {
-      entries[k] = v;
-    }
-    console.log("FormData au submit :", entries);
-  });
-</script>
-
-
 </html>

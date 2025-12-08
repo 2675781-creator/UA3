@@ -3,66 +3,104 @@
   <head>
     <%- include('../partials/head', { title }) %>
   </head>
-  <body>
+  <body class="bg-light">
     <%- include('../partials/header') %>
 
-    <main class="wrapper">
-      <h1>Modifier un auteur</h1>
+    <main class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h1 class="h3 mb-4">Modifier un auteur</h1>
 
-      <% if (erreur) { %>
-        <p style="color:red;"><%= erreur %></p>
-      <% } %>
+              <% if (erreur) { %>
+                <div class="alert alert-danger">
+                  <%= erreur %>
+                </div>
+              <% } %>
 
-      <form action="/auteurs/<%= auteur.id_auteur %>/edit" method="post">
-        <label for="nom">Nom</label>
-        <input
-          type="text"
-          id="nom"
-          name="nom"
-          value="<%= auteur.nom %>"
-          required
-        >
+              <form action="/auteurs/<%= auteur.id_auteur %>/edit" method="post">
+                <!-- Nom -->
+                <div class="mb-3">
+                  <label for="nom" class="form-label">Nom</label>
+                  <input
+                    type="text"
+                    id="nom"
+                    name="nom"
+                    class="form-control"
+                    value="<%= auteur.nom %>"
+                    required
+                  >
+                </div>
 
-        <label for="prenom">Prénom</label>
-        <input
-          type="text"
-          id="prenom"
-          name="prenom"
-          value="<%= auteur.prenom %>"
-          required
-        >
+                <!-- Prénom -->
+                <div class="mb-3">
+                  <label for="prenom" class="form-label">Prénom</label>
+                  <input
+                    type="text"
+                    id="prenom"
+                    name="prenom"
+                    class="form-control"
+                    value="<%= auteur.prenom %>"
+                    required
+                  >
+                </div>
 
-        <label for="age">Âge</label>
-        <input
-          type="number"
-          id="age"
-          name="age"
-          value="<%= auteur.age %>"
-          required
-        >
+                <!-- Âge -->
+                <div class="mb-3">
+                  <label for="age" class="form-label">Âge</label>
+                  <input
+                    type="number"
+                    id="age"
+                    name="age"
+                    class="form-control"
+                    value="<%= auteur.age %>"
+                    min="0"
+                    required
+                  >
+                </div>
 
-        <label for="nationalite">Nationalité</label>
-        <input
-          type="text"
-          id="nationalite"
-          name="nationalite"
-          value="<%= auteur.nationalite %>"
-          required
-        >
+                <!-- Nationalité -->
+                <div class="mb-3">
+                  <label for="nationalite" class="form-label">Nationalité</label>
+                  <input
+                    type="text"
+                    id="nationalite"
+                    name="nationalite"
+                    class="form-control"
+                    value="<%= auteur.nationalite %>"
+                    required
+                  >
+                </div>
 
-        <label for="langue">Langue</label>
-        <input
-          type="text"
-          id="langue"
-          name="langue"
-          value="<%= auteur.langue %>"
-          required
-        >
+                <!-- Langue -->
+                <div class="mb-4">
+                  <label for="langue" class="form-label">Langue</label>
+                  <input
+                    type="text"
+                    id="langue"
+                    name="langue"
+                    class="form-control"
+                    value="<%= auteur.langue %>"
+                    required
+                  >
+                </div>
 
-        <button type="submit">Enregistrer</button>
-      </form>
+                <!-- Boutons -->
+                <div class="d-flex justify-content-between">
+                  <a href="/auteurs/<%= auteur.id_auteur %>" class="btn btn-outline-secondary">
+                    Annuler
+                  </a>
+                  <button type="submit" class="btn btn-primary">
+                    Enregistrer
+                  </button>
+                </div>
+              </form>
 
-      <a href="/auteurs/<%= auteur.id_auteur %>">Annuler</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <%- include('../partials/footer') %>

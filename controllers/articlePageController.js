@@ -83,7 +83,6 @@ export async function mettreAJourArticleDepuisPage(req, res, next) {
       {
         titre,
         status,
-        // adapte ce nom si ta colonne s'appelle autrement dans le modèle
         date_publication,
         quantite,
       },
