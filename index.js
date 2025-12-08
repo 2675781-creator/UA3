@@ -53,7 +53,7 @@ app.use(methodOverride('_method'))
 
 //Cacher le token dans le navigateur
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || 'secret_par_defaut_pour_dev',
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false } //mettre a true si https
@@ -83,12 +83,12 @@ app.get("/", (req, res) => {
 
 
 // Routes API
-app.use("/api/articles", articleRoute);
-app.use("/api/categories", categorieRoute);
-app.use("/api/clients", clientRoute);
-app.use("/api/employes", employeRoute);
-app.use("/api/auteurs", auteurRoute);
-app.use("/api/emprunts", authMiddleware, empruntRoute);
+app.use("/articles", articleRoute);
+app.use("/categories", categorieRoute);
+app.use("/clients", clientRoute);
+app.use("/employes", employeRoute);
+app.use("/auteurs", auteurRoute);
+app.use("/emprunts", authMiddleware, empruntRoute);
 app.use("/api/auth", authRoute);
 
 //  Démarrage du serveur + création des tables Sequelize 

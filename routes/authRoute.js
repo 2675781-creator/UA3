@@ -1,20 +1,21 @@
 import { Router } from "express";
 import {
   loginPage,
-  loginFormHandler,
+  renderLoginPage,
+  renderRegisterPage,
   registerPage,
-  registerFormHandler,
-  logout,
-} from "../controllers/authPageController.js";
+  logout
+} from "../controllers/authController.js";
+//import { renderLoginPage } from "../controllers/authController.js";
 
 const authRoute = Router();
 
 // PAGES EJS
-authRoute.get("/login-page", loginPage);
-authRoute.post("/login-page", loginFormHandler);
+authRoute.get("/login-page", renderLoginPage);
+authRoute.post("/login-page", loginPage);
 
-authRoute.get("/register-page", registerPage);
-authRoute.post("/register-page", registerFormHandler);
+authRoute.get("/register-page", renderRegisterPage);
+authRoute.post("/register-page", registerPage);
 
 authRoute.get("/logout", logout);
 

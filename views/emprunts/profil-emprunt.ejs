@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<%- include('../partials/head', { title: 'Profil d\'emprunt' }) %>
+<body>
+    <%- include('../partials/header') %>
+    <main class="wrapper">
+        <h1>Profil de l'emprunt</h1>
+        <div class="card shadow-sm">
+            <div class="card-header">
+                Détails de l'emprunt Client #<%= emprunt.id_client %> / Article #<%= emprunt.id_article %>
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title">Client #<%= emprunt.id_client %>/<%= emprunt.id_article %> emprunt Article #<%= emprunt.id_article %></h5>
+                
+                <p class="card-text">
+                    <strong> Date de l'emprunt :</strong> <%= new Date(emprunt.date_emprunt).toLocaleDateString("fr-FR") %>
+                </p>
+                <p class="card-text">
+                    <strong>Date de retour :</strong> 
+                    <% if (emprunt.date_retour) { %>
+                        <%= new Date(emprunt.date_retour).toLocaleDateString("fr-FR") %>
+                    <% } else { %>
+                        (En cours)
+                    <% } %>                    
+                </p>
+            </div>
+
+            <div class="card-footer d-flex gap-2">
+
+                <a href="/emprunts/<%= emprunt.id_client %>/<%= emprunt.id_article %>/edit" class="btn btn-primary">Modifier</a>
+                
+                <form action="/emprunts/<%= emprunt.id_client %>/<%= emprunt.id_article %>?_method=DELETE" method="POST" onsubmit="return confirm('Êtes-vous sûr ?');">
+                    <button type="submit" class="btn btn-danger">Supprimer</button>   
+                </form>
+                <a href="/emprunts" class="btn btn-secondary">Retour à la liste</a>
+            </div>
+        </div>
+            
+    </main>
+    <%- include('../partials/footer') %>
+</body>
+</html>

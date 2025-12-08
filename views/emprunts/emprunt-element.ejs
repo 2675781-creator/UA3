@@ -1,17 +1,34 @@
 <div class="card" style="width: 18rem;">
     <% if (emprunt.image) { %>
-        <img src="<%= emprunt.image %>" class="card-img-top" alt="Emprunt du <%= emprunt.date_emprunt %>">
+        <img src="<%= emprunt.image %> ? emprunt.image : 'https://placehold.co/600x400?text=Pas+d+image' %>" class="card-img-top" alt="<%= employe.date_emprunt %>">
+    <div class="card-body">
+        <img src="" class="card-img-top" alt="Emprunt du <%= emprunt.date_emprunt %>">
     <% } %>
     <div class="card-body">
         <h5 class="card-title">Client ID: <%= emprunt.id_client %></h5>
         <p class="card-text">Article ID: <%= emprunt.id_article %></p>
-        <p class="card-text">Date de l'emprunt: <%= emprunt.date_emprunt %></p>
-        <p class="card-text">Date de retour: <%= emprunt.date_retour %></p>
+        <p class="card-text">
+            Date de l'emprunt: <%= new Date(emprunt.date_emprunt).toLocaleDateString("fr-FR") %>
+        </p>
+        <p class="card-text">
+            Date de retour: 
+            <% if (emprunt.date_retour) { %>
+                <%= new Date (emprunt.date_retour).toLocaleDateString("fr-FR") %>
+            <% } else { %>
+                (En cours)
+            <% } %>
+        </p>
     </div>
     <div class="card-footer d-flex justify-content-between">
-        <button class="btn btn-primary btn-sm">Edit</button>
-        <button class="btn btn-danger btn-sm">Delete</button>
-        <button class="btn btn-success btn-sm">Profile</button>
+        <form action="/emprunts/<%= emprunt.id_client %>/<%= emprunt.id_article %>/edit" method="GET">
+            <button type="submit" class="btn btn-primary">Modifier</button>
+        </form>
+        <form action="/emprunts/<%= emprunt.id_client %>/<%= emprunt.id_article %>?_method=DELETE" method="POST">
+            <button class="btn btn-danger">Supprimer</button>
+        </form>
+        
+        <form action="/emprunts/<%= emprunt.id_client %>/<%= emprunt.id_article %>" method="GET">
+            <button type="submit" class="btn btn-success">Profil</button>
+        </form>
     </div>
-    
 </div>

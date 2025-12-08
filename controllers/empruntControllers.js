@@ -4,34 +4,53 @@ import Emprunt from "../modeles/Emprunt.js"
 export async function getAllEmprunt(req, res) {
     try{
         const emprunts = await Emprunt.findAll()
-        res.status(200).json({message:"liste de tous les emprunts", data: emprunts})
-
+        //res.status(200).json({message:"liste de tous les emprunts", data: emprunts})
+        return res.render("emprunts/list-emprunt", {
+          message: "Liste des emprunts",
+          emprunts
+        })
     }
     
     catch(error){
-        res.status(404).json({message:error.message})
+        res.status(404).send("Erreur serveur: " + error.message)
     }
 }
+
+//Formulaire pour créer un emprunt
+
+
+export const addEmpruntForm = async (req, res) => {
+
+  try {
+    return res.render("emprunts/add-emprunt", {
+      title: "Ajouter un emprunt",
+      errors: {},
+      oldInput: {}
+    })
+  }
+  catch(error) {
+    res.status(400).send("Erreur serveur : " + error.message)
+  }
+}
+
 
 // Création d'un emprunt
 
 export const addEmprunt= async (req, res) =>{
     const newEmprunt = req.body
+
     try{
-        const emprunt = await Emprunt.create(newEmprunt)
-        res.status(201).json({message: "Employe ajoute avec succes", data: emprunt})
-    }
-    catch(error){
-        res.status(400).json({message:error.message})
-    }
-    try
-    {
       const emprunt = await Emprunt.create(newEmprunt)
-      res.redirect("/emprunts")
+      return res.redirect("/emprunts")
       //res.status(201).json({message: "Emprunt ajouté avec succes", data: emprunt})
     }
     catch(error){
-    res.status(400).json({message:error.message})
+      return res.status(400).render("emprunts/add-emprunt", {
+          message: "Erreur lors de l'ajout de l'emprunt.",
+          errors: [{msg: error.message}],
+          oldInput: req.body
+      })
+    //res.status(400).json({message:error.message})
   
 }
 }
@@ -40,16 +59,17 @@ export const addEmprunt= async (req, res) =>{
 export const deleteEmprunt = async(req, res) => {
     const {id_client, id_article} = req.params
     if (!id_client || !id_article) {
-        return res.status(400).json({error:true, message: "id_client et id_article sont requis"});
+        //return res.status(400).json({error:true, message: "id_client et id_article sont requis"});
+        return res.redirect("/emprunts");
     }
     try {
         const result = await Emprunt.destroy({where: {id_client, id_article}});
         
-        res.redirect("/emprunts/list-emprunt")
+        res.redirect("/emprunts")
         //res.status(200).json({message: `L'emprunt a été supprimé avec succes`})
     }
     catch(error){
-        res.status(404).json({message: error.message})
+        res.status(500).send("Erreur suppression: "+ error.message);
     }
 }
 
@@ -60,13 +80,15 @@ export const getEmpruntStatut = async (req, res) => {
         const emprunt = await Emprunt.findOne({ where: {id_client, id_article}
         });
         if (!emprunt){
-            return res.status(400).json({message:"Emprunt introuvable"})
+            //return res.status(400).json({message:"Emprunt introuvable"})
+            return res.redirect("/emprunts");
         }
-        res.render("./emprunts/profile-emprunt", {emprunt})
+
+        return res.render("./emprunts/profil-emprunt", {emprunt})
         //res.status(200).json({message:"statut d'un emprunt", data:emprunt})
     }
     catch(error){
-        res.status(404).json({message: error.message})
+        res.status(404).send("Erreur serveur: "+error.message);
     }
 }
 
@@ -76,17 +98,18 @@ export const updateEmprunt = async (req, res) => {
     const updatedEmprunt = req.body;
     
     if (!id_client || !id_article){
-        return res.status(400).json({error:true, message: "L'id du client et l'id de l'article est requis"});
+        //return res.status(400).json({error:true, message: "L'id du client et l'id de l'article est requis"});
+        return res.redirect("/emprunts");
     }
     try {
-        const result = await Emprunt.update(updatedEmprunt, {
+        const [result] = await Emprunt.update(updatedEmprunt, {
             where : {id_client, id_article}
         });
-        res.redirect("/emprunts/list-emprunt")
+        res.redirect("/emprunts")
         //res.status(200).json({message: "Emprunt mis a jour",result});
     }
     catch(error){
-        res.status(404).json({message: error.message})
+        res.status(404).send("Erreur mise à jour: "+ error.message);
     }
     
 

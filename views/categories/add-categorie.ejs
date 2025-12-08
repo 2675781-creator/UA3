@@ -1,20 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <%- include('../partials/head', { title: 'Ajouter une categorie' }) %>
     <body>
         <%- include('../partials/header') %>
+
+        <% const formData = (typeof oldInput !== 'undefined') ? oldInput : {}; %>
             <main class="wrapper">
                 <h1>Ajouter categorie</h1>
-                <form action="/categories" method="POST" enctype="multipart/form-data">
+                <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <% errors.forEach(error => { %>
+                            <p class="mb-0"><%= error.msg || error %></p>
+                        <% }) %>
+                    </div>
+                <% } %>
+                <form action="/categories" method="POST">
                     <div class="mb-2">
                         <label for="nom_categorie" class="form-label">Nom de la categorie</label>
-                        <input required type="text" class="form-control" id="nom_categorie" name="nom_categorie" placeholder="Entrez le nom de la categorie">
+                        <input required type="text" class="form-control" id="nom_categorie" name="nom_categorie" placeholder="Entrez le nom de la categorie" value="<%= formData.nom_categorie || '' %>">
                     </div>
                     <div class="mb-2">
                         <label for="description" class="form-label">Description</label>
-                        <textarea type="text" class="form-control" id="description" name="description" rows="3" placeholder="Entrez la description de la categorie">
+                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Entrez la description de la categorie"><%= formData.description || '' %></textarea>
                     </div>
                     <button class="btn btn-success" type="submit">Ajouter</button>
+                    <a href="/categories" class="btn btn-secondary">Annuler</a>
                 </form>
             </main>
             <%- include('../partials/footer') %>

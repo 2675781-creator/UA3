@@ -3,13 +3,23 @@ import Auteur from "../modeles/Auteur.js";
 import Categorie from "../modeles/Categorie.js";
 import Employe from "../modeles/Employe.js";
 
+
+// Aide a établir les relation
+
+async function getRelatedData() {
+  return Promise.all([
+    Auteur.findAll(),
+    Categorie.findAll(),
+    Employe.findAll()
+  ])
+}
 // Liste
 export async function afficherListeArticles(req, res, next) {
   try {
     const articles = await Article.findAll();
     res.render("articles/list-article", {
       title: "Liste des articles",
-      articles,
+      articles
     });
   } catch (error) {
     next(error);
@@ -30,7 +40,7 @@ export async function afficherProfilArticle(req, res, next) {
 
     res.render("articles/profile-article", {
       title: `Fiche de l'article : ${article.titre}`,
-      article,
+      article
     });
   } catch (error) {
     next(error);
@@ -49,9 +59,14 @@ export async function afficherFormEditArticle(req, res, next) {
         .render("404", { title: "Article non trouvé" });
     }
 
+    const [auteurs, categories, employes] = await getRelatedData();
+
     res.render("articles/edit-article", {
       title: `Modifier : ${article.titre}`,
       article,
+      auteurs,
+      categories,
+      employes,
     });
   } catch (error) {
     next(error);
@@ -75,7 +90,7 @@ export async function supprimerArticleDepuisPage(req, res, next) {
 export async function mettreAJourArticleDepuisPage(req, res, next) {
   try {
     const { id_article } = req.params;
-    const { titre, status, date_publication, quantite } = req.body;
+    const { titre, status, date_publication, quantite, id_auteur, id_categorie, id_employe} = req.body;
 
     console.log("Mise à jour article", id_article, "avec", req.body);
 
@@ -85,7 +100,10 @@ export async function mettreAJourArticleDepuisPage(req, res, next) {
         status,
         // adapte ce nom si ta colonne s'appelle autrement dans le modèle
         date_publication,
-        quantite,
+        quantite: Number(quantite),
+        id_auteur: Number(id_auteur),
+        id_categorie: Number(id_categorie),
+        id_employe: Number(id_employe),
       },
       {
         where: { id_article },
@@ -104,17 +122,14 @@ export async function mettreAJourArticleDepuisPage(req, res, next) {
 export async function afficherFormNewArticle(req, res, next) {
   try {
     // Récupérer les listes pour alimenter les <select>
-    const [auteurs, categories, employes] = await Promise.all([
-      Auteur.findAll(),
-      Categorie.findAll(),
-      Employe.findAll(),
-    ]);
+    const [auteurs, categories, employes] = await getRelatedData();
 
     res.render("articles/add-article", {
       title: "Nouvel article",
       auteurs,
       categories,
       employes,
+      oldInput: {},
     });
   } catch (error) {
     next(error);
@@ -147,16 +162,17 @@ export async function creerArticleDepuisPage(req, res, next) {
   } catch (error) {
     // Cas typique de doublon sur un champ unique
     if (error.name === "SequelizeUniqueConstraintError") {
+      const [auteurs, categories, employes] = await getRelatedData()
       return res.status(400).render("articles/add-article", {
-        title: "Nouvel article",
-        erreur: "Un article avec ce titre existe déjà.",
-        // il faut renvoyer les listes si tu les utilises :
-        auteurs: req.auteurs || [],
-        categories: req.categories || [],
-        employes: req.employes || [],
+          title: "Nouvel article",
+          erreur: "Un article avec ce titre existe déjà.",
+          // il faut renvoyer les listes si tu les utilises :
+          auteurs,
+          categories,
+          employes,
+          oldInput: req.body
       });
     }
-
     next(error);
   }
 }

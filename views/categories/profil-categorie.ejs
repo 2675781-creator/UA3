@@ -11,11 +11,11 @@
                 <p class="card-text"> Description <%= categorie.description %></p>
             </div>
             <div class="card-footer">
-                <a href="/categories/edit/<%= categorie.id_categorie" class="btn btn-primary">Modifier</a>
+                <a href="/categories/<%= categorie.id_categorie %>/edit" class="btn btn-primary">Modifier</a>
                 <form action="/categories/<%= categorie.id_categorie %>?_method=DELETE" method="POST">
                     <button type="submit" class="btn btn-danger">Supprimer</button>   
                 </form>
-                <a href="/categories/list-categorie" class="btn btn-secondary">Retour à la liste</a>
+                <a href="/categories" class="btn btn-secondary">Retour à la liste</a>
             </div>
         </div>
     </main>

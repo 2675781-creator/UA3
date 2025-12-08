@@ -1,5 +1,5 @@
 <div class="card" style="width: 18rem;">
-    <img src="<%= employe.image %>" class="card-img-top" alt="<%= employe.nom %>">
+    <img src="<%= (employe.image) ? employe.image : 'https://placehold.co/600x400?text=Pas+d+image' %>" class="card-img-top" alt="<%= employe.nom %>">
     <div class="card-body">
         <h5 class="card-title">
             <%= employe.nom %> <%= employe.prenom %>.

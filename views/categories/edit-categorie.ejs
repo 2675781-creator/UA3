@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <%- include('../partials/head', { title: 'Modifier une categorie' }) %>
     <body>
         <%- include('../partials/header') %>
             <main class="wrapper">
-                <h1>Modfier une categorie</h1>
-                <form action="/categories/<%= categorie.id_categorie %>?_method=PUT" method="POST" enctype="multipart/form-data">
+                <h1>Modfier une categorie : <%= categorie.nom_categorie %></h1>
+                <form action="/categories/<%= categorie.id_categorie %>?_method=PUT" method="POST">
                     <div class="mb-2">
                         <label for="nom_categorie" class="form-label">Nom de la categorie</label>
                         <input required type="text" class="form-control" id="nom_categorie" name="nom_categorie" value="<%= categorie.nom_categorie %>" placeholder="Entrez le nom de la categorie">
                     </div>
                     <div class="mb-2">
                         <label for="description" class="form-label">Description</label>
-                        <textarea type="text" class="form-control" id="description" name="description" rows="3" value="<%= categorie.description %>" placeholder="Entrez la description">
+                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Entrez la description"> <%= categorie.description %> </textarea>
                     </div>
                     <button class="btn btn-success" type="submit">Modifier</button>
+                    <a href="/categories" class="btn btn-secondary">Annuler</a>
                 </form>
             </main>
             <%- include('../partials/footer') %>
