@@ -2,16 +2,13 @@
     <img src="<%= employe.image %>" class="card-img-top" alt="<%= employe.nom %>">
     <div class="card-body">
         <h5 class="card-title">
-            Nom:<%= employe.nom %>
+            <%= employe.nom %> <%= employe.prenom %>.
         </h5>
         <p class="card-text">
-            prenom:<%= employe.prenom %>.
-        </p>
-        <p class="card-text">
-            role:<%= employe.role %>
+            Rôle:<%= employe.role %>
         </p>
          <p class="card-text">
-            date_embauche:<%= employe.date_embauche %>
+            Embauche : <%= new Date(employe.date_embauche).toLocaleDateString("fr-FR") %>
         </p>
     </div>
     </div>
@@ -26,7 +23,5 @@
         <form action="/employes/<%= employe.id_employe %>" method="GET">
             <button type="submit" class="btn btn-success">Profil</button>
         </form>
-        
     </div>
-
 </div>

@@ -7,18 +7,18 @@
         <h1>Profil du employe</h1>
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title"><%= employe.nom %> <%= employe.prenom %></h5>
-                <p class="card-text">Age <%= employe.age %></p>
-                <p class="card-text">Role <%= employe.role %></p>
-                <p class="card-text">Date embauche <%= employe.date_embauche %></p>
-                <p class="card-text">Numero de tâche<%= employe.numero_tache %></p>
+                <h5 class="card-title"><%= employeData.nom %> <%= employeData.prenom %></h5>
+                <p class="card-text">Age <%= employeData.age %></p>
+                <p class="card-text">Role <%= employeData.role %></p>
+                <p class="card-text">Date embauche <%= employeData.date_embauche %></p>
+                <p class="card-text">Numero de tâche<%= employeData.numero_tache %></p>
             </div>
             <div class="card-footer">
-                <a href="/employes/edit/<%= employe.id_employe" class="btn btn-primary">Modifier</a>
-                <form action="/employes/<%= employe.id_employe %>?_method=DELETE" method="POST">
+                <a href="/employes/edit/<%= employeData.id_employe" class="btn btn-primary">Modifier</a>
+                <form action="/employes/<%= employeData.id_employe %>?_method=DELETE" method="POST">
                     <button type="submit" class="btn btn-danger">Supprimer</button>   
                 </form>
-                <a href="/employes/list-employe" class="btn btn-secondary">Retour à la liste</a>
+                <a href="/employes" class="btn btn-secondary">Retour à la liste</a>
             </div>
         </div>
     </main>
