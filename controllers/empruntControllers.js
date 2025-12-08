@@ -133,22 +133,33 @@ export const updateEmprunt = async (req, res) => {
         return res.status(400).redirect("/emprunts");
     }
     try {
-        const [result] = await Emprunt.update(updatedEmprunt, {
+        const emprunt = await Emprunt.findOne({
             where : {id_client: old_id_client, id_article: old_id_article}
         });
 
-        if (result === 0){
+        if (!emprunt){
           return res.status(404).send("Emprunt non trouvé");
         }
+
+        // mettre a jour l'instance avec les nouvelle données
+        emprunt.set(updatedEmprunt);
+
+        //Sauvegarder l'instance
+        await emprunt.save()
 
         res.redirect("/emprunts")
         //res.status(200).json({message: "Emprunt mis a jour",result});
     }
     catch(error){
+      console.error("ERREUR DE MISE À JOUR CATCHÉE:", error.name || error.message)
       const clients = await Client.findAll()
       const articles = await Article.findAll()
       const emprunt = await Emprunt.findOne({ where: {id_client: old_id_client, id_article: old_id_article}})
       
+      //console.error("Erreur Sequelize lors de la mise à jour:", error)
+      
+      //console.error("Type d'erreur Sequelize:", error.name || 'Inconnu');
+
       return res.status(400).render("emprunts/edit-emprunt", {
         title: "Modifier un emprunt",
         emprunt: emprunt || {id_client: old_id_client, id_article: old_id_article},
@@ -157,11 +168,9 @@ export const updateEmprunt = async (req, res) => {
         errors: { general: error.message},
         oldInput: req.body
       })
-
+      
       //res.status(404).send("Erreur mise à jour: "+ error.message);
     }
-    
-
 }
 
 export const getAllEmprunts = async (req, res) => {

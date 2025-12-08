@@ -24,7 +24,7 @@ export const addArticle = async (req, res) => {
     }
 
     const article = await Article.create(newArticle);
-    res.redirect("/articles/list-article")
+    res.redirect("/articles")
     /*res.status(201).json({
       message: "Article ajouté avec succès",
       data: article,
@@ -61,7 +61,7 @@ export const deleteArticle = async (req, res) => {
         .json({ message: `Aucun article trouvé avec l'id ${id_article}` });
     }
 
-    res.redirect("/articles/list-article")
+    res.redirect("/articles")
     /*res
       .status(200)
       .json({ message: `L'article ${id_article} a été supprimé avec succès` });*/
@@ -82,7 +82,7 @@ export const getArticleProfile = async (req, res) => {
         .status(404)
         .json({ message: `Aucun article trouvé avec l'id ${id_article}` });
     }
-    res.render("./articles/list-article", {article})
+    res.render("articles/list-article", {article})
     //res.status(200).json({ message: "Profil d'un article", data: article });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -120,7 +120,7 @@ export const updateArticle = async (req, res) => {
     }
 
     const article = await Article.findByPk(id_article);
-    res.redirect("/articles/list-article")
+    res.redirect("/articles")
    /* res.status(200).json({
       message: `Article ${id_article} mis à jour avec succès`,
       data: article,

@@ -165,7 +165,7 @@ export async function creerArticleDepuisPage(req, res, next) {
       const [auteurs, categories, employes] = await getRelatedData()
       return res.status(400).render("articles/add-article", {
           title: "Nouvel article",
-          erreur: "Un article avec ce titre existe déjà.",
+          erreur: {title: "Un article avec ce titre existe déjà."},
           // il faut renvoyer les listes si tu les utilises :
           auteurs,
           categories,
