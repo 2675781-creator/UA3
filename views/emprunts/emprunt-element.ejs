@@ -1,8 +1,8 @@
 <div class="card" style="width: 18rem;">
     <% if (emprunt.image) { %>
-        <img src="<%= emprunt.image %> ? emprunt.image : 'https://placehold.co/600x400?text=Pas+d+image' %>" class="card-img-top" alt="<%= employe.date_emprunt %>">
-    <div class="card-body">
-        <img src="" class="card-img-top" alt="Emprunt du <%= emprunt.date_emprunt %>">
+        <img src="<%= emprunt.image %>" class="card-img-top" alt="Image pour l'emprunt du <%= emprunt.date_emprunt %>">
+    <% } else { %>
+        <img src="https://placehold.co/600x400?text=Pas+d+image" class="card-img-top" alt="Pas d'image disponible">
     <% } %>
     <div class="card-body">
         <h5 class="card-title">Client ID: <%= emprunt.id_client %></h5>

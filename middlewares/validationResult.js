@@ -4,9 +4,11 @@ import Categorie from "../modeles/Categorie.js"
 import Auteur from "../modeles/Auteur.js"
 import Employe from "../modeles/Employe.js";
 import Client from "../modeles/Client.js";
+import Emprunt from "../modeles/Emprunt.js";
 
 async function fetchRelatedData(route, isEdit) {
     let data = {};
+    //LA table article a besoin de plusieurs formulaires
     if (route.startsWith("/articles") || route.startsWith("/emprunts") || route.startsWith("/clients")) {
       
       data.categories = await Categorie.findAll();
@@ -59,13 +61,12 @@ const validate = async (req, res, next) => {
       if (isPut){
 
         // Pour l'ajout, votre vue utilise 'oldInput', donc on passe 'oldInput'
-        extraData.client = await Client.findAllByPK(idParam); 
-      
+        extraData.client = await Client.findByPk(idParam);   
       }
     }
     
     else if(routePath.startsWith("/articles")) {
-        view = isPut ? "clients/edit-client" : "clients/add-client"
+        view = isPut ? "articles/edit-article" : "articles/add-article"
         // Si c'est une requête PUT (Modification)
         if (isPut){
           extraData.article = await Article.findByPk(idParam);
@@ -75,6 +76,12 @@ const validate = async (req, res, next) => {
     else if(routePath.startsWith("/emprunts")) {
       view = isPut ? "emprunts/edit-emprunt" : "emprunts/add-emprunt";
         if (isPut){
+
+          const { id_client, id_article} = req.params
+
+          const emprunt = await Emprunt.findOne({where : {id_client, id_article}})
+
+          extraData.emprunt = emprunt
 
         }
     }
@@ -87,7 +94,7 @@ const validate = async (req, res, next) => {
     else if(routePath.startsWith("/categories")) {
       view = isPut ? "categories/edit-categorie" : "categories/add-categorie";
       if (isPut){
-        extraData.Categorie = await Categorie.findByPk(idParam);
+        extraData.categorie = await Categorie.findByPk(idParam);
       }
     }
     else if(routePath.startsWith("/employes")) {

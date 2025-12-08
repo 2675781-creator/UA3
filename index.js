@@ -77,7 +77,7 @@ console.log("Variables d'environnement :", {
 
 // Route de test
 app.get("/", (req, res) => {
-  res.send("Bienvenue sur l'API UA2 !");
+  res.send("Bienvenue sur l'API UA3 !");
 });
 
 
@@ -88,8 +88,8 @@ app.use("/categories", categorieRoute);
 app.use("/clients", clientRoute);
 app.use("/employes", employeRoute);
 app.use("/auteurs", auteurRoute);
-app.use("/emprunts", authMiddleware, empruntRoute);
-app.use("/api/auth", authRoute);
+app.use("/emprunts", empruntRoute);
+app.use("/auth", authRoute);
 
 //  Démarrage du serveur + création des tables Sequelize 
 const startServer = async () => {

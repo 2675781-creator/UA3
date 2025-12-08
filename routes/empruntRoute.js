@@ -2,11 +2,13 @@ import { Router } from "express";
 import { authorizeRoles } from "../middlewares/roleMiddleware.js";
 import {
   addEmprunt,
+  addEmpruntForm,
   deleteEmprunt,
   getAllEmprunt,
   getEmpruntsByArticle,
   getEmpruntsByClient,
   updateEmprunt,
+  editEmpruntForm
 } from "../controllers/empruntControllers.js";
 
 import {
@@ -23,8 +25,9 @@ import { format } from "mysql2";
 const empruntRoute = Router();
 
 empruntRoute
-  .get("/login-page", )
   .get("/", requireAuth, getAllEmprunt)
+  .get("/add-emprunt", requireRole("admin"), addEmpruntForm)
+  .get("/:id_client/:id_article/edit", requireRole("admin"), editEmpruntForm)
   .get("/client/:id_client", requireRole("admin"),  getEmpruntsByClient)
   .get("/article/:id_article", requireAuth, getEmpruntsByArticle)
   .post("/", requireAuth, createEmpruntValidation, validate, addEmprunt)
