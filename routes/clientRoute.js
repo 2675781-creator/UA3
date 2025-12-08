@@ -2,7 +2,9 @@ import { Router } from "express";
 import { authorizeRoles } from "../middlewares/roleMiddleware.js";
 import {
   addClient,
+  addClientForm,
   deleteClient,
+  editClientForm,
   getAllClient,
   getClientProfile,
   updateClient,
@@ -19,9 +21,12 @@ const clientRoute = Router();
 
 clientRoute
   .get("/", getAllClient)
+  .get("/add-client", addClientForm)
+  .get("/:id_client/edit", editClientForm)
   .get("/:id_client", getClientProfile)
   .post("/", createClientValidation, validate, addClient)
   .put("/:id_client", updateClientValidation, validate, updateClient)
-  .delete("/:id_client", authorizeRoles("admin"), deleteClient);
-
+  .delete("/:id_client", deleteClient)
+  
+//authorizeRoles("admin"),
 export default clientRoute;

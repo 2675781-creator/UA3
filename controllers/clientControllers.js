@@ -1,23 +1,105 @@
+
+import Article from "../modeles/Article.js"
 import Client from "../modeles/Client.js"
 
 // Lecture de la liste des Clients
 export async function getAllClient(req, res) {
   try {
     const clients = await Client.findAll()
-    res.status(200).json({ message: "liste de tous les clients", data: clients })
+    //res.status(200).json({ message: "liste de tous les clients", data: clients })
+    return res.render("clients/list-client", {
+      clients,
+      title: "Liste des clients",
+      errors: []
+    })
   } catch (error) {
     res.status(404).json({ message: error.message })
   }
 }
 
+// formulaire pour ajouter un client
+export const addClientForm = async (req, res) =>{
+  try{
+    
+    const articles = await Article.findAll();
+    return res.render("clients/add-client", {
+      articles,
+      errors: [],
+      oldInput: {}
+      
+    });
+  }
+  catch(error){
+    res.json({message:error.message})
+  }
+}
+
+// formulaire pour modifier un client
+export const editClientForm = async (req, res) =>{
+ // const { id_client } = req.params;
+  try{
+    const clientFound = await Client.findByPk(req.params.id_client);
+    const articles = await Article.findAll();
+
+    if (!clientFound) {
+      return res.status(404).render("clients/list-client", {
+        errors: [{ msg: "Aucun client trouvé" }],
+        clients: await Client.findAll(),
+        title: "Liste des clients"
+      });
+    }
+
+    return res.render("clients/edit-client", {
+      clientData: clientFound,
+      articles,
+      title: "Modifier un client",
+      errors: {},
+      oldData: {}
+    })
+  }
+  catch(error){
+   // const articles = await Article.findAll()
+   /* res.status(500).render("clients/list-client", {
+      clients: await Client.findByPk(req.params.id_client),
+      articles,
+      errors: [{msg: error.message}],
+      title: "Liste des clients"
+    })*/
+    res.status(500).send("Erreur serveur :" + error.message)
+  }
+}
+
+
+
 // Création d'un Client
 export const addClient = async (req, res) => {
   const newClient = req.body
   try {
-    const client = await Client.create(newClient)
-    res.status(201).json({ message: "Client ajouté avec succès", client })
+    const existing = await Client.findOne({ where: { nom: newClient.nom } });
+    if (existing) {
+      const articles = await Article.findAll(); //recharger les articles
+      return res.status(400).render("clients/add-client", {
+        errors: [{ msg: "Un client avec ce nom existe déjà."}],
+        oldInput: req.body, //conserver les valeurs saisies en cas d'erreur
+        articles,
+        title: "Ajouter un client"
+      });
+      //return res.status(400).json({
+     //   message: "Un client avec ce nom existe déjà.",
+      //});
+    }
+
+    await Client.create(newClient);
+    return res.redirect("/clients"); //redirige vers la liste
+    //res.status(201).json({ message: "Client ajouté avec succès", client })
   } catch (error) {
-    res.status(400).json({ message: error.message })
+    const articles = await Article.findAll();
+    return res.status(500).render("clients/add-client", {
+      errors: [{ msg: error.message}],
+      oldInput: req.body,
+      articles,
+      title: "Ajouter un client"
+    });
   }
 }
 
@@ -42,10 +124,10 @@ export const deleteClient = async (req, res) => {
         .status(404)
         .json({ message: `Aucun client trouvé avec l'id ${id_client}` })
     }
-
-    res
+    return res.redirect("/clients")
+    /*res
       .status(200)
-      .json({ message: `Le client ${id_client} a été supprimé avec succès` })
+      .json({ message: `Le client ${id_client} a été supprimé avec succès` })*/
   } catch (error) {
     res.status(500).json({ message: error.message })
   }
@@ -57,27 +139,42 @@ export const getClientProfile = async (req, res) => {
 
   try {
     // ICI tu faisais `findByPk(id)` au lieu de `id_client`
-    const client = await Client.findByPk(id_client)
+    const clientFound = await Client.findByPk(id_client, {
+      include: [Article] // si relation définie
+    });
 
-    if (!client) {
-      return res
-        .status(404)
-        .json({ message: `Aucun client trouvé avec l'id ${id_client}` })
+    if (!clientFound) {
+      return res.status(404).render("clients/list-client", {
+        errors: [{ msg: "Aucun client trouvé" }],
+        clients: await Client.findAll(),
+        title: "Liste des clients"
+      })
+      //return res
+       // .status(404)
+       // .json({ message: `Aucun client trouvé avec l'id ${id_client}` })
     }
-
-    res.status(200).json({ message: "Profil d'un Client", data: client })
+    return res.render("clients/profil-client", {
+      clientData: clientFound,
+      title: "Profil du client",
+      errors: []
+    })
+    //res.status(200).json({ message: "Profil d'un Client", data: client })
   } catch (error) {
     res.status(500).json({ message: error.message })
   }
 }
-
 // Mise à jour d'un client
+
+/*
 export const updateClient = async (req, res) => {
   const { id_client } = req.params
+  const { nom, prenom, article_prefere, id_article } = req.body;
+
   const updatedClient = {
     nom: req.body.nom,
     prenom: req.body.prenom,
     article_prefere: req.body.article_prefere,
+    id_article: req.body.id_article
   }
 
   if (!id_client) {
@@ -88,7 +185,7 @@ export const updateClient = async (req, res) => {
 
   try {
     const [nbUpdated] = await Client.update(updatedClient, {
-      where: { id_client },
+      where: { id_client }
     })
 
     if (nbUpdated === 0) {
@@ -98,12 +195,75 @@ export const updateClient = async (req, res) => {
     }
 
     //  renvoyer le client mis à jour
-    const client = await Client.findByPk(id_client)
+    
+    return res.redirect("/clients")
     res.status(200).json({
       message: `Client ${id_client} mis à jour avec succès`,
       data: client,
     })
   } catch (error) {
     res.status(500).json({ message: error.message })
+  }
+}*/
+
+// Mise à jour d'un client
+export const updateClient = async (req, res) => {
+
+  const {id_client} = req.params;
+  const {nom, prenom, article_prefere, id_article} = req.body;
+
+  // Vérifier pour des champs vides
+  let errors = {};
+  if (!nom || nom.trim() === "") errors.nom = "Le nom est obligatoire";
+  if (!prenom || prenom.trim() === "") errors.prenom = "Le prénom est obligatoire";
+
+  // Si il y a des erreurs, on reposition le formulaire avec l'input de l'utilisateur
+  if(Object.keys(errors).length > 0) {
+    try{
+      const articles = await Article.findAll();
+      const clientFound = {id_client, ...req.body}
+      
+      return res.render("clients/edit-client", {
+        title: "Modifier un client",
+        clientData: clientFound,
+        articles,
+        errors,
+        oldData: req.body
+      });
+    } catch (error) {
+      return res.status(500).send("Erreur lors du chargement du formulaire : " + error.message);
+    }
+  }
+  try{
+    const updatedClient = {nom, prenom, article_prefere, id_article};
+
+    const [nbUpdated] = await Client.update(updatedClient, {
+      where: { id_client}
+    });
+  
+    if (nbUpdated === 0){
+      return res.status(404).render("clients/list-client", {
+        errors: [{msg: "Aucun client trouvé pour la mise à jour."}],
+        clients: await Client.findAll(),
+        title: "Liste des clients"
+      });
+    }
+    // Success! Redirection vers la liste
+    return res.redirect("/clients")  
+    
+  } catch(error) {
+
+    try{
+      const articles = await Article.findAll();
+      return res.status(500).render("clients/edit-client", {
+        title: "Modifier un client",
+        clientData: {id_client, ...req.body},
+        articles,
+        errors: { general: "Erreur base de donneés: "+ error.message},
+        oldData: req.body
+      });
+    } catch(err) {
+      return res.status(500).send("Erreur critique : "+err.message);
+    }
   }
 }

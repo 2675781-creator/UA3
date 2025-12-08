@@ -3,6 +3,8 @@ import { authorizeRoles } from "../middlewares/roleMiddleware.js";
 import {
   addEmploye,
   deleteEmploye,
+  addEmployeForm,
+  editEmployeForm,
   getAllEmploye,
   getEmployeProfile,
   updateEmploye,
@@ -19,9 +21,12 @@ const employeRoute = Router();
 
 employeRoute
   .get("/", getAllEmploye)
+  .get("/add-employe", addEmployeForm)
+  .get("/:id_employe/edit", editEmployeForm)
   .get("/:id_employe", getEmployeProfile)
   .post("/", createEmployeValidation, validate, addEmploye)
   .put("/:id_employe", updateEmployeValidation, validate, updateEmploye)
-  .delete("/:id_employe", authorizeRoles("admin"), deleteEmploye);
+  .delete("/:id_employe", deleteEmploye)
 
+  //authorizeRoles("admin"),
 export default employeRoute;

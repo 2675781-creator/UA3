@@ -56,4 +56,11 @@ Emprunt.belongsTo(Article, {
   as: "Article",
 });
 
+<<<<<<< HEAD
 export { Auteur, Article, Categorie, Client, Employe, Emprunt };
+=======
+Client.belongsTo(Article, { foreignKey: 'id_article' });
+Article.hasMany(Client, { foreignKey: 'id_article' });
+
+export { Auteur, Article, Categorie, Client, Employe, Emprunt };
+>>>>>>> daniel-features

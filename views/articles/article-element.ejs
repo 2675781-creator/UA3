@@ -1,18 +1,27 @@
-<div class="card shadow-sm">
-  <div class="row g-0">
-    <!-- Image -->
-    <div class="col-md-3 d-flex align-items-stretch">
-      <% if (article.image) { %>
-        <img
-          src="/img/<%= article.image %>"
-          class="img-fluid rounded-start w-100 h-100 object-fit-cover"
-          alt="<%= article.titre %>"
-        >
-      <% } else { %>
-        <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light rounded-start">
-          <span class="text-muted small">Aucune image</span>
-        </div>
-      <% } %>
+<div class="card" style="width: 18rem;">
+    <img src="<%= article.image %>" class="card-img-top" alt="<%= article.titre %>">
+    <div class="card-body">
+        <h5 class="card-title">
+            Titre:<%= article.titre %>
+        </h5>
+        <p class="card-text">
+            status:<%= article.status %>.
+        </p>
+        <p class="card-text">
+            identifiant de l'auteur:<%= article.id_auteur %>
+        </p>
+        <p class="card-text">
+            identifiant de la categorie:<%= article.id_categorie %>
+        </p>
+        <p class="card-text">
+            identifiant de l'employe:<%= article.id_employe %>
+        </p>
+    </div>
+    </div>
+    <div class="card-footer"> 
+        <button class="btn btn-primary">Edit</button>
+        <button class="btn btn-danger">Delete</button>
+        <button class="btn btn-success">Profile</button>
     </div>
 
     <!-- Texte -->

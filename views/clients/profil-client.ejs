@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<%- include('../partials/head', { title: 'Profil du client' }) %>
+<body>
+    <%- include('../partials/header') %>
+    <main class="wrapper">
+        <h1>Profil du client</h1>
+        <div class="card shadow-sm">
+            <div class="card-header">
+                Détails du client #<%= clientData.id_client %>
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title"><%= clientData.nom %> <%= clientData.prenom %></h5>
+                
+                <p class="card-text">
+                    <strong> Article préféré :</strong> <%= clientData.article_prefere %>
+                </p>
+                <p class="card-text">
+                    <strong>Livre associé :</strong>
+                    <% if(clientData.Article) { %>
+                        <span class="badge bg-info text-dark"><%= clientData.Article.titre %></span>
+                    
+                    <% } else { %>
+                        <span class="text-muted">ID: <%= clientData.id_article %> (Non trouvé)</span> 
+                    <% } %>                    
+                </p>
+            </div>
+
+            <div class="card-footer d-flex gap-2">
+
+                <a href="/clients/<%= clientData.id_client %>/edit" class="btn btn-primary">Modifier</a>
+                
+                <form action="/clients/<%= clientData.id_client %>?_method=DELETE" method="POST" onsubmit="return confirm('Êtes-vous sûr ?');">
+                    <button type="submit" class="btn btn-danger">Supprimer</button>   
+                </form>
+                <a href="/clients" class="btn btn-secondary">Retour à la liste</a>
+            </div>
+        </div>
+            
+    </main>
+    <%- include('../partials/footer') %>
+</body>
+</html>

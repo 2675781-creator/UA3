@@ -1,35 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
-<%- include('../partials/head', { title: 'Modifier un client' }) %>
+<html lang="fr">
+<%- include('../partials/head.ejs', {title: 'Modifier un client'}) %>
     <body>
-        <%- include('../partials/header') %>
+        <%- include('../partials/header.ejs') %>
+
+        <% const formData = (typeof oldData !== 'undefined') ? oldData : {}; %>
             <main class="wrapper">
-                <h1>Modfier un client</h1>
-                <form action="/clients/<%= client.id_client %>?_method=PUT" method="POST" enctype="multipart/form-data">
+                <h1>Modifier un client</h1>
+                <form action="/clients/<%= clientData.id_client %>?_method=PUT" method="POST">
                     <div class="mb-2">
                         <label for="nom" class="form-label">Nom</label>
-                        <input required type="text" class="form-control" id="nom" name="nom" value="<%= client.nom %>" placeholder="Entrez le nom">
+                        <input required type="text" class="form-control <%=  errors && errors.nom ? 'is-invalid' : '' %>" id="nom" 
+                            name="nom" placeholder="Entrez le nom" value="<%= formData.nom || clientData.nom %>" >
+                        <% if(errors && errors.nom) { %>
+                            <div class="invalid-feedback">
+                                <%= errors.nom %>
+                            </div>
+                        <% } %>
                     </div>
         
                     <div class="mb-2">
-                        <label for="prenom" class="form-label">Prenom</label>
-                        <input type="text" class="form-control" id="prenom" name="prenom" value="<%= client.prenom %>">
-                    </div>   
+                        <label for="prenom" class="form-label">Prénom</label>
+                        <input type="text" class="form-control <%= errors && errors.prenom ? 'is-invalid' : '' %>" id="prenom" 
+                            name="prenom" placeholder="Entrez le prénom" value="<%= formData.prenom || clientData.prenom %>">
+                        <% if(errors && errors.prenom) { %>
+                            <div class="invalid-feedback">
+                                <%= errors.prenom %>
+                            </div>
+                        <% } %>
+                    </div> 
+
                     <div class="mb-2">
-                        <label for="article_prefere" class="form-label">Article prefere</label>
-                        <input type="text" class="form-control" id="article_prefere" name="article_prefere" value="<%= client.article_prefere %>">
+                        <label for="article_prefere" class="form-label">Article préféré</label>
+                        <input type="text" class="form-control <%= errors && errors.article_prefere ? 'is-invalid' : '' %>" id="article_prefere" 
+                            name="article_prefere" placeholder="Entrez l'article préféré" value="<%= formData.article_prefere || clientData.article_prefere %>">
+                        <% if(errors && errors.article_prefere) { %>
+                            <div class="invalid-feedback">
+                                <%= errors.article_prefere %>
+                            </div>
+                        <% } %>
                     </div>
                     <div class="mb-2">
-                        <label for="numero_article" class="form-label">Numero article</label>
-                        <select name="numero_article" class="form-select" aria-label="Large select">
-                            <option selected>Ouvrir le menu des identifiant de chaque articles</option>
-                                <% articles.forEach(article => { %>
-                                    <option value="<%= article.id_article %>"> <%= article.titre %> </option>
-                                <% }) %>
-                            </option>
-                        </select>
+                        <label for="id_article" class="form-label">ID article</label>
+                        <select id="id_article" name="id_article" class="form-select" required>
+                            <option value="">Ouvrir le menu des identifiant de chaque articles</option>
+                            <% articles.forEach(article => { %>
+                                <%
+                                    let isSelected = false;
+                                    if (formData.id_article) {
+                                        isSelected = (formData.id_article == article.id_article);                                    
+                                    } else {
+                                        isSelected = (clientData.id_article == article.id_article)
+                                    }
+                            
+                                %>
+                                <option value="<%= article.id_article %>" <%= isSelected ? 'selected' : '' %>> 
+                                    <%= article.titre %> 
+                                </option>
+                            <% }) %>
+                        </select>                       
                     </div>
                     <button class="btn btn-success" type="submit">Modifier</button>
+                    <a href="/clients" class="btn btn-secondary">Annuler</a>
                 </form>
             </main>
             <%- include('../partials/footer') %>

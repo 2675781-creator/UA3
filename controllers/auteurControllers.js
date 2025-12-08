@@ -15,7 +15,8 @@ export const addAuteur = async (req, res) => {
   const newAuteur = req.body;
   try {
     const auteur = await Auteur.create(newAuteur);
-    res.status(201).json({ message: "Auteur ajouté avec succès", data: auteur });
+    res.redirect("./auteurs/list-auteur")
+    //res.status(201).json({ message: "Auteur ajouté avec succès", data: auteur });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -39,10 +40,10 @@ export const deleteAuteur = async (req, res) => {
         .status(404)
         .json({ message: `Aucun auteur trouvé avec l'id ${id_auteur}` });
     }
-
-    res
+    res.redirect("/auteurs/list-auteur")
+    /*res
       .status(200)
-      .json({ message: `L'auteur ${id_auteur} a été supprimé avec succès` });
+      .json({ message: `L'auteur ${id_auteur} a été supprimé avec succès` });*/
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -96,10 +97,11 @@ export const updateAuteur = async (req, res) => {
     }
 
     const auteur = await Auteur.findByPk(id_auteur);
-    res.status(200).json({
+    res.redirect("./auteurs/list-auteur")
+    /*res.status(200).json({
       message: `Auteur ${id_auteur} mis à jour avec succès`,
-      data: auteur,
-    });
+      data: auteur
+    })*/
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -1,5 +1,5 @@
 // controllers/authController.js
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../modeles/User.js"; 
 
@@ -29,6 +29,8 @@ export const register = async (req, res) => {
       email: user.email,
       role: user.role,
     });
+
+    console.log("USER:", user)
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Erreur lors de l'inscription" });

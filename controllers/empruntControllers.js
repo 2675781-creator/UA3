@@ -24,6 +24,16 @@ export const addEmprunt= async (req, res) =>{
     catch(error){
         res.status(400).json({message:error.message})
     }
+    try
+    {
+      const emprunt = await Emprunt.create(newEmprunt)
+      res.redirect("/emprunts")
+      //res.status(201).json({message: "Emprunt ajouté avec succes", data: emprunt})
+    }
+    catch(error){
+    res.status(400).json({message:error.message})
+  
+}
 }
 
 //suppression d'un Emprunt
@@ -34,7 +44,9 @@ export const deleteEmprunt = async(req, res) => {
     }
     try {
         const result = await Emprunt.destroy({where: {id_client, id_article}});
-        res.status(200).json({message: `L'emprunt a été supprimé avec succes`})
+        
+        res.redirect("/emprunts/list-emprunt")
+        //res.status(200).json({message: `L'emprunt a été supprimé avec succes`})
     }
     catch(error){
         res.status(404).json({message: error.message})
@@ -50,7 +62,8 @@ export const getEmpruntStatut = async (req, res) => {
         if (!emprunt){
             return res.status(400).json({message:"Emprunt introuvable"})
         }
-        res.status(200).json({message:"statut d'un emprunt", data:emprunt})
+        res.render("./emprunts/profile-emprunt", {emprunt})
+        //res.status(200).json({message:"statut d'un emprunt", data:emprunt})
     }
     catch(error){
         res.status(404).json({message: error.message})
@@ -69,7 +82,8 @@ export const updateEmprunt = async (req, res) => {
         const result = await Emprunt.update(updatedEmprunt, {
             where : {id_client, id_article}
         });
-        res.status(200).json({message: "Emprunt mis a jour",result});
+        res.redirect("/emprunts/list-emprunt")
+        //res.status(200).json({message: "Emprunt mis a jour",result});
     }
     catch(error){
         res.status(404).json({message: error.message})

@@ -24,10 +24,11 @@ export const addArticle = async (req, res) => {
     }
 
     const article = await Article.create(newArticle);
-    res.status(201).json({
+    res.redirect("/articles/list-article")
+    /*res.status(201).json({
       message: "Article ajouté avec succès",
       data: article,
-    });
+    });*/
   } catch (error) {
     console.error(error);
 
@@ -60,9 +61,10 @@ export const deleteArticle = async (req, res) => {
         .json({ message: `Aucun article trouvé avec l'id ${id_article}` });
     }
 
-    res
+    res.redirect("/articles/list-article")
+    /*res
       .status(200)
-      .json({ message: `L'article ${id_article} a été supprimé avec succès` });
+      .json({ message: `L'article ${id_article} a été supprimé avec succès` });*/
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -80,8 +82,8 @@ export const getArticleProfile = async (req, res) => {
         .status(404)
         .json({ message: `Aucun article trouvé avec l'id ${id_article}` });
     }
-
-    res.status(200).json({ message: "Profil d'un article", data: article });
+    res.render("./articles/list-article", {article})
+    //res.status(200).json({ message: "Profil d'un article", data: article });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -118,10 +120,11 @@ export const updateArticle = async (req, res) => {
     }
 
     const article = await Article.findByPk(id_article);
-    res.status(200).json({
+    res.redirect("/articles/list-article")
+   /* res.status(200).json({
       message: `Article ${id_article} mis à jour avec succès`,
       data: article,
-    });
+    });*/
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
