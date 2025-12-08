@@ -18,7 +18,7 @@ router.get("/", requireAuth, listeAuteursPage);
 
 // Formulaire d'ajout d'un auteur : réservé aux admins
 router.get("/new", requireAuth, requireRole("admin"), afficherFormulaireAjoutAuteur);
-router.post("/new", requireAuth, requireRole("admin"), creerAuteurDepuisPage);
+router.post("/add-auteur", requireAuth, requireRole("admin"), creerAuteurDepuisPage);
 
 // Profil auteur : accessible à tout utilisateur connecté
 router.get("/:id", requireAuth, afficherProfilAuteur);
