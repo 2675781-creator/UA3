@@ -136,7 +136,7 @@ export const getEmployeProfile = async (req, res) => {
         //.status(404)
         //.json({ message: `Aucun employe trouvé avec l'id ${id_employe}` });
     }
-    return res.render("employes/profile-employe", {
+    return res.render("employes/profil-employe", {
       employeData: employe,
       title: "Profil de l'employe",
       errors: []
